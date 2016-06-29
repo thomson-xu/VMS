@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * Created by Test-Lab on 2016/6/15.
  */
 @Entity
-@Table(name = "visaorder", schema = "", catalog = "vms")
+@Table(name = "visaorder")
 public class VisaorderEntity {
     private String id;
 

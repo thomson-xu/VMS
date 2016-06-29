@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:define name="title">Order data.xhtml</ui:define>
+<h:body>
+    <f:view>
+    <div id="top">
+        　　<ui:insert name="top">
+        　　　<h1>JSF 2.0 + Spring + Primefaces for Copy Order data </h1>
+        　　</ui:insert>   　
+    </div>
+    <div id="content" class="center_content">
+        <ui:insert name="content">
+            <h:form>
+            <h:panelGrid columns="3">
+                　　<h:outputText value="Copy So Number:" id="lblSo"/>
+                　　<h:inputText value="#{omsSoBean.soNumber}" id="soNumber"/>
+                　　<h:message for="soNumber" style="color: red"/>
+
+                　　<h:outputText value="Create Order Records:" id="lblRecords"/>
+                　　<h:inputText value="#{omsSoBean.records}" id="num"/>
+                　　<h:message for="num" style="color: red"/>
+            </h:panelGrid>
+            <h:commandButton actionListener="#{omsSoBean.copySoAction}" id="copyButton"
+                             value="Copy Records" style="center">
+                <f:ajax execute="soNumber num" render="status"/>
+            </h:commandButton>
+                <p style="color: red; font-size: 18pt">
+            <h:outputText value="#{omsSoBean.status}"
+                          id="status"/> </p>
+            </h:form>
+        </ui:insert>   　
+    </div>
+    </f:view>
+</h:body>
+
+</html>

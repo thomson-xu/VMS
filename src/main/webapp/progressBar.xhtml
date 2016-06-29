@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="formprocessbar">
+		<p:progressBar widgetVar="pb" styleClass="ui-progressbar" />
+		<p:commandButton value="Start" type="button" onclick="start()" />
+		<script type="text/javascript">
+			function start() {
+			this.progressInterval = setInterval(function(){
+			PF('pb').setValue(PF('pb').getValue() + 10);
+			}, 2000);
+			}
+			function cancel() {
+			clearInterval(this.progressInterval);
+			PF('pb').setValue(0);
+			}
+		</script>
+        <p:commandButton value="Modal" type="button" onclick="PF('dlg2').show();" />
+		<p:dialog widgetVar="dlg2">
+			<p:progressBar value="#{generateOrder.progress}" ajax="true">
+				<p:ajax event="complete" listener="#{generateOrder.handleComplete}"
+					update="messages" />
+			</p:progressBar>
+
+		</p:dialog>
+		<p:growl id="messages" />
+	</h:form>
+</ui:composition>

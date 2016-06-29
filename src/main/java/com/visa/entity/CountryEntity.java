@@ -1,17 +1,19 @@
 package com.visa.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Test-Lab on 2016/6/15.
  */
 @Entity
-@Table(name = "country", schema = "", catalog = "vms")
+@Table(name = "country")
 public class CountryEntity {
     private long id;
     private String name;
     private String nationalFlag;
     private int interContinental;
+    private List<ConsulateEntity> consulateEntitylist;
 
     @Id
     @Column(name = "ID")
@@ -52,6 +54,17 @@ public class CountryEntity {
     public void setInterContinental(int interContinental) {
         this.interContinental = interContinental;
     }
+
+
+ @OneToMany(mappedBy = "countryEntity",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    public List<ConsulateEntity> getConsulateEntitylist() {
+        return consulateEntitylist;
+    }
+
+    public void setConsulateEntitylist(List<ConsulateEntity> consulateEntitylist) {
+        this.consulateEntitylist = consulateEntitylist;
+    }
+
 
     @Override
     public boolean equals(Object o) {

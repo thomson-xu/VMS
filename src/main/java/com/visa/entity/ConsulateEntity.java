@@ -6,12 +6,13 @@ import javax.persistence.*;
  * Created by Test-Lab on 2016/6/15.
  */
 @Entity
-@Table(name = "consulate", schema = "", catalog = "vms")
+@Table(name = "consulate")
 public class ConsulateEntity {
     private long id;
     private String consulateName;
     private String consulateArea;
 
+    private CountryEntity countryEntity;
     @Id
     @Column(name = "Id")
     public long getId() {
@@ -40,6 +41,17 @@ public class ConsulateEntity {
 
     public void setConsulateArea(String consulateArea) {
         this.consulateArea = consulateArea;
+    }
+
+
+    @ManyToOne
+    @JoinColumn(name="Country_Id",foreignKey = @ForeignKey(name="none",value=ConstraintMode.NO_CONSTRAINT) )
+    public CountryEntity getCountryEntity() {
+        return countryEntity;
+    }
+
+    public void setCountryEntity(CountryEntity countryEntity) {
+        this.countryEntity = countryEntity;
     }
 
     @Override

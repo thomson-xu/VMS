@@ -1,0 +1,16 @@
+*.class
+*.iml
+*.ipr
+*.iws
+.idea/
+.gradle/
+.DS_Store
+target/
+*.prefs
+.settings/
+bin/
+build/
+.metadata/
+log4j/
+out/
+classes/

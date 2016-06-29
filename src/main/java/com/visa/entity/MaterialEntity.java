@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by Test-Lab on 2016/6/15.
  */
 @Entity
-@Table(name = "material", schema = "", catalog = "vms")
+@Table(name = "material")
 public class MaterialEntity {
     private long id;
     private String document;

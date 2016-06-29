@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<h:body>
+	<h:form>
+		<p:panelGrid columns="2" style="margin-buttom:10px;" cellpadding="5">
+
+			<p:outputLabel for="wh" value="选 择 仓 库：*" />
+			<p:selectOneMenu id="wh" value="#{whseView.whse}" style="width:80%">
+				<f:selectItem itemLabel="请选择仓库" itemValue="" />
+				<f:selectItems value="#{whseView.whses}" />
+				<p:ajax event="itemSelect" update="clinet"
+					listener="#{clientWhseView.changeClientWhses}"></p:ajax>
+			</p:selectOneMenu>
+
+			<p:outputLabel for="clinet" value="入驻商家：*" />
+			<p:selectOneMenu id="clinet" value="#{clientWhseView.clientWhse}"
+				style="width:80%">
+				<f:selectItem itemLabel="请选择商家" itemValue="" />
+				<f:selectItems value="#{clientWhseView.clientWhses}" />
+				<p:ajax event="itemSelect" update="channel"
+					listener="#{channelView.changeClientChannel}"></p:ajax>
+			</p:selectOneMenu>
+
+			<p:outputLabel for="channel" value="选 择 渠道：*" />
+			<p:selectOneMenu id="channel" value="#{channelView.clientChannel}"
+				style="width:80%">
+				<f:selectItem itemLabel="请选择渠道" itemValue="" />
+				<f:selectItems value="#{channelView.clientChannels}" />
+			</p:selectOneMenu>
+
+			<p:outputLabel for="sameorder" value="相同订单明细:" />
+			<p:selectOneRadio id="sameorder" value="#{radioButtonView.sameOrder}">
+				<f:selectItem itemLabel="是" itemValue="true" />
+				<f:selectItem itemLabel="否" itemValue="false" />
+			</p:selectOneRadio>
+
+			<p:outputLabel for="procnum" value="单商品明细:" />
+			<p:selectOneRadio id="procnum" value="#{radioButtonView.oneMany}">
+				<f:selectItem itemLabel="是" itemValue="true" />
+				<f:selectItem itemLabel="否" itemValue="false" />
+			</p:selectOneRadio>
+
+			<p:outputLabel for="create_date" value="订单交易时间： " />
+			<p:calendar id="create_date" value="#{calendarView.qwe}">
+				<p:ajax event="dateSelect" listener="#{calendarView.onDateSelect}" />
+			</p:calendar>
+
+
+			<p:outputLabel for="sonum" value="生成订单数量:" />
+			<p:inputText id="sonum" value="1" require="true">
+				
+			</p:inputText>
+			
+		</p:panelGrid>
+
+		<p:commandButton value="Submit" oncomplete="PF('dlg').show()"
+			icon="ui-icon-check" />
+	</h:form>
+</h:body>
+</html>

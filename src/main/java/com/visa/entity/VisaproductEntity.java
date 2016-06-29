@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by Test-Lab on 2016/6/15.
  */
 @Entity
-@Table(name = "visaproduct", schema = "", catalog = "vms")
+@Table(name = "visaproduct")
 public class VisaproductEntity {
     private long id;
     private int price;

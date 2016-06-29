@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html">
+	<h:head>
+		<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title>Index page</title>
+		</f:facet>
+
+		<link type="text/css" rel="stylesheet"
+			href="/primefaces/faces/javax.faces.resource/theme.css?ln=primefaces-aristo" />
+		<link type="text/css" rel="stylesheet"
+			href="/primefaces/faces/javax.faces.resource/primefaces.css?ln=primefaces" />
+		<style type="text/css" />
+	</h:head>
+
+	<h:body>
+		<p:layout fullPage="true">
+			<!-- header -->
+			<p:layoutUnit position="north" size="120">
+				<ui:insert>
+					<ui:decorate template="/templates/header.xhtml" />
+				</ui:insert>
+
+			</p:layoutUnit>
+
+			<!-- menu -->
+			<p:layoutUnit position="west" size="300" header="功能菜单"
+				collapsible="true" gutter="1" effect="drop">
+				<ui:decorate template="/templates/menu.xhtml" />
+			</p:layoutUnit>
+
+			<!-- contents -->
+			<p:layoutUnit position="center">
+				<h:form id="centerform">
+					<p:breadCrumb>
+						<p:menuitem value="" url="#" />
+						<p:menuitem value="创建订单" url="#" />
+					</p:breadCrumb>
+					<ui:decorate template="#{menuView.path}" />
+					<!-- <ui:include src="${menuView.path}" /> -->
+				</h:form>
+			</p:layoutUnit>
+
+			<!--footer-->
+			<p:layoutUnit position="south" size="60" style="text-align:center">
+				<ui:decorate template="/templates/footer.xhtml" />
+			</p:layoutUnit>
+		</p:layout>
+	</h:body>
+
+</f:view>
+</html>
