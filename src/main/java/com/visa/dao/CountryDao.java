@@ -10,4 +10,8 @@ import javax.persistence.EntityManager;
 public class CountryDao extends BaseJpaDao {
 
 
+    @Override
+    public EntityManager getEntityManager() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }
