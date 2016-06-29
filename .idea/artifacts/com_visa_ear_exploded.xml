@@ -1,6 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="exploded-ear" name="com.visa:ear exploded">
-    <output-path>$PROJECT_DIR$/build/classes/artifacts/com_visa_ear_exploded</output-path>
-    <root id="root" />
-  </artifact>
-</component>
