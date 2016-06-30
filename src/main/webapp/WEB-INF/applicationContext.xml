@@ -7,7 +7,7 @@
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <context:component-scan base-package="com.fc.test.data.factory"/>
+    <context:component-scan base-package="com.visa"/>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
      <!--整合mysqljpa-->
     <bean id="EntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -17,13 +17,13 @@
         <property name="persistenceUnitName" value="testData"/>
         <property name="packagesToScan">
             <array>
-                <value>com.fc.test.data.factory</value>
+                <value>com.visa</value>
             </array>
         </property>
         <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
     </bean>
 
-    <jpa:repositories base-package="com.fc.test.data.factory" repository-impl-postfix="Impl"
+    <jpa:repositories base-package="com.visa" repository-impl-postfix="Impl"
                       entity-manager-factory-ref="EntityManagerFactory"
                       transaction-manager-ref="transactionManager"/>
     <bean id="mySqldataSource"

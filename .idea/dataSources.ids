@@ -13,10 +13,10 @@
       <column name="ConsulateName" sqlType="VARCHAR" precision="25" scale="0" nullable="false" jdbcType="12" remarks="6aKG5LqL6aaG5ZCN56ew"/>
       <column name="ConsulateArea" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="6aKG5LqL6aaG566h6L6W5Yy65Z+f"/>
       <primary-key name="PRIMARY" columns="Id"/>
-      <foreign-key name="fk_countryId" columns="Country_Id" ref-table="country" ref-schema="" ref-catalog="vms" ref-columns="Id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FKrpi3qxist8eg45jtwtyxu8kfc" columns="Country_Id" ref-table="country" ref-schema="" ref-catalog="vms" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="material_ibfk_1" table="material" schema="" catalog="vms" columns="Consulate_Id"/>
       <exported-key name="visaproduct_ibfk_1" table="visaproduct" schema="" catalog="vms" columns="Consulate_Id"/>
-      <index name="fk_countryId" unique="false" columns="Country_Id"/>
+      <index name="FKrpi3qxist8eg45jtwtyxu8kfc" unique="false" columns="Country_Id"/>
     </table>
     <table name="country" schema="" catalog="vms" type="TABLE">
       <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Zu95a62SUQ="/>
@@ -24,7 +24,7 @@
       <column name="NationalFlag" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="5Zu95peX5Zu+5qCH5a2Y5pS+6Lev5b6E"/>
       <column name="InterContinental" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5omA5bGe5rSy"/>
       <primary-key name="PRIMARY" columns="ID"/>
-      <exported-key name="fk_countryId" table="consulate" schema="" catalog="vms" columns="Country_Id"/>
+      <exported-key name="FKrpi3qxist8eg45jtwtyxu8kfc" table="consulate" schema="" catalog="vms" columns="Country_Id"/>
     </table>
     <table name="material" schema="" catalog="vms" type="TABLE">
       <column name="Id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5p2Q5paZSUQ="/>

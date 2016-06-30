@@ -1,59 +1,103 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <f:view contentType="text/html">
-	<h:head>
-		<f:facet name="first">
-			<meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
-			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
-			<title>Index page</title>
-		</f:facet>
 
-		<link type="text/css" rel="stylesheet"
-			href="/primefaces/faces/javax.faces.resource/theme.css?ln=primefaces-aristo" />
-		<link type="text/css" rel="stylesheet"
-			href="/primefaces/faces/javax.faces.resource/primefaces.css?ln=primefaces" />
-		<style type="text/css" />
-	</h:head>
+  <h:head>
+    <title><ui:insert name="pageTitle"/></title>
+    <!-- 模板布局css文件 -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-	<h:body>
-		<p:layout fullPage="true">
-			<!-- header -->
-			<p:layoutUnit position="north" size="120">
-				<ui:insert>
-					<ui:decorate template="/templates/header.xhtml" />
-				</ui:insert>
+    <!-- Bootstrap Docs -->
+    <link href="http://getbootstrap.com/docs-assets/css/docs.css" rel="stylesheet" media="screen"/>
 
-			</p:layoutUnit>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" media="screen" href="/resources/css/bootstrap.min.css"/>
+    <link rel="stylesheet" media="screen" href="/resources/css/bootstrap-theme.min.css"/>
 
-			<!-- menu -->
-			<p:layoutUnit position="west" size="300" header="功能菜单"
-				collapsible="true" gutter="1" effect="drop">
-				<ui:decorate template="/templates/menu.xhtml" />
-			</p:layoutUnit>
+    <!-- Bootstrap Admin Theme -->
+    <link rel="stylesheet" media="screen" href="resources/css/bootstrap-admin-theme.css"/>
+    <link rel="stylesheet" media="screen" href="resources/css/bootstrap-admin-theme-change-size.css"/>
 
-			<!-- contents -->
-			<p:layoutUnit position="center">
-				<h:form id="centerform">
-					<p:breadCrumb>
-						<p:menuitem value="" url="#" />
-						<p:menuitem value="创建订单" url="#" />
-					</p:breadCrumb>
-					<ui:decorate template="#{menuView.path}" />
-					<!-- <ui:include src="${menuView.path}" /> -->
-				</h:form>
-			</p:layoutUnit>
+    <!-- Custom styles -->
+    <style type="text/css">
+      @font-face {
+        font-family: Ubuntu;
+        src: url('resources/fonts/Ubuntu-Regular.ttf');
+      }
+      .bs-docs-masthead{
+        background-color: #6f5499;
+        background-image: linear-gradient(to bottom, #563d7c 0px, #6f5499 100%);
+        background-repeat: repeat-x;
+      }
+      .bs-docs-masthead{
+        padding: 0;
+      }
+      .bs-docs-masthead h1{
+        color: #fff;
+        font-size: 40px;
+        margin: 0;
+        padding: 34px 0;
+        text-align: center;
+      }
+      .bs-docs-masthead a:hover{
+        text-decoration: none;
+      }
+      .meritoo-logo a{
+        background-color: #fff;
+        border: 1px solid rgba(66, 139, 202, 0.4);
+        display: block;
+        font-family: Ubuntu;
+        padding: 22px 0;
+        text-align: center;
+      }
+      .meritoo-logo a,
+      .meritoo-logo a:hover,
+      .meritoo-logo a:focus{
+        text-decoration: none;
+      }
+      .meritoo-logo a img{
+        display: block;
+        margin: 0 auto;
+      }
+      .meritoo-logo a span{
+        color: #4e4b4b;
+        font-size: 18px;
+      }
+      .row-urls{
+        margin-top: 4px;
+      }
+      .row-urls .col-md-6{
+        text-align: center;
+      }
+      .row-urls .col-md-6 a{
+        font-size: 14px;
+      }
+    </style>
+  </h:head>
+  <h:body class="bootstrap-admin-with-small-navbar">
 
-			<!--footer-->
-			<p:layoutUnit position="south" size="60" style="text-align:center">
-				<ui:decorate template="/templates/footer.xhtml" />
-			</p:layoutUnit>
-		</p:layout>
-	</h:body>
+    <!-- 页眉 -->
+    <div >
+    <ui:insert name="header">
+    <ui:include src="/templates/header.xhtml"/>
+  </ui:insert>
+</div>
 
+<!-- 侧边栏 -->
+<div>
+<ui:insert name="menu">
+<ui:include src="/templates/menu.xhtml"/>
+</ui:insert>
+ </div>
+<div class="content">
+<ui:insert name="content"/>
+  <ui:decorate template="/templates/header.xhtml" />
+</div>
+</h:body>
 </f:view>
 </html>
