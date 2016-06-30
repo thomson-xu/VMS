@@ -29,9 +29,9 @@
     <bean id="mySqldataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://192.168.8.8:3306/fcgyldb_dot5"/>
-        <property name="username" value="fc"/>
-        <property name="password" value="Fc654321"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/vms"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
     </bean>
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="EntityManagerFactory"/>

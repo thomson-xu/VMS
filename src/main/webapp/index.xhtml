@@ -89,14 +89,18 @@
 </div>
 
 <!-- 侧边栏 -->
-<div>
+<div class="bootstrap-admin-col-left">
 <ui:insert name="menu">
 <ui:include src="/templates/menu.xhtml"/>
 </ui:insert>
  </div>
-<div class="content">
-<ui:insert name="content"/>
-  <ui:decorate template="/templates/header.xhtml" />
+    <div class="glyphicon-align-center">
+      <ui:insert name="content"/>
+      <ui:decorate template="/templates/main.xhtml" />
+    </div>
+<div class="modal-footer">
+<ui:insert name="footer"/>
+  <ui:decorate template="/templates/footer.xhtml" />
 </div>
 </h:body>
 </f:view>
