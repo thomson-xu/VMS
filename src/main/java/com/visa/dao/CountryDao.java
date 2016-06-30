@@ -12,6 +12,8 @@ public class CountryDao extends BaseJpaDao {
 
     @Override
     public EntityManager getEntityManager() {
+
         return null;
+
     }
 }
