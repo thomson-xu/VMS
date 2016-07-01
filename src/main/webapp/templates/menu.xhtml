@@ -1,47 +1,30 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
-		<!-- left, vertical navbar & content -->
-		<div class="row">
+<ui:composition>
 		<!-- left, vertical navbar -->
-		<div class="col-md-2 bootstrap-admin-col-left">
+		<div class="bootstrap-admin-col-left">
 			<ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
 				<li class="active">
-					<a href="about.html"><i class="glyphicon glyphicon-chevron-right"></i> About</a>
+					<a href="#"><i class="glyphicon glyphicon-chevron-right"></i> About</a>
 				</li>
 				<li>
-					<a href="dashboard.html"><i class="glyphicon glyphicon-chevron-right"></i> Dashboard</a>
+					<a href="#"><i class="glyphicon glyphicon-chevron-right"></i> Dashboard</a>
 				</li>
-				<li class="disabled">
-					<a href="#"><i class="glyphicon glyphicon-chevron-right"></i> Calendar</a><!-- calendar.html -->
-				</li>
-				<li class="disabled">
-					<a href="#"><i class="glyphicon glyphicon-chevron-right"></i> Statistics (Charts)</a><!-- stats.html -->
+
+				<li>
+					<a href="#"><i class="glyphicon glyphicon-chevron-right"></i> Forms</a>
 				</li>
 				<li>
-					<a href="forms.html"><i class="glyphicon glyphicon-chevron-right"></i> Forms</a>
+					<a href="#"><i class="glyphicon glyphicon-chevron-right"></i> Tables</a>
 				</li>
 				<li>
-					<a href="tables.html"><i class="glyphicon glyphicon-chevron-right"></i> Tables</a>
-				</li>
-				<li>
-					<a href="buttons-and-icons.html"><i class="glyphicon glyphicon-chevron-right"></i> Buttons &amp; Icons</a>
-				</li>
-				<li>
-					<a href="wysiwyg-editors.html"><i class="glyphicon glyphicon-chevron-right"></i> WYSIWYG Editors</a>
-				</li>
-				<li>
-					<a href="ui-and-interface.html"><i class="glyphicon glyphicon-chevron-right"></i> UI &amp; Interface</a>
-				</li>
-				<li>
-					<a href="error-pages.html"><i class="glyphicon glyphicon-chevron-right"></i> Error pages</a>
-				</li>
-				<li>
-					<a href="forms.html"><i class="glyphicon glyphicon-chevron-down"></i> Submenu</a>
-					<ul class="nav navbar-collapse bootstrap-admin-navbar-side">
+
+					<a href="#" class="dropdown-toggle"><i class="glyphicon glyphicon-chevron-down"></i> Submenu</a>
+					<ul class="dropdown-menu">
 						<li><a href="about.html"><i class="glyphicon glyphicon-chevron-right"></i> Submenu 1</a></li>
 						<li><a href="about.html"><i class="glyphicon glyphicon-chevron-right"></i> Submenu 2</a></li>
 						<li><a href="about.html"><i class="glyphicon glyphicon-chevron-right"></i> Submenu 3</a></li>
@@ -49,5 +32,5 @@
 				</li>
 			</ul>
 		</div>
-	</div>
 </ui:composition>
+</html>

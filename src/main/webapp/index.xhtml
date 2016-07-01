@@ -81,27 +81,41 @@
   </h:head>
   <h:body class="bootstrap-admin-with-small-navbar">
 
-    <!-- 页眉 -->
-    <div >
+    <!-- header -->
+<div >
     <ui:insert name="header">
-    <ui:include src="/templates/header.xhtml"/>
-  </ui:insert>
+         <ui:include src="/templates/header.xhtml"/>
+    </ui:insert>
 </div>
+    <!-- left, vertical navbar & content -->
+      <div class="row">
+        <div class="container">
+        <div class="col-md-2">
 
-<!-- 侧边栏 -->
-<div class="bootstrap-admin-col-left">
-<ui:insert name="menu">
-<ui:include src="/templates/menu.xhtml"/>
-</ui:insert>
- </div>
-    <div class="glyphicon-align-center">
-      <ui:insert name="content"/>
-      <ui:decorate template="/templates/main.xhtml" />
-    </div>
-<div class="modal-footer">
+          <ui:insert name="menu">
+            <ui:include src="/templates/menu.xhtml"/>
+
+          </ui:insert>
+        </div>
+        <div class="col-lg-10">
+
+          <ui:insert name="content"/>
+          <ui:decorate template="/templates/table.xhtml" />
+
+        </div>
+        </div>
+      </div>
+    <!-- footer -->
+<div class="row">
 <ui:insert name="footer"/>
   <ui:decorate template="/templates/footer.xhtml" />
 </div>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/js/twitter-bootstrap-hover-dropdown.min.js"></script>
+    <script type="text/javascript" src="/resources/js/bootstrap-admin-theme-change-size.js"></script>
+    <script type="text/javascript" src="/resources/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/resources/js/DT_bootstrap.js"></script>
 </h:body>
 </f:view>
 </html>
