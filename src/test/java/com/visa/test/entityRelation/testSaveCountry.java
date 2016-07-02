@@ -38,20 +38,20 @@ public class testSaveCountry {
         ConsulateEntity consulateEntity= new ConsulateEntity();
         List<ConsulateEntity> consulateEntityList = new ArrayList<ConsulateEntity>();
 
-        countryEntity.setId(1000000002);
+        countryEntity.setId(1000000000);
         countryEntity.setName("USA");
         countryEntity.setInterContinental(1);
         countryEntity.setNationalFlag("img/nationflag/usa.png");
         countryEntity.setConsulateEntitylist(consulateEntityList);
 
-       consulateEntity.setId(1000000007);
+       consulateEntity.setId(1000000000);
         consulateEntity.setConsulateArea("sh,suz,zj");
         consulateEntity.setConsulateName("shanghai_consulate_USA");
         consulateEntity.setCountryEntity(countryEntity);
         consulateEntityList.add(consulateEntity);
 
         consulateEntity= new ConsulateEntity();
-        consulateEntity.setId(1000000011);
+        consulateEntity.setId(1000000001);
         consulateEntity.setConsulateArea("sh,suz,zj");
         consulateEntity.setConsulateName("shanghai_consulate_USA");
         consulateEntity.setCountryEntity(countryEntity);
@@ -59,7 +59,7 @@ public class testSaveCountry {
         consulateEntityList.add(consulateEntity);
         countryEntity.setConsulateEntitylist(consulateEntityList);
 
-        em.persist(consulateEntity);
+        em.persist(countryEntity);
         userTransaction.commit();
         em.close();
         entityManagerFactory.close();
