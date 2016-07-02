@@ -6,116 +6,130 @@
 
 <f:view contentType="text/html">
 
-  <h:head>
-    <title><ui:insert name="pageTitle"/></title>
-    <!-- 模板布局css文件 -->
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <head>
+        <title><ui:insert name="pageTitle"/></title>
+        <!-- 模板布局css文件 -->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <!-- Bootstrap Docs -->
-    <link href="http://getbootstrap.com/docs-assets/css/docs.css" rel="stylesheet" media="screen"/>
+        <!-- Bootstrap Docs -->
+        <link href="http://getbootstrap.com/docs-assets/css/docs.css" rel="stylesheet" media="screen"/>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" media="screen" href="/resources/css/bootstrap.min.css"/>
-    <link rel="stylesheet" media="screen" href="/resources/css/bootstrap-theme.min.css"/>
+        <!-- Bootstrap -->
+        <link rel="stylesheet" media="screen" href="/resources/css/bootstrap.min.css"/>
+        <link rel="stylesheet" media="screen" href="/resources/css/bootstrap-theme.min.css"/>
 
-    <!-- Bootstrap Admin Theme -->
-    <link rel="stylesheet" media="screen" href="resources/css/bootstrap-admin-theme.css"/>
-    <link rel="stylesheet" media="screen" href="resources/css/bootstrap-admin-theme-change-size.css"/>
+        <!-- Bootstrap Admin Theme -->
+        <link rel="stylesheet" media="screen" href="resources/css/bootstrap-admin-theme.css"/>
+        <link rel="stylesheet" media="screen" href="resources/css/bootstrap-admin-theme-change-size.css"/>
+        <!-- Custom styles -->
+        <style type="text/css">
+            @font-face {
+                font-family: Ubuntu;
+                src: url('resources/fonts/Ubuntu-Regular.ttf');
+            }
 
-    <!-- Custom styles -->
-    <style type="text/css">
-      @font-face {
-        font-family: Ubuntu;
-        src: url('resources/fonts/Ubuntu-Regular.ttf');
-      }
-      .bs-docs-masthead{
-        background-color: #6f5499;
-        background-image: linear-gradient(to bottom, #563d7c 0px, #6f5499 100%);
-        background-repeat: repeat-x;
-      }
-      .bs-docs-masthead{
-        padding: 0;
-      }
-      .bs-docs-masthead h1{
-        color: #fff;
-        font-size: 40px;
-        margin: 0;
-        padding: 34px 0;
-        text-align: center;
-      }
-      .bs-docs-masthead a:hover{
-        text-decoration: none;
-      }
-      .meritoo-logo a{
-        background-color: #fff;
-        border: 1px solid rgba(66, 139, 202, 0.4);
-        display: block;
-        font-family: Ubuntu;
-        padding: 22px 0;
-        text-align: center;
-      }
-      .meritoo-logo a,
-      .meritoo-logo a:hover,
-      .meritoo-logo a:focus{
-        text-decoration: none;
-      }
-      .meritoo-logo a img{
-        display: block;
-        margin: 0 auto;
-      }
-      .meritoo-logo a span{
-        color: #4e4b4b;
-        font-size: 18px;
-      }
-      .row-urls{
-        margin-top: 4px;
-      }
-      .row-urls .col-md-6{
-        text-align: center;
-      }
-      .row-urls .col-md-6 a{
-        font-size: 14px;
-      }
-    </style>
-  </h:head>
-  <h:body class="bootstrap-admin-with-small-navbar">
+            .bs-docs-masthead {
+                background-color: #6f5499;
+                background-image: linear-gradient(to bottom, #563d7c 0px, #6f5499 100%);
+                background-repeat: repeat-x;
+            }
 
-    <!-- header -->
-<div >
-    <ui:insert name="header">
-         <ui:include src="/templates/header.xhtml"/>
-    </ui:insert>
-</div>
-    <!-- left, vertical navbar & content -->
-      <div class="row">
-        <div class="container">
-        <div class="col-md-2">
+            .bs-docs-masthead {
+                padding: 0;
+            }
 
-          <ui:insert name="menu">
-            <ui:include src="/templates/menu.xhtml"/>
+            .bs-docs-masthead h1 {
+                color: #fff;
+                font-size: 40px;
+                margin: 0;
+                padding: 34px 0;
+                text-align: center;
+            }
 
-          </ui:insert>
+            .bs-docs-masthead a:hover {
+                text-decoration: none;
+            }
+
+            .meritoo-logo a {
+                background-color: #fff;
+                border: 1px solid rgba(66, 139, 202, 0.4);
+                display: block;
+                font-family: Ubuntu;
+                padding: 22px 0;
+                text-align: center;
+            }
+
+            .meritoo-logo a,
+            .meritoo-logo a:hover,
+            .meritoo-logo a:focus {
+                text-decoration: none;
+            }
+
+            .meritoo-logo a img {
+                display: block;
+                margin: 0 auto;
+            }
+
+            .meritoo-logo a span {
+                color: #4e4b4b;
+                font-size: 18px;
+            }
+
+            .row-urls {
+                margin-top: 4px;
+            }
+
+            .row-urls .col-md-6 {
+                text-align: center;
+            }
+
+            .row-urls .col-md-6 a {
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body class="bootstrap-admin-with-small-navbar">
+        <!-- header -->
+        <div class="row">
+            <div class="container">
+                <ui:insert name="header">
+                    <ui:include src="/templates/header.xhtml"/>
+                </ui:insert>
+            </div>
         </div>
-        <div class="col-lg-10">
+        <!-- left, vertical navbar & content -->
+        <div class="row">
+            <div class="container">
+                <div class="col-md-2">
 
-          <ui:insert name="content"/>
-          <ui:decorate template="/templates/table.xhtml" />
+                    <ui:insert name="menu">
+                        <ui:include src="/templates/menu.xhtml"/>
 
+                    </ui:insert>
+                </div>
+                <div class="col-lg-10">
+
+                    <ui:insert name="content"/>
+                    <ui:decorate template="/templates/table.xhtml"/>
+
+                </div>
+            </div>
         </div>
+        <!-- footer -->
+        <div class="row">
+            <ui:insert name="footer"/>
+            <ui:decorate template="/templates/footer.xhtml"/>
         </div>
-      </div>
-    <!-- footer -->
-<div class="row">
-<ui:insert name="footer"/>
-  <ui:decorate template="/templates/footer.xhtml" />
-</div>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-    <script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/resources/js/twitter-bootstrap-hover-dropdown.min.js"></script>
-    <script type="text/javascript" src="/resources/js/bootstrap-admin-theme-change-size.js"></script>
-    <script type="text/javascript" src="/resources/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="/resources/js/DT_bootstrap.js"></script>
-</h:body>
+
+        <script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/resources/js/twitter-bootstrap-hover-dropdown.min.js"></script>
+        <script type="text/javascript" src="/resources/js/bootstrap-admin-theme-change-size.js"></script>
+        <script type="text/javascript" src="/resources/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="/resources/js/DT_bootstrap.js"></script>
+    </body>
+
 </f:view>
+
 </html>

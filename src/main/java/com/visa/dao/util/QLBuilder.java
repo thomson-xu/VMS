@@ -12,19 +12,19 @@ import javax.persistence.Id;
 import javax.persistence.Query;
 
 /**
- * SQLÓï¾ä¹¹½¨¹¤¾ßÀà
+ * SQLï¿½ï¿½ä¹¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * @author slx
- * @date 2009-7-8 ÉÏÎç10:35:28
+ * @date 2009-7-8 ï¿½ï¿½ï¿½ï¿½10:35:28
  * @version 1.0
  */
 public class QLBuilder {
 
     /**
-     * »ñÈ¡ÊµÌåµÄÃû³Æ
+     * ï¿½ï¿½È¡Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * @param <T>
      * @param entityClass
-     *            ÊµÌåÀà
+     *            Êµï¿½ï¿½ï¿½ï¿½
      * @return
      */
     public <T> String getEntityName(Class<T> entityClass) {
@@ -37,16 +37,16 @@ public class QLBuilder {
     }
 
     /**
-     * ´´½¨SelectºóËùÒª²éÑ¯µÄ×Ö¶ÎÃû³Æ×Ö·û´®
+     * ï¿½ï¿½ï¿½ï¿½Selectï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
      * @author slx
-     * @date 2009-7-8 ÉÏÎç10:01:02
+     * @date 2009-7-8 ï¿½ï¿½ï¿½ï¿½10:01:02
      * @modifyNote
      * @param fields
-     *          ÐèÒª²éÑ¯µÄ×Ö¶Î
+     *          ï¿½ï¿½Òªï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ö¶ï¿½
      * @param alias
-     *          ±íµÄ±ðÃû
+     *          ï¿½ï¿½Ä±ï¿½ï¿½ï¿½
      * @return
-     *          Æ´½Ó³ÉµÄ×Ö¶ÎÃû×Ö·û´®
+     *          Æ´ï¿½Ó³Éµï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
      */
     public String buildSelect(String[] fields, String alias) {
         StringBuffer sf_select = new StringBuffer("SELECT");
@@ -58,9 +58,9 @@ public class QLBuilder {
     }
 
     /**
-     * ´´½¨SelectºóËùÒª²éÑ¯µÄ×Ö¶ÎÃû³Æ×Ö·û´®£¬²¢×÷ÎªÊµÌåÀàµÄ¹¹Ôìº¯Êý
+     * ï¿½ï¿½ï¿½ï¿½Selectï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÊµï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ìº¯ï¿½ï¿½
      * @author yongtree
-     * @date 2010-4-13 ÉÏÎç11:59:04
+     * @date 2010-4-13 ï¿½ï¿½ï¿½ï¿½11:59:04
      * @modifyNote
      * @param fields
      * @param alias
@@ -76,12 +76,12 @@ public class QLBuilder {
     }
 
     /**
-     * ×é×°order byÓï¾ä
+     * ï¿½ï¿½×°order byï¿½ï¿½ï¿½
      *
      * @param orderby
-     *      ÁÐÃûÎªkey ,ÅÅÐòË³ÐòÎªvalueµÄmap
+     *      ï¿½ï¿½ï¿½ï¿½Îªkey ,ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½Îªvalueï¿½ï¿½map
      * @return
-     *      Order By ×Ó¾ä
+     *      Order By ï¿½Ó¾ï¿½
      */
     public String buildOrderby(LinkedHashMap<String, String> orderby) {
         StringBuffer orderbyql = new StringBuffer("");
@@ -97,18 +97,18 @@ public class QLBuilder {
     }
 
     /**
-     * µÃµ½Count¾ÛºÏ²éÑ¯µÄ¾ÛºÏ×Ö¶Î,¼ÈÊÇÖ÷¼üÁÐ
+     * ï¿½Ãµï¿½Countï¿½ÛºÏ²ï¿½Ñ¯ï¿½Ä¾Ûºï¿½ï¿½Ö¶ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      * @author slx
-     * @date 2009-7-8 ÉÏÎç10:26:11
+     * @date 2009-7-8 ï¿½ï¿½ï¿½ï¿½10:26:11
      * @modifyNote
      * @param <T>
-     *              ÊµÌåÀàÐÍ
+     *              Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      * @param clazz
-     *              ÊµÌåÀà
+     *              Êµï¿½ï¿½ï¿½ï¿½
      * @param alias
-     *              ±í±ðÃû
+     *              ï¿½ï¿½ï¿½ï¿½ï¿½
      * @return
-     *              ¾ÛºÏ×Ö¶ÎÃû(Ö÷¼üÃû)
+     *              ï¿½Ûºï¿½ï¿½Ö¶ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
      */
     public <T> String getPkField(Class<T> clazz, String alias) {
         String out = alias;
@@ -138,14 +138,14 @@ public class QLBuilder {
     }
 
     /**
-     * ÉèÖÃ²éÑ¯²ÎÊý
+     * ï¿½ï¿½ï¿½Ã²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
      * @author slx
-     * @date 2009-7-8 ÉÏÎç10:02:55
+     * @date 2009-7-8 ï¿½ï¿½ï¿½ï¿½10:02:55
      * @modifyNote
      * @param query
-     *          ²éÑ¯
+     *          ï¿½ï¿½Ñ¯
      * @param queryParams
-     *          ²éÑ¯²ÎÊý
+     *          ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
      */
     public Query setQueryParams(Query query, Object queryParams) {
         if (queryParams != null) {
@@ -169,9 +169,9 @@ public class QLBuilder {
     }
 
     /**
-     * ½«¼¯ºÏÖÐµÄ×Ö·û´®Æ´½Ó³ÉÎªSQLÓï¾äÖÐ inµÄÐÎÊ½ 'aaa','bbb','ccc'
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ö·ï¿½ï¿½ï¿½Æ´ï¿½Ó³ï¿½ÎªSQLï¿½ï¿½ï¿½ï¿½ï¿½ inï¿½ï¿½ï¿½ï¿½Ê½ 'aaa','bbb','ccc'
      * @author slx
-     * @date 2009-5-26 ÉÏÎç10:30:17
+     * @date 2009-5-26 ï¿½ï¿½ï¿½ï¿½10:30:17
      * @modifyNote
      * @param values
      * @return
@@ -187,9 +187,9 @@ public class QLBuilder {
     }
 
     /**
-     * ½«×Ö·û´®Êý×éÖÐµÄ×Ö·û´®Æ´½Ó³ÉÎªSQLÓï¾äÖÐ inµÄÐÎÊ½ 'aaa','bbb','ccc'
+     * ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ö·ï¿½ï¿½ï¿½Æ´ï¿½Ó³ï¿½ÎªSQLï¿½ï¿½ï¿½ï¿½ï¿½ inï¿½ï¿½ï¿½ï¿½Ê½ 'aaa','bbb','ccc'
      * @author slx
-     * @date 2009-5-26 ÉÏÎç10:30:17
+     * @date 2009-5-26 ï¿½ï¿½ï¿½ï¿½10:30:17
      * @modifyNote
      * @param values
      * @return
