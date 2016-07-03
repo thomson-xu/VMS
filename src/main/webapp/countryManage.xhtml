@@ -3,71 +3,39 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	  xmlns:tr="http://myfaces.apache.org/trinidad" >
 <h:head></h:head>
 <h:body>
-	<h:form>
-		<p:panelGrid columns="2" style="margin-buttom:10px;" cellpadding="2">
+		<f:view>
+			<div id="content" class="center_content">
+				<ui:insert name="content">
+					<h:form>
+						<h:panelGrid columns="4">
+							　　<h:outputText value="国家名称:" id="lblName"/>
+							　　<h:inputText value="#{country.countryName}" id="txtName"/>
+							　　<h:message for="txtName" style="color: red"/>
+							     <h:outputLabel value="所属洲:" id="continents"/>
+							<h:selectOneMenu value="#{country.interContinental}"  id="selContinents" >
+									<f:selectItems value="#{country.selectItemList}" />
+							</h:selectOneMenu>
+							　　<h:outputText value="Create Order Records:" id="lblNationalFlag"/>
+							<tr:form usesUpload="true">
+								<tr:inputFile label="上传:" value="#{upLoadBean.file}" />
+								<tr:commandButton text="开始" action="#{upLoadBean.uploadedfile}" />
+							</tr:form>
+							　　<h:inputText value="#{country.nationalFlag}" id="txtNationalFlag"/>
 
-			<p:outputLabel for="wh" value="选择所属洲：*" />
-			<p:selectOneMenu id="wh" value="#{generateOrder.whse}"
-				style="width:80%">
-				<f:selectItem itemLabel="请选择仓库" itemValue="" />
-				<f:selectItems value="#{generateOrder.whses}" />
-				<p:ajax event="itemSelect" update="clinet"
-					listener="#{generateOrder.changeClientWhses}"></p:ajax>
-			</p:selectOneMenu>
-
-			<p:outputLabel for="clinet" value="入驻商家：*" />
-			<p:selectOneMenu id="clinet" value="#{generateOrder.clientWhse}"
-				style="width:80%">
-				<f:selectItem itemLabel="请选择商家" itemValue="" />
-				<f:selectItems value="#{generateOrder.clientWhses}" />
-				<p:ajax event="itemSelect" update="channel"
-					listener="#{generateOrder.changeClientChannel}"></p:ajax>
-			</p:selectOneMenu>
-
-			<p:outputLabel for="channel" value="选 择 渠道：*" />
-			<p:selectOneMenu id="channel" value="#{generateOrder.clientChannel}"
-				style="width:80%">
-				<f:selectItem itemLabel="请选择渠道" itemValue="" />
-				<f:selectItems value="#{generateOrder.clientChannels}" />
-			</p:selectOneMenu>
-
-			<p:outputLabel for="sameorder" value="相同订单明细:" />
-			<p:selectOneRadio id="sameorder" value="#{generateOrder.sameOrder}">
-				<f:selectItem itemLabel="是" itemValue="true" />
-				<f:selectItem itemLabel="否" itemValue="false" />
-			</p:selectOneRadio>
-
-			<p:outputLabel for="procnum" value="单商品明细:" />
-			<p:selectOneRadio id="procnum" value="#{generateOrder.oneMany}">
-				<f:selectItem itemLabel="是" itemValue="true" />
-				<f:selectItem itemLabel="否" itemValue="false" />
-			</p:selectOneRadio>
-
-			<p:outputLabel for="createdate" value="订单交易时间： " />
-			<p:calendar id="createdate" value="#{generateOrder.createDate}" />
-
-			<p:outputLabel for="sonum" value="生成订单数量:" />
-			<p:inputText id="sonum" value="1" require="true">
-			</p:inputText>
-
-		</p:panelGrid>
-
-		<p:commandButton value="Submit"
-			actionListener="#{generateOrder.getPickLocnDtl}"/>
-
-		<p:growl id="growl" />
-		<p:commandButton value="Start" type="button" actionListener="#{generateOrder.DoSomeAction}"
-			onclick="PF('pbAjax').start();PF('startButton1').disable();"
-			widgetVar="startButton1" updat="@form"/>
-		<p:progressBar widgetVar="pbAjax" value="#{generateOrder.progress}"
-			ajax="true" labelTemplate="{value}%" styleClass="animated">
-			<p:ajax event="complete" listener="#{generateOrder.onComplete}"
-				update="growl" oncomplete="PF('startButton1').enable()" />
-		</p:progressBar>
-		<p:dialog></p:dialog>
-	</h:form>
+						</h:panelGrid>
+						<h:commandButton actionListener="#{country.addCountry}" id="addcountry"
+										 value="添 加" style="center">
+							<!--<f:ajax execute="soNumber num" render="status"/>-->
+						</h:commandButton>
+						<!--<p style="color: red; font-size: 18pt">
+							<h:outputText value="#{omsSoBean.status}"
+										  id="status"/> </p>-->
+					</h:form>
+				</ui:insert>   　
+			</div>
+		</f:view>
 </h:body>
 </html>

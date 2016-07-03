@@ -16,7 +16,7 @@ import javax.persistence.Transient;
  * @version 1.0
  */
 @MappedSuperclass
-public abstract class BaseEO implements Serializable {
+public abstract class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1962905939086138888L;
 
@@ -70,7 +70,7 @@ public abstract class BaseEO implements Serializable {
 
     /**
      * 得到所有可持久化字段的名称
-     * @author slx
+     * @author 
      * @date 2009-7-17 上午08:59:34
      * @modifyNote
      * @return
@@ -83,7 +83,7 @@ public abstract class BaseEO implements Serializable {
 
     /**
      * 得到某个字段的值
-     * @author slx
+     * @author 
      * @date 2009-7-17 上午08:59:58
      * @modifyNote
      * @param attributeName
@@ -98,7 +98,7 @@ public abstract class BaseEO implements Serializable {
 
     /**
      * 设置某个字段的值
-     * @author slx
+     * @author 
      * @date 2009-7-17 上午09:00:26
      * @modifyNote
      * @param attributeName
@@ -122,7 +122,7 @@ public abstract class BaseEO implements Serializable {
     /**
      * 获得实体对应的表名
      *
-     * @author slx
+     * @author 
      * @date 2009-7-17 上午09:00:57
      * @modifyNote
      * @return
@@ -135,7 +135,7 @@ public abstract class BaseEO implements Serializable {
     /**
      * 比较此对象与另一个对象的差别，并返回值不同的字段的名称。
      *
-     * @author slx
+     * @author 
      * @date 2009-7-17 上午09:34:39
      * @modifyNote
      * @param antherBean
@@ -143,14 +143,14 @@ public abstract class BaseEO implements Serializable {
      * @return 值不同的字段名
      */
     @Transient
-    public List<String> getDifferentField(BaseEO anotherBean) {
+    public List<String> getDifferentField(BaseEntity anotherBean) {
         return getBeanUtility().getDifferentField(anotherBean);
     }
 
     /**
      * 获取主键值
      *
-     * @author slx
+     * @author 
      * @date 2009-6-12 上午09:15:11
      * @modifyNote
      * @return 主键值
@@ -177,11 +177,11 @@ public abstract class BaseEO implements Serializable {
         }
 
         // 不是BaseEO，不必比较
-        if (!(obj instanceof BaseEO)) {
+        if (!(obj instanceof BaseEntity)) {
             return false;
         }
 
-        BaseEO eo = (BaseEO) obj;
+        BaseEntity eo = (BaseEntity) obj;
 
         if (getPrimaryKey()!=null
                 && eo.getPrimaryKey()!=null) {
@@ -196,13 +196,13 @@ public abstract class BaseEO implements Serializable {
 
     /**
      * 拷贝另一个eo对象中的字段值到当前对象中
-     * @author slx
+     * @author 
      * @date 2009-12-6 上午11:04:49
      * @modifyNote
      * @param fromEO            从哪里拷贝
      * @param copyAttributes    拷贝哪些字段
      */
-    public void copyAttributeValue(BaseEO fromEO , String[] copyAttributes){
+    public void copyAttributeValue(BaseEntity fromEO , String[] copyAttributes){
         if(copyAttributes == null)
             return ;
 
@@ -213,7 +213,7 @@ public abstract class BaseEO implements Serializable {
 
     /**
      * 加载所有延迟加载字段
-     * @author slx
+     * @author 
      * @date 2010年4月1日17:22:29
      * @modifyNote
      */

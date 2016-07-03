@@ -1,5 +1,7 @@
 package com.visa.test.entityRelation;
 
+import com.visa.dao.CountryDao;
+import com.visa.dao.util.DAO;
 import com.visa.entity.ConsulateEntity;
 import com.visa.entity.CountryEntity;
 import org.junit.Before;
@@ -59,7 +61,8 @@ public class testSaveCountry {
         consulateEntityList.add(consulateEntity);
         countryEntity.setConsulateEntitylist(consulateEntityList);
 
-        em.persist(countryEntity);
+        DAO countryDAO = new CountryDao();
+        countryDAO.create(countryEntity);
         userTransaction.commit();
         em.close();
         entityManagerFactory.close();

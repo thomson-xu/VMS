@@ -11,57 +11,57 @@ import java.util.Map;
 public interface DAO {
 
     /**
-     * Çå³ýÒ»¼¶»º´æµÄÊý¾Ý
+     * ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public void clear();
 
     /**
-     * ÐÂÔöÊµÌå
+     * ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
      *
      * @param entity
-     *            ÊµÌå
+     *            Êµï¿½ï¿½
      */
-    public <T extends BaseEO> void create(T entity);
+    public <T extends BaseEntity> void create(T entity);
 
     /**
-     * ÅúÁ¿ÐÂÔöÊµÌå
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
      *
      * @param entitys
-     *            ÊµÌåÁÐ±í
+     *            Êµï¿½ï¿½ï¿½Ð±ï¿½
      */
-    public <T extends BaseEO> void createBatch(List<T> entitys);
+    public <T extends BaseEntity> void createBatch(List<T> entitys);
 
     /**
-     * ¸üÐÂÊµÌå
+     * ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
      *
      * @param entity
-     *            ÊµÌå
+     *            Êµï¿½ï¿½
      */
-    public <T extends BaseEO> void update(T entity);
+    public <T extends BaseEntity> void update(T entity);
 
     /**
-     * É¾³ýÊµÌå
+     * É¾ï¿½ï¿½Êµï¿½ï¿½
      *
      * @param entityClass
-     *            ÊµÌåÀà
+     *            Êµï¿½ï¿½ï¿½ï¿½
      * @param entityid
-     *            ÊµÌåid
+     *            Êµï¿½ï¿½id
      */
-    public <T extends BaseEO> void delete(Class<T> entityClass, Object entityid);
+    public <T extends BaseEntity> void delete(Class<T> entityClass, Object entityid);
 
     /**
-     * É¾³ýÊµÌå
+     * É¾ï¿½ï¿½Êµï¿½ï¿½
      *
      * @param entityClass
-     *            ÊµÌåÀà
+     *            Êµï¿½ï¿½ï¿½ï¿½
      * @param entityids
-     *            ÊµÌåidÊý×é
+     *            Êµï¿½ï¿½idï¿½ï¿½ï¿½ï¿½
      */
-    public <T extends BaseEO> void delete(Class<T> entityClass,
-                                          Object[] entityids);
+    public <T extends BaseEntity> void delete(Class<T> entityClass,
+                                              Object[] entityids);
 
     /**
-     * ¸ù¾ÝÌõ¼þÉ¾³ý
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½
      *
      * @author
      * @date
@@ -70,127 +70,127 @@ public interface DAO {
      * @param where
      * @param delParams
      */
-    public <T extends BaseEO> void deleteByWhere(Class<T> entityClass,
-                                                 String where, Object[] delParams);
+    public <T extends BaseEntity> void deleteByWhere(Class<T> entityClass,
+                                                     String where, Object[] delParams);
 
     /**
-     * »ñÈ¡ÊµÌå
+     * ï¿½ï¿½È¡Êµï¿½ï¿½
      *
      * @param <T>
      * @param entityClass
-     *            ÊµÌåÀà
+     *            Êµï¿½ï¿½ï¿½ï¿½
      * @param entityId
-     *            ÊµÌåid
+     *            Êµï¿½ï¿½id
      * @return
      */
-    public <T extends BaseEO> T find(Class<T> entityClass, Object entityId);
+    public <T extends BaseEntity> T find(Class<T> entityClass, Object entityId);
 
     /**
-     * ¸ù¾ÝwhereÌõ¼þ²éÑ¯µ¥¸ö¶ÔÏó
+     * ï¿½ï¿½ï¿½ï¿½whereï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      * @author
      * @date
      * @modifyNote
      * @param <T>
      * @param entityClass
-     *          ÀàÐÍ
+     *          ï¿½ï¿½ï¿½ï¿½
      * @param where
-     *          Ìõ¼þ
+     *          ï¿½ï¿½ï¿½ï¿½
      * @param params
-     *          ²ÎÊý
+     *          ï¿½ï¿½ï¿½ï¿½
      * @return
      */
-    public <T extends BaseEO> T findByWhere(Class<T> entityClass, String where ,Object[] params);
+    public <T extends BaseEntity> T findByWhere(Class<T> entityClass, String where , Object[] params);
 
     /**
-     * »ñÈ¡ÊµÌå£¬¾ßÓÐÑÓ³Ù¼ÓÔØµÄ×÷ÓÃ£¨ºÍfindÏà±È£©
+     * ï¿½ï¿½È¡Êµï¿½å£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ó³Ù¼ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½findï¿½ï¿½È£ï¿½
      *
      * @param <T>
      * @param entityClass
-     *            ÊµÌåÀà
+     *            Êµï¿½ï¿½ï¿½ï¿½
      * @param entityId
-     *            ÊµÌåid
+     *            Êµï¿½ï¿½id
      * @return
      */
-    public <T extends BaseEO> T load(Class<T> entityClass, Object entityId);
+    public <T extends BaseEntity> T load(Class<T> entityClass, Object entityId);
 
     /**
-     * ¸ù¾ÝÌõ¼þÅÐ¶ÏÊµÌåÊÇ·ñ´æÔÚ
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½Êµï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
      *
      * @author
      * @date
      * @modifyNote
      * @param entityClass
-     *            ÊµÌåÀà
+     *            Êµï¿½ï¿½ï¿½ï¿½
      * @param whereql
-     *            ²éÑ¯Ìõ¼þ(¿É¿Õ,¿ÉÎª field1=? and field2=? ÐÎÊ½,Ò²¿ÉÎªfield1='value1' and
-     *            field2='value2'µÄÐÎÊ½)
+     *            ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½(ï¿½É¿ï¿½,ï¿½ï¿½Îª field1=? and field2=? ï¿½ï¿½Ê½,Ò²ï¿½ï¿½Îªfield1='value1' and
+     *            field2='value2'ï¿½ï¿½ï¿½ï¿½Ê½)
      * @param queryParams
-     *            ²ÎÊý(¿É¿Õ£¬µ«ÊÇµ±Ìõ¼þÊ¹ÓÃÁËfield1=? and field2=? µÄÐÎÊ½ºó²ÎÊý²»ÄÜÎª¿Õ)
-     * @return ÊÇ·ñ´æÔÚ
+     *            ï¿½ï¿½ï¿½ï¿½(ï¿½É¿Õ£ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½field1=? and field2=? ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½)
+     * @return ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
      */
-    public <T extends BaseEO> boolean isExistedByWhere(Class<T> entityClass,
+    public <T extends BaseEntity> boolean isExistedByWhere(Class<T> entityClass,
+                                                           String whereql, Object[] queryParams);
+
+    /**
+     * ï¿½ï¿½È¡ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
+     *
+     * @param entityClass
+     *            Êµï¿½ï¿½ï¿½ï¿½
+     * @return
+     */
+    public <T extends BaseEntity> long getCount(Class<T> entityClass);
+
+    /**
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
+     *
+     * @author
+     * @date
+     * @modifyNote
+     * @param <T>
+     * @param entityClass
+     *            Êµï¿½ï¿½ï¿½ï¿½
+     * @param whereql
+     *            ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½(ï¿½É¿ï¿½,ï¿½ï¿½Îª field1=? and field2=? ï¿½ï¿½Ê½,Ò²ï¿½ï¿½Îªfield1='value1' and
+     *            field2='value2'ï¿½ï¿½ï¿½ï¿½Ê½)
+     * @param queryParams
+     *            ï¿½ï¿½ï¿½ï¿½(ï¿½É¿Õ£ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½field1=? and field2=? ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½)
+     * @return ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
+     */
+    public <T extends BaseEntity> long getCountByWhere(Class<T> entityClass,
                                                        String whereql, Object[] queryParams);
 
     /**
-     * »ñÈ¡¼ÇÂ¼×ÜÊý
-     *
-     * @param entityClass
-     *            ÊµÌåÀà
-     * @return
-     */
-    public <T extends BaseEO> long getCount(Class<T> entityClass);
-
-    /**
-     * ¸ù¾ÝÌõ¼þºÍ²ÎÊý»ñÈ¡¼ÇÂ¼×ÜÊý
-     *
-     * @author
-     * @date
-     * @modifyNote
-     * @param <T>
-     * @param entityClass
-     *            ÊµÌåÀà
-     * @param whereql
-     *            ²éÑ¯Ìõ¼þ(¿É¿Õ,¿ÉÎª field1=? and field2=? ÐÎÊ½,Ò²¿ÉÎªfield1='value1' and
-     *            field2='value2'µÄÐÎÊ½)
-     * @param queryParams
-     *            ²ÎÊý(¿É¿Õ£¬µ«ÊÇµ±Ìõ¼þÊ¹ÓÃÁËfield1=? and field2=? µÄÐÎÊ½ºó²ÎÊý²»ÄÜÎª¿Õ)
-     * @return ¼ÇÂ¼ÐÐÊý
-     */
-    public <T extends BaseEO> long getCountByWhere(Class<T> entityClass,
-                                                   String whereql, Object[] queryParams);
-
-    /**
-     * »ñÈ¡·ÖÒ³Êý¾Ý
+     * ï¿½ï¿½È¡ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½
      *
      * @param <T>
      * @param entityClass
-     *            ÊµÌåÀà
+     *            Êµï¿½ï¿½ï¿½ï¿½
      * @param firstindex
-     *            ¿ªÊ¼Ë÷Òý
+     *            ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
      * @param maxresult
-     *            ÐèÒª»ñÈ¡µÄ¼ÇÂ¼Êý
+     *            ï¿½ï¿½Òªï¿½ï¿½È¡ï¿½Ä¼ï¿½Â¼ï¿½ï¿½
      * @return
      */
-    public <T extends BaseEO> QueryResult<T> getScrollData(
+    public <T extends BaseEntity> QueryResult<T> getScrollData(
             Class<T> entityClass, int firstindex, int maxresult,
             String wherejpql, Object[] queryParams,
             LinkedHashMap<String, String> orderby);
 
-    public <T extends BaseEO> QueryResult<T> getScrollData(
+    public <T extends BaseEntity> QueryResult<T> getScrollData(
             Class<T> entityClass, int firstindex, int maxresult,
             String wherejpql, List<Object> queryParams,
             LinkedHashMap<String, String> orderby);
 
-    public <T extends BaseEO> QueryResult<T> getScrollData(
+    public <T extends BaseEntity> QueryResult<T> getScrollData(
             Class<T> entityClass, int firstindex, int maxresult,
             String wherejpql, Map<String, Object> queryParams,
             LinkedHashMap<String, String> orderby);
 
     /**
-     * ²éÑ¯ÊµÌå²¿·Ö×Ö¶Î£¬»ñÈ¡·ÖÒ³Êý¾Ý
+     * ï¿½ï¿½Ñ¯Êµï¿½å²¿ï¿½ï¿½ï¿½Ö¶Î£ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½
      *
-     * ·µ»ØµÄ½á¹û½«ÖØÐÂ×é×°µ½ÊµÌåÊôÐÔÖÐ£¬Ã»ÓÐ²éÑ¯µÄ×Ö¶ÎÎªNULL<br>
-     * ×¢Òâ£ºÊ¹ÓÃ¸Ã½Ó¿ÚÊ±£¬ÒªÈ·±£ÊµÌåÀàÖÐÓÐ¶ÔÓ¦µÄ²éÑ¯×Ö¶ÎµÄÓÐ²ÎÊý¹¹Ôì·½·¨£¬²¢ÇÒ²ÎÊýµÄË³ÐòÒªºÍ´Ë´¦µÄqueryfieldsÊý×éµÄÔªËØÒ»ÖÂ
+     * ï¿½ï¿½ï¿½ØµÄ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½Ã»ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½Ö¶ï¿½ÎªNULL<br>
+     * ×¢ï¿½â£ºÊ¹ï¿½Ã¸Ã½Ó¿ï¿½Ê±ï¿½ï¿½ÒªÈ·ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½Ó¦ï¿½Ä²ï¿½Ñ¯ï¿½Ö¶Îµï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì·½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½Òªï¿½Í´Ë´ï¿½ï¿½ï¿½queryfieldsï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½Ò»ï¿½ï¿½
      *
      * @author
      * @date
@@ -205,26 +205,26 @@ public interface DAO {
      * @param orderby
      * @return
      */
-    public <T extends BaseEO> QueryResult<T> getScrollData(
+    public <T extends BaseEntity> QueryResult<T> getScrollData(
             Class<T> entityClass, String[] queryfields, int firstindex,
             int maxresult, String wherejpql, Object[] queryParams,
             LinkedHashMap<String, String> orderby);
 
-    public <T extends BaseEO> QueryResult<T> getScrollData(
+    public <T extends BaseEntity> QueryResult<T> getScrollData(
             Class<T> entityClass, String[] queryfields, int firstindex,
             int maxresult, String wherejpql, List<Object> queryParams,
             LinkedHashMap<String, String> orderby);
 
-    public <T extends BaseEO> QueryResult<T> getScrollData(
+    public <T extends BaseEntity> QueryResult<T> getScrollData(
             Class<T> entityClass, String[] queryfields, int firstindex,
             int maxresult, String wherejpql, Map<String, Object> queryParams,
             LinkedHashMap<String, String> orderby);
 
     /**
-     * ¸ù¾ÝÌõ¼þ²éÑ¯ÊµÌåÖÐµÄÖ¸¶¨¼¸¸ö×Ö¶Î <br>
-     * ·µ»Ø½á¹ûList<String[]>¸ñÊ½ÈçÏÂ£º <br>
-     * ÐÐ1£º ×Ö¶Î1value , ×Ö¶Î2value , ×Ö¶Î3value <br>
-     * ÐÐ2£º ×Ö¶Î1value , ×Ö¶Î2value , ×Ö¶Î3value
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯Êµï¿½ï¿½ï¿½Ðµï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ <br>
+     * ï¿½ï¿½ï¿½Ø½ï¿½ï¿½List<String[]>ï¿½ï¿½Ê½ï¿½ï¿½ï¿½Â£ï¿½ <br>
+     * ï¿½ï¿½1ï¿½ï¿½ ï¿½Ö¶ï¿½1value , ï¿½Ö¶ï¿½2value , ï¿½Ö¶ï¿½3value <br>
+     * ï¿½ï¿½2ï¿½ï¿½ ï¿½Ö¶ï¿½1value , ï¿½Ö¶ï¿½2value , ï¿½Ö¶ï¿½3value
      *
      * @author
      * @date
@@ -236,18 +236,18 @@ public interface DAO {
      * @param queryParams
      * @return
      */
-    public <T extends BaseEO> List<Object[]> queryFieldValues(
+    public <T extends BaseEntity> List<Object[]> queryFieldValues(
             Class<T> entityClass, String[] queryfields, String wheresql,
             Object[] queryParams);
 
-    public <T extends BaseEO> List<Object[]> queryFieldValues(
+    public <T extends BaseEntity> List<Object[]> queryFieldValues(
             Class<T> entityClass, String[] queryfields, String wheresql,
             Object[] queryParams, int startRow, int rows);
 
     /**
-     * ¸ù¾ÝÌõ¼þ²éÑ¯ÊµÌåÖÐµÄÖ¸¶¨¼¸¸ö×Ö¶Î <br>
-     * ·µ»ØµÄ½á¹û½«ÖØÐÂ×é×°µ½ÊµÌåÊôÐÔÖÐ£¬Ã»ÓÐ²éÑ¯µÄ×Ö¶ÎÎªNULL<br>
-     * ×¢Òâ£ºÊ¹ÓÃ¸Ã½Ó¿ÚÊ±£¬ÒªÈ·±£ÊµÌåÀàÖÐÓÐ¶ÔÓ¦µÄ²éÑ¯×Ö¶ÎµÄÓÐ²ÎÊý¹¹Ôì·½·¨£¬²¢ÇÒ²ÎÊýµÄË³ÐòÒªºÍ´Ë´¦µÄqueryfieldsÊý×éµÄÔªËØÒ»ÖÂ
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯Êµï¿½ï¿½ï¿½Ðµï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ <br>
+     * ï¿½ï¿½ï¿½ØµÄ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½Ã»ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½Ö¶ï¿½ÎªNULL<br>
+     * ×¢ï¿½â£ºÊ¹ï¿½Ã¸Ã½Ó¿ï¿½Ê±ï¿½ï¿½ÒªÈ·ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½Ó¦ï¿½Ä²ï¿½Ñ¯ï¿½Ö¶Îµï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì·½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½Òªï¿½Í´Ë´ï¿½ï¿½ï¿½queryfieldsï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½Ò»ï¿½ï¿½
      *
      * @author
      * @date
@@ -259,16 +259,16 @@ public interface DAO {
      * @param queryParams
      * @return
      */
-    public <T extends BaseEO> List<T> queryByWhere(Class<T> entityClass,
-                                                   String[] queryfields, String wheresql, Object[] queryParams);
+    public <T extends BaseEntity> List<T> queryByWhere(Class<T> entityClass,
+                                                       String[] queryfields, String wheresql, Object[] queryParams);
 
-    public <T extends BaseEO> List<T> queryByWhere(Class<T> entityClass,
-                                                   String[] queryfields, String wheresql, Object[] queryParams,
-                                                   int startRow, int rows);
+    public <T extends BaseEntity> List<T> queryByWhere(Class<T> entityClass,
+                                                       String[] queryfields, String wheresql, Object[] queryParams,
+                                                       int startRow, int rows);
 
     /**
-     * ¸ù¾ÝwhereÌõ¼þ²éÑ¯ÊµÌåbeanÁÐ±í <br>
-     * whereºÍqueryParams¿É¿Õ
+     * ï¿½ï¿½ï¿½ï¿½whereï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯Êµï¿½ï¿½beanï¿½Ð±ï¿½ <br>
+     * whereï¿½ï¿½queryParamsï¿½É¿ï¿½
      *
      * @author
      * @date
@@ -279,12 +279,12 @@ public interface DAO {
      * @param queryParams
      * @return
      */
-    public <T extends BaseEO> List<T> queryByWhere(Class<T> entityClass,
-                                                   String wheresql, Object[] queryParams);
+    public <T extends BaseEntity> List<T> queryByWhere(Class<T> entityClass,
+                                                       String wheresql, Object[] queryParams);
 
     /**
-     * ¸ù¾ÝwhereÌõ¼þ²éÑ¯ÊµÌåbeanÁÐ±í,¿ÉÖ¸¶¨È¡µÚ¼¸ÐÐµ½µÚ¼¸ÐÐ <br>
-     * whereºÍqueryParams¿É¿Õ
+     * ï¿½ï¿½ï¿½ï¿½whereï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯Êµï¿½ï¿½beanï¿½Ð±ï¿½,ï¿½ï¿½Ö¸ï¿½ï¿½È¡ï¿½Ú¼ï¿½ï¿½Ðµï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ <br>
+     * whereï¿½ï¿½queryParamsï¿½É¿ï¿½
      *
      * @author
      * @date
@@ -294,16 +294,16 @@ public interface DAO {
      * @param wheresql
      * @param queryParams
      * @param startRow
-     *            ¿ªÊ¼ÐÐ
+     *            ï¿½ï¿½Ê¼ï¿½ï¿½
      * @param rows
-     *            ¹²¶àÉÙÐÐ
+     *            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      * @return
      */
-    public <T extends BaseEO> List<T> queryByWhere(Class<T> entityClass,
-                                                   String wheresql, Object[] queryParams, int startRow, int rows);
+    public <T extends BaseEntity> List<T> queryByWhere(Class<T> entityClass,
+                                                       String wheresql, Object[] queryParams, int startRow, int rows);
 
     /**
-     * µÃµ½EM£¬²»½¨Òé¾­³£Ê¹ÓÃ£¬ÒÔÃâÊ¹ÓÃ¹ýÓÚËæÒâÔì³ÉÏµÍ³µÄÎ¬»¤ÄÑ¶È¼Ó´óºÍÀ©Õ¹ÐÔ±ä²î
+     * ï¿½Ãµï¿½EMï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é¾­ï¿½ï¿½Ê¹ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½Î¬ï¿½ï¿½ï¿½Ñ¶È¼Ó´ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½Ô±ï¿½ï¿½
      *
      * @author
      * @date

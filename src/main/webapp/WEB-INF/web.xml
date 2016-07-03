@@ -37,6 +37,38 @@
 		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
 		<param-value>.xhtml</param-value>
 	</context-param>
+
+
+	<!-- Upload file config -->
+	<context-param>
+		<!-- Maximum memory per request (in bytes) -->
+		<param-name>org.apache.myfaces.trinidad.UPLOAD_MAX_MEMORY</param-name>
+		<!-- Use 500K -->
+		<param-value>512000</param-value>
+	</context-param>
+	<context-param>
+		<!-- Maximum disk space per request (in bytes) -->
+		<param-name>org.apache.myfaces.trinidad.UPLOAD_MAX_DISK_SPACE</param-name>
+		<!-- Use 5,000K -->
+		<param-value>5120000</param-value>
+	</context-param>
+	<context-param>
+		<!-- directory to store temporary files -->
+		<param-name>org.apache.myfaces.trinidad.UPLOAD_TEMP_DIR</param-name>
+		<!-- Use a TrinidadUploads subdirectory of /tmp -->
+		<param-value>/resource/img/</param-value>
+	</context-param>
+
+	<!-- This filter is always required;  one of its functions is
+            file upload. -->
+	<filter>
+		<filter-name>trinidad</filter-name>
+		<filter-class>org.apache.myfaces.trinidad.webapp.TrinidadFilter</filter-class>
+	</filter>
+
+
+
+
 	<!-- Change to "Production" when you are ready to deploy -->
 
 

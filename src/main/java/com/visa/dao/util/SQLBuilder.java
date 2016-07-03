@@ -1,4 +1,7 @@
 package com.visa.dao.util;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Query;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
@@ -7,17 +10,13 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Query;
-
 /**
  * SQL��乹��������
  * @author slx
  * @date 2009-7-8 ����10:35:28
  * @version 1.0
  */
-public class QLBuilder {
+public class SQLBuilder {
 
     /**
      * ��ȡʵ�������

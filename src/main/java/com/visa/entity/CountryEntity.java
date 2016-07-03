@@ -1,5 +1,7 @@
 package com.visa.entity;
 
+import com.visa.dao.util.BaseEntity;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "country")
-public class CountryEntity {
+public class CountryEntity extends BaseEntity {
     private long id;
     private String name;
     private String nationalFlag;
@@ -88,5 +90,10 @@ public class CountryEntity {
         result = 31 * result + (nationalFlag != null ? nationalFlag.hashCode() : 0);
         result = 31 * result + interContinental;
         return result;
+    }
+
+    public Object getPrimaryKey() {
+        return  (Object) getId();
+
     }
 }

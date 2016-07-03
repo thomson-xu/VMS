@@ -11,44 +11,45 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import com.visa.entity.CountryEntity;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * ·â×°³£ÓÃÔöÉ¾¸Ä²é²Ù×÷
+ * ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½Ä²ï¿½ï¿½ï¿½ï¿½
  *
  * @author
  * @date
  * @version 2.0
- * @since 2.0 ·ºÐÍTÅ²µ½·½·¨ÉùÃ÷³ö,ÉùÃ÷¶ÔÏóÊ±²»ÐèÒªÖ¸¶¨·ºÐÍ.
+ * @since 2.0 ï¿½ï¿½ï¿½ï¿½TÅ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ÒªÖ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
  */
 @SuppressWarnings("unchecked")
 public abstract class BaseJpaDao implements DAO {
 
-    private QLBuilder sqlBuilder = new QLBuilder();
+    private SQLBuilder sqlBuilder = new SQLBuilder();
 
     public void clear() {
         getEntityManager().clear();
     }
 
     @Transactional
-    public <T extends BaseEO> void create(T entity) {
+    public <T extends BaseEntity> void create(T entity) {
         getEntityManager().persist(entity);
     }
 
-    public <T extends BaseEO> void createBatch(List<T> entitys) {
+    public <T extends BaseEntity> void createBatch(List<T> entitys) {
         for (T entity : entitys) {
             create(entity);
         }
     }
 
     @Transactional
-    public <T extends BaseEO> void update(T entity) {
+    public <T extends BaseEntity> void update(T entity) {
         getEntityManager().merge(entity);
     }
 
     @Transactional
-    public <T extends BaseEO> void saveAll(List<T> entitys) {
+    public <T extends BaseEntity> void saveAll(List<T> entitys) {
         for (int i = 0; i < entitys.size(); i++) {
             T entity = entitys.get(i);
             save(entity);
@@ -56,7 +57,7 @@ public abstract class BaseJpaDao implements DAO {
     }
 
     @Transactional
-    public <T extends BaseEO> void save(T entity) {
+    public <T extends BaseEntity> void save(T entity) {
         if (entity.getPrimaryKey() == null) {
             this.create(entity);
         } else {
@@ -65,13 +66,13 @@ public abstract class BaseJpaDao implements DAO {
     }
 
     @Transactional
-    public <T extends BaseEO> void delete(Class<T> entityClass, Object entityid) {
+    public <T extends BaseEntity> void delete(CountryEntity entityClass, Object entityid) {
         delete(entityClass, new Object[] { entityid });
     }
 
     @Transactional
-    public <T extends BaseEO> void delete(Class<T> entityClass,
-                                          Object[] entityids) {
+    public <T extends BaseEntity> void delete(Class<T> entityClass,
+                                              Object[] entityids) {
         // StringBuffer sf_QL = new StringBuffer(" DELETE FROM ").append(
         // sqlBuilder.getEntityName(entityClass)).append(" o WHERE ")
         // .append(sqlBuilder.getPkField(entityClass, "o")).append("=? ");
@@ -83,8 +84,8 @@ public abstract class BaseJpaDao implements DAO {
     }
 
     @Transactional
-    public <T extends BaseEO> void deleteByWhere(Class<T> entityClass,
-                                                 String where, Object[] delParams) {
+    public <T extends BaseEntity> void deleteByWhere(Class<T> entityClass,
+                                                     String where, Object[] delParams) {
         StringBuffer sf_QL = new StringBuffer("DELETE FROM ").append(
                 sqlBuilder.getEntityName(entityClass)).append(" o WHERE 1=1 ");
         if (where != null && where.length() != 0) {
@@ -96,16 +97,16 @@ public abstract class BaseJpaDao implements DAO {
         query.executeUpdate();
     }
 
-    public <T extends BaseEO> T find(Class<T> entityClass, Object entityId) {
+    public <T extends BaseEntity> T find(Class<T> entityClass, Object entityId) {
         return getEntityManager().find(entityClass, entityId);
     }
 
-    public <T extends BaseEO> long getCount(Class<T> entityClass) {
+    public <T extends BaseEntity> long getCount(Class<T> entityClass) {
         return getCountByWhere(entityClass, null, null);
     }
 
-    public <T extends BaseEO> long getCountByWhere(Class<T> entityClass,
-                                                   String whereql, Object[] queryParams) {
+    public <T extends BaseEntity> long getCountByWhere(Class<T> entityClass,
+                                                       String whereql, Object[] queryParams) {
         StringBuffer sf_QL = new StringBuffer("SELECT COUNT(").append(
                 sqlBuilder.getPkField(entityClass, "o")).append(") FROM ")
                 .append(sqlBuilder.getEntityName(entityClass)).append(
@@ -118,13 +119,13 @@ public abstract class BaseJpaDao implements DAO {
         return (Long) query.getSingleResult();
     }
 
-    public <T extends BaseEO> boolean isExistedByWhere(Class<T> entityClass,
-                                                       String whereql, Object[] queryParams) {
+    public <T extends BaseEntity> boolean isExistedByWhere(Class<T> entityClass,
+                                                           String whereql, Object[] queryParams) {
         long count = getCountByWhere(entityClass, whereql, queryParams);
         return count > 0 ? true : false;
     }
 
-    public <T extends BaseEO> QueryResult<T> getScrollData(
+    public <T extends BaseEntity> QueryResult<T> getScrollData(
             Class<T> entityClass, int firstindex, int maxresult,
             String wherejpql, Object[] queryParams,
             LinkedHashMap<String, String> orderby) {
@@ -132,7 +133,7 @@ public abstract class BaseJpaDao implements DAO {
                 queryParams, orderby);
     }
 
-    public <T extends BaseEO> QueryResult<T> getScrollData(
+    public <T extends BaseEntity> QueryResult<T> getScrollData(
             Class<T> entityClass, int firstindex, int maxresult,
             String wherejpql, List<Object> queryParams,
             LinkedHashMap<String, String> orderby) {
@@ -145,7 +146,7 @@ public abstract class BaseJpaDao implements DAO {
     }
 
     @Override
-    public <T extends BaseEO> QueryResult<T> getScrollData(
+    public <T extends BaseEntity> QueryResult<T> getScrollData(
             Class<T> entityClass, int firstindex, int maxresult,
             String wherejpql, Map<String, Object> queryParams,
             LinkedHashMap<String, String> orderby) {
@@ -154,27 +155,27 @@ public abstract class BaseJpaDao implements DAO {
     }
 
     /**
-     * ¸ù¾ÝÌõ¼þ²éÑ¯Ä³¸öÊµÌåµÄÁÐ±í
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯Ä³ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½Ð±ï¿½
      *
      * @author slx
      * @param <T>
      * @param entityClass
-     *            ÊµÌåÀàÐÍ
+     *            Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      * @param firstindex
-     *            ¿ªÊ¼ÐÐ
+     *            ï¿½ï¿½Ê¼ï¿½ï¿½
      * @param maxresult
-     *            ½áÊøÐÐ
+     *            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      * @param wherejpql
-     *            whereÌõ¼þ
+     *            whereï¿½ï¿½ï¿½ï¿½
      * @param queryParams
-     *            ²ÎÊý
+     *            ï¿½ï¿½ï¿½ï¿½
      * @param orderby
-     *            ÅÅÐòÌõ¼þ
+     *            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      * @return
      */
-    private <T extends BaseEO> QueryResult<T> scroll(Class<T> entityClass,
-                                                     int firstindex, int maxresult, String wherejpql,
-                                                     Object queryParams, LinkedHashMap<String, String> orderby) {
+    private <T extends BaseEntity> QueryResult<T> scroll(Class<T> entityClass,
+                                                         int firstindex, int maxresult, String wherejpql,
+                                                         Object queryParams, LinkedHashMap<String, String> orderby) {
         QueryResult<T> qr = new QueryResult<T>();
         String entityname = sqlBuilder.getEntityName(entityClass);
         Query query = getEntityManager()
@@ -204,9 +205,9 @@ public abstract class BaseJpaDao implements DAO {
     }
 
     /**
-     * ¸ù¾ÝÌõ¼þ²éÑ¯ÊµÌåÖ¸¶¨×Ö¶ÎµÄÖµ²¢»ØÌîµ½ÊµÌåÄÚ. <br/>
-     * <b>×¢Òâ:</b> <br/>
-     * ÊµÌå±ØÐëÓÐ°üÀ¨Òª²éÑ¯µÄ×Ö¶ÎÎª²ÎÊýµÄ¹¹Ôìº¯Êý.
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯Êµï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ö¶Îµï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½îµ½Êµï¿½ï¿½ï¿½ï¿½. <br/>
+     * <b>×¢ï¿½ï¿½:</b> <br/>
+     * Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð°ï¿½ï¿½ï¿½Òªï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ö¶ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ìº¯ï¿½ï¿½.
      *
      * @param <T>
      * @param entityClass
@@ -218,10 +219,10 @@ public abstract class BaseJpaDao implements DAO {
      * @param orderby
      * @return
      */
-    private <T extends BaseEO> QueryResult<T> scroll(Class<T> entityClass,
-                                                     String[] queryfields, int firstindex, int maxresult,
-                                                     String wherejpql, Object queryParams,
-                                                     LinkedHashMap<String, String> orderby) {
+    private <T extends BaseEntity> QueryResult<T> scroll(Class<T> entityClass,
+                                                         String[] queryfields, int firstindex, int maxresult,
+                                                         String wherejpql, Object queryParams,
+                                                         LinkedHashMap<String, String> orderby) {
         QueryResult<T> qr = new QueryResult<T>();
         String entityname = sqlBuilder.getEntityName(entityClass);
         Query query = getEntityManager()
@@ -252,7 +253,7 @@ public abstract class BaseJpaDao implements DAO {
     }
 
     @Override
-    public <T extends BaseEO> QueryResult<T> getScrollData(
+    public <T extends BaseEntity> QueryResult<T> getScrollData(
             Class<T> entityClass, String[] queryfields, int firstindex,
             int maxresult, String wherejpql, List<Object> queryParams,
             LinkedHashMap<String, String> orderby) {
@@ -261,7 +262,7 @@ public abstract class BaseJpaDao implements DAO {
     }
 
     @Override
-    public <T extends BaseEO> QueryResult<T> getScrollData(
+    public <T extends BaseEntity> QueryResult<T> getScrollData(
             Class<T> entityClass, String[] queryfields, int firstindex,
             int maxresult, String wherejpql, Map<String, Object> queryParams,
             LinkedHashMap<String, String> orderby) {
@@ -270,7 +271,7 @@ public abstract class BaseJpaDao implements DAO {
     }
 
     @Override
-    public <T extends BaseEO> QueryResult<T> getScrollData(
+    public <T extends BaseEntity> QueryResult<T> getScrollData(
             Class<T> entityClass, String[] queryfields, int firstindex,
             int maxresult, String wherejpql, Object[] queryParams,
             LinkedHashMap<String, String> orderby) {
@@ -282,8 +283,8 @@ public abstract class BaseJpaDao implements DAO {
         sqlBuilder.setQueryParams(query, queryParams);
     }
 
-    public <T extends BaseEO> List<T> queryByWhere(Class<T> entityClass,
-                                                   String wheresql, Object[] queryParams) {
+    public <T extends BaseEntity> List<T> queryByWhere(Class<T> entityClass,
+                                                       String wheresql, Object[] queryParams) {
         String entityname = sqlBuilder.getEntityName(entityClass);
         Query query = getEntityManager().createQuery(
                 "SELECT o FROM "
@@ -296,8 +297,8 @@ public abstract class BaseJpaDao implements DAO {
         return query.getResultList();
     }
 
-    public <T extends BaseEO> List<T> queryByWhere(Class<T> entityClass,
-                                                   String wheresql, Object[] queryParams, int startRow, int rows) {
+    public <T extends BaseEntity> List<T> queryByWhere(Class<T> entityClass,
+                                                       String wheresql, Object[] queryParams, int startRow, int rows) {
         String entityname = sqlBuilder.getEntityName(entityClass);
         Query query = getEntityManager().createQuery(
                 "SELECT o FROM "
@@ -317,16 +318,16 @@ public abstract class BaseJpaDao implements DAO {
     }
 
     @Override
-    public <T extends BaseEO> List<T> queryByWhere(Class<T> entityClass,
-                                                   String[] queryfields, String wheresql, Object[] queryParams) {
+    public <T extends BaseEntity> List<T> queryByWhere(Class<T> entityClass,
+                                                       String[] queryfields, String wheresql, Object[] queryParams) {
         return queryByWhere(entityClass, queryfields, wheresql, queryParams,
                 -1, -1);
     }
 
     @Override
-    public <T extends BaseEO> List<T> queryByWhere(Class<T> entityClass,
-                                                   String[] queryfields, String wheresql, Object[] queryParams,
-                                                   int startRow, int rows) {
+    public <T extends BaseEntity> List<T> queryByWhere(Class<T> entityClass,
+                                                       String[] queryfields, String wheresql, Object[] queryParams,
+                                                       int startRow, int rows) {
         String entityname = sqlBuilder.getEntityName(entityClass);
         Query query = getEntityManager().createQuery(
                 sqlBuilder.buildSelect(entityname, queryfields, "o") + " FROM "
@@ -342,7 +343,7 @@ public abstract class BaseJpaDao implements DAO {
         return query.getResultList();
     }
 
-    public <T extends BaseEO> List<Object[]> queryFieldValues(
+    public <T extends BaseEntity> List<Object[]> queryFieldValues(
             Class<T> entityClass, String[] queryfields, String wheresql,
             Object[] queryParams) {
         return queryFieldValues(entityClass, queryfields, wheresql,
@@ -350,7 +351,7 @@ public abstract class BaseJpaDao implements DAO {
     }
 
     @Override
-    public <T extends BaseEO> List<Object[]> queryFieldValues(
+    public <T extends BaseEntity> List<Object[]> queryFieldValues(
             Class<T> entityClass, String[] queryfields, String wheresql,
             Object[] queryParams, int startRow, int rows) {
         String entityname = sqlBuilder.getEntityName(entityClass);
@@ -369,29 +370,29 @@ public abstract class BaseJpaDao implements DAO {
     }
 
     /**
-     * ÉèÖÃ²éÑ¯²ÎÊý
+     * ï¿½ï¿½ï¿½Ã²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
      *
      * @author slx
-     * @date 2009-7-8 ÉÏÎç10:02:55
+     * @date 2009-7-8 ï¿½ï¿½ï¿½ï¿½10:02:55
      * @modifyNote
      * @param query
-     *            ²éÑ¯
+     *            ï¿½ï¿½Ñ¯
      * @param queryParams
-     *            ²éÑ¯²ÎÊý
+     *            ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
      */
     protected void setQueryParams(Query query, Object[] queryParams) {
         sqlBuilder.setQueryParams(query, queryParams);
     }
 
     /**
-     * ·µ»ØÊµÌå¹ÜÀíÆ÷
+     * ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
-     * @desc ÓÉslxÔÚ2010-6-8ÏÂÎç04:06:55ÖØÐ´¸¸Àà·½·¨
+     * @desc ï¿½ï¿½slxï¿½ï¿½2010-6-8ï¿½ï¿½ï¿½ï¿½04:06:55ï¿½ï¿½Ð´ï¿½ï¿½ï¿½à·½ï¿½ï¿½
      */
     public abstract EntityManager getEntityManager();
 
     @Override
-    public <T extends BaseEO> T load(Class<T> entityClass, Object entityId) {
+    public <T extends BaseEntity> T load(Class<T> entityClass, Object entityId) {
         try {
             return getEntityManager().getReference(entityClass, entityId);
         } catch (Exception e) {
@@ -400,13 +401,13 @@ public abstract class BaseJpaDao implements DAO {
     }
 
     @Override
-    public <T extends BaseEO> T findByWhere(Class<T> entityClass, String where,
-                                            Object[] params) {
+    public <T extends BaseEntity> T findByWhere(Class<T> entityClass, String where,
+                                                Object[] params) {
         List<T> l = queryByWhere(entityClass, where, params);
         if(l != null && l.size() == 1){
             return l.get(0);
         }else if(l.size() > 1){
-            throw new RuntimeException("²éÑ°µ½µÄ½á¹û²»Ö¹Ò»¸ö.");
+            throw new RuntimeException("ï¿½ï¿½Ñ°ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½Ö¹Ò»ï¿½ï¿½.");
         }else{
             return null;
         }

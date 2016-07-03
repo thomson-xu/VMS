@@ -1,5 +1,6 @@
 package com.visa.dao;
 
+import com.visa.dao.util.BaseEntity;
 import com.visa.dao.util.BaseJpaDao;
 
 import javax.persistence.EntityManager;
@@ -9,6 +10,9 @@ import javax.persistence.EntityManager;
  */
 public class CountryDao extends BaseJpaDao {
 
+    public <T extends BaseEntity> void delete(Class<T> entityClass, Object entityid) {
+
+    }
 
     @Override
     public EntityManager getEntityManager() {
@@ -16,4 +20,6 @@ public class CountryDao extends BaseJpaDao {
         return null;
 
     }
+
+
 }
