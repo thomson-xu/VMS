@@ -1,41 +1,41 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:tr="http://myfaces.apache.org/trinidad" >
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:tr="http://myfaces.apache.org/trinidad">
 <h:head></h:head>
 <h:body>
-		<f:view>
-			<div id="content" class="center_content">
-				<ui:insert name="content">
-					<h:form>
-						<h:panelGrid columns="4">
-							　　<h:outputText value="国家名称:" id="lblName"/>
-							　　<h:inputText value="#{country.countryName}" id="txtName"/>
-							　　<h:message for="txtName" style="color: red"/>
-							     <h:outputLabel value="所属洲:" id="continents"/>
-							<h:selectOneMenu value="#{country.interContinental}"  id="selContinents" >
-									<f:selectItems value="#{country.selectItemList}" />
-							</h:selectOneMenu>
-							　　<h:outputText value="Create Order Records:" id="lblNationalFlag"/>
-							<tr:form usesUpload="true">
-								<tr:inputFile label="上传:" value="#{upLoadBean.file}" />
-								<tr:commandButton text="开始" action="#{upLoadBean.uploadedfile}" />
-							</tr:form>
-							　　<h:inputText value="#{country.nationalFlag}" id="txtNationalFlag"/>
+    <f:view>
+        <div id="content" class="center_content">
+            <ui:insert name="content">
+                <h:form>
+                    <h:panelGrid columns="3">
+                        　　<h:outputText value="国家名称:" id="lblName"/>
+                        　　<h:inputText value="#{country.countryName}" id="txtName"/>
+                        　　<h:message for="txtName" style="color: red"/>
+                        <h:outputLabel value="所属洲:" id="continents"/>
+                        <h:selectOneMenu value="#{country.interContinental}" id="selContinents">
+                            <f:selectItems value="#{country.selectItemList}"/>
+                        </h:selectOneMenu>
+                        　　<h:outputText value="上传国旗图标：" id="lblNationalFlag"/>
+                        <tr:form usesUpload="true">
+                            <tr:inputFile label="上传:" value="#{upLoadBean.file}"/>
+                            <tr:commandButton text="开始" action="#{upLoadBean.uploadedfile}"/>
+                        </tr:form>
+                        <h:inputText value="#{country.nationalFlag}" id="txtNationalFlag"/>
 
-						</h:panelGrid>
-						<h:commandButton actionListener="#{country.addCountry}" id="addcountry"
-										 value="添 加" style="center">
-							<!--<f:ajax execute="soNumber num" render="status"/>-->
-						</h:commandButton>
-						<!--<p style="color: red; font-size: 18pt">
-							<h:outputText value="#{omsSoBean.status}"
-										  id="status"/> </p>-->
-					</h:form>
-				</ui:insert>   　
-			</div>
-		</f:view>
+                    </h:panelGrid>
+                    <h:commandButton actionListener="#{country.addCountry}" id="addcountry"
+                                     value="添 加" style="center">
+                        <!--<f:ajax execute="soNumber num" render="status"/>-->
+                    </h:commandButton>
+                    <!--<p style="color: red; font-size: 18pt">
+                        <h:outputText value="#{omsSoBean.status}"
+                                      id="status"/> </p>-->
+                </h:form>
+            </ui:insert> 　
+        </div>
+    </f:view>
 </h:body>
 </html>

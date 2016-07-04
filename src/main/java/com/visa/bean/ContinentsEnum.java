@@ -4,7 +4,7 @@ package com.visa.bean;
  * Created by Administrator on 2016/7/3.
  */
 public enum ContinentsEnum {
-    ASIA("亚洲", 1), EUROPE("绿色", 2), NORTHAMERICA("北美洲", 3), SOUTHAMERICA("南美洲", 4), AFRICA("非洲", 5), OCEANIA("大洋洲", 6), ANTARCTICA("南极洲", 7);
+    ASIA("亚洲", 1), EUROPE("欧洲", 2), NORTHAMERICA("北美洲", 3), SOUTHAMERICA("南美洲", 4), AFRICA("非洲", 5), OCEANIA("大洋洲", 6), ANTARCTICA("南极洲", 7);
 
     // 成员变量
     private String name;

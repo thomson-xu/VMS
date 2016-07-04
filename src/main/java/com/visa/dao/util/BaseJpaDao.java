@@ -4,16 +4,16 @@ package com.visa.dao.util;
  * Created by Test-Lab on 2016/6/26.
  */
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
 import com.visa.entity.CountryEntity;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * ��װ������ɾ�Ĳ����
@@ -389,7 +389,16 @@ public abstract class BaseJpaDao implements DAO {
      *
      * @desc ��slx��2010-6-8����04:06:55��д���෽��
      */
-    public abstract EntityManager getEntityManager();
+    @PersistenceContext
+    private  EntityManager entityManager;
+
+    public EntityManager getEntityManager() {
+        return entityManager;//=entityManagerFactory.g.createEntityManager();
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public <T extends BaseEntity> T load(Class<T> entityClass, Object entityId) {
