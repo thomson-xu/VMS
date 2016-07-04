@@ -67,31 +67,7 @@ public class CountryEntity extends BaseEntity {
         this.consulateEntitylist = consulateEntitylist;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CountryEntity that = (CountryEntity) o;
-
-        if (id != that.id) return false;
-        if (interContinental != that.interContinental) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (nationalFlag != null ? !nationalFlag.equals(that.nationalFlag) : that.nationalFlag != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (nationalFlag != null ? nationalFlag.hashCode() : 0);
-        result = 31 * result + interContinental;
-        return result;
-    }
-
+    @Transient
     public Object getPrimaryKey() {
         return  (Object) getId();
 

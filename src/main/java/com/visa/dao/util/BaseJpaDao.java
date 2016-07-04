@@ -52,18 +52,18 @@ public abstract class BaseJpaDao implements DAO {
     public <T extends BaseEntity> void saveAll(List<T> entitys) {
         for (int i = 0; i < entitys.size(); i++) {
             T entity = entitys.get(i);
-            save(entity);
+            create(entity);
         }
     }
 
-    @Transactional
+ /*   @Transactional
     public <T extends BaseEntity> void save(T entity) {
         if (entity.getPrimaryKey() == null) {
             this.create(entity);
         } else {
             this.update(entity);
         }
-    }
+    }*/
 
     @Transactional
     public <T extends BaseEntity> void delete(CountryEntity entityClass, Object entityid) {

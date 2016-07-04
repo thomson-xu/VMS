@@ -30,39 +30,39 @@ import javax.persistence.Transient;
 
 
 /**
- * 实体bean工具类<br>
- * <b> 注意：此工具类只能应用与BaseEntityBean及其子类！ </b><br>
- * 实现功能： <li>实体bean转换为string <li>实体bean比较 <li>得到实体bean哈希值 <li>深克隆实体bean
+ * 瀹炰綋bean宸ュ叿绫�<br>
+ * <b> 娉ㄦ剰锛氭宸ュ叿绫诲彧鑳藉簲鐢ㄤ笌BaseEntityBean鍙婂叾瀛愮被锛� </b><br>
+ * 瀹炵幇鍔熻兘锛� <li>瀹炰綋bean杞崲涓簊tring <li>瀹炰綋bean姣旇緝 <li>寰楀埌瀹炰綋bean鍝堝笇鍊� <li>娣卞厠闅嗗疄浣揵ean
  *
- * @author 宋黎晓
+ * @author 瀹嬮粠鏅�
  *
  */
 @SuppressWarnings("unchecked")
 public class EOUtility {
 
-    // /** 当前bean中所有的字段(包括此类以及父类中的公有和非公有字段) <get方法名,字段> **/
+    // /** 褰撳墠bean涓墍鏈夌殑瀛楁(鍖呮嫭姝ょ被浠ュ強鐖剁被涓殑鍏湁鍜岄潪鍏湁瀛楁) <get鏂规硶鍚�,瀛楁> **/
     // private HashMap<String,Field> hm_Field;
 
-    /** 当前bean类以及父类中公有的get方法 <字段名,get方法> **/
+    /** 褰撳墠bean绫讳互鍙婄埗绫讳腑鍏湁鐨刧et鏂规硶 <瀛楁鍚�,get鏂规硶> **/
     private HashMap<String, Method> hm_Geters;
 
-    /** 当前bean类以及父类中公有的set方法 <字段名,get方法> **/
+    /** 褰撳墠bean绫讳互鍙婄埗绫讳腑鍏湁鐨剆et鏂规硶 <瀛楁鍚�,get鏂规硶> **/
     private HashMap<String, Method> hm_Seters;
 
-    /** 当前bean类以及父类中延迟加载字段的get方法 <字段名,get方法> **/
+    /** 褰撳墠bean绫讳互鍙婄埗绫讳腑寤惰繜鍔犺浇瀛楁鐨刧et鏂规硶 <瀛楁鍚�,get鏂规硶> **/
     private HashMap<String, Method> hm_LazyGeters;
-    /** 当前bean类以及父类中延迟加载字段的get方法 <字段名,set方法> **/
+    /** 褰撳墠bean绫讳互鍙婄埗绫讳腑寤惰繜鍔犺浇瀛楁鐨刧et鏂规硶 <瀛楁鍚�,set鏂规硶> **/
     private HashMap<String, Method> hm_LazySeters;
 
-    /** 应用本工具类的实体对象 **/
+    /** 搴旂敤鏈伐鍏风被鐨勫疄浣撳璞� **/
     private BaseEntity bean;
 
-    /** 应用本工具类的实体对象类型 **/
+    /** 搴旂敤鏈伐鍏风被鐨勫疄浣撳璞＄被鍨� **/
     private Class<? extends BaseEntity> clazz;
 
     private String beanDispName;
 
-    /** 存储字段对应中文名 **/
+    /** 瀛樺偍瀛楁瀵瑰簲涓枃鍚� **/
     private HashMap<String, String> hm_DispNames;
 
     public EOUtility(BaseEntity bean) {
@@ -70,7 +70,7 @@ public class EOUtility {
     }
 
     private void init(BaseEntity bean) {
-        // 当前bean与新传入的bean是同一个bean时不必进行初始化
+        // 褰撳墠bean涓庢柊浼犲叆鐨刡ean鏄悓涓�涓猙ean鏃朵笉蹇呰繘琛屽垵濮嬪寲
         if (this.bean == bean)
             return;
 
@@ -83,12 +83,12 @@ public class EOUtility {
     }
 
     private void buildGetterANDSetters(Class beanclass) {
-        // 得到当前类字段名称
+        // 寰楀埌褰撳墠绫诲瓧娈靛悕绉�
         Field[] fields = beanclass.getDeclaredFields();
         String fieldname = null;
-        // 拼接字段对应的方法名
+        // 鎷兼帴瀛楁瀵瑰簲鐨勬柟娉曞悕
         for (Field field : fields) {
-            // 一对多字段不要参加toString，hashcode和equals方法，不需要加载，一旦加载反而会引起数据级联更新时出错！！
+            // 涓�瀵瑰瀛楁涓嶈鍙傚姞toString锛宧ashcode鍜宔quals鏂规硶锛屼笉闇�瑕佸姞杞斤紝涓�鏃﹀姞杞藉弽鑰屼細寮曡捣鏁版嵁绾ц仈鏇存柊鏃跺嚭閿欙紒锛�
             if (isLazyField(field.getAnnotations())) {
                 continue;
             }
@@ -102,11 +102,11 @@ public class EOUtility {
                     if(t==null){
                         if (reader != null
                                 && !(isLazyField(reader.getAnnotations()))){
-                            hm_Geters.put(fieldname, reader);// 非延迟
+                            hm_Geters.put(fieldname, reader);// 闈炲欢杩�
                             if (writer != null)
                                 hm_Seters.put(fieldname, writer);
                         }else{
-                            hm_LazyGeters.put(fieldname, reader); //延迟
+                            hm_LazyGeters.put(fieldname, reader); //寤惰繜
                             if (writer != null)
                                 hm_LazySeters.put(fieldname, writer);
                         }
@@ -114,7 +114,7 @@ public class EOUtility {
                 }
             }
         }
-        // 当前类不是 BaseEntityBean时，递归调用
+        // 褰撳墠绫讳笉鏄� BaseEntityBean鏃讹紝閫掑綊璋冪敤
         if (!beanclass.equals(BaseEntity.class)) {
             buildGetterANDSetters((Class<? extends BaseEntity>) beanclass
                     .getSuperclass());
@@ -122,9 +122,9 @@ public class EOUtility {
     }
 
     /**
-     * 得到EO要显示的中文名
+     * 寰楀埌EO瑕佹樉绀虹殑涓枃鍚�
      * @author slx
-     * @date 2010-7-2 下午05:22:44
+     * @date 2010-7-2 涓嬪崍05:22:44
      * @modifyNote
      * @return
      */
@@ -141,9 +141,9 @@ public class EOUtility {
     }
 
     /**
-     * 得到字段显示的名称
+     * 寰楀埌瀛楁鏄剧ず鐨勫悕绉�
      * @author slx
-     * @date 2010-7-2 下午05:23:03
+     * @date 2010-7-2 涓嬪崍05:23:03
      * @modifyNote
      * @param fieldName
      * @return
@@ -181,10 +181,10 @@ public class EOUtility {
     }
 
     /*
-     * 根据注解判断是否是延迟加载的字段
+     * 鏍规嵁娉ㄨВ鍒ゆ柇鏄惁鏄欢杩熷姞杞界殑瀛楁
      */
     public static boolean isLazyField(Annotation[] annotations) {
-        // 满足循环内任何一个条件则为延迟加载字段
+        // 婊¤冻寰幆鍐呬换浣曚竴涓潯浠跺垯涓哄欢杩熷姞杞藉瓧娈�
         for (Annotation annotation : annotations) {
             if (annotation instanceof OneToOne) {
                 if (FetchType.LAZY.equals(((OneToOne) annotation).fetch())) {
@@ -196,25 +196,25 @@ public class EOUtility {
                     return true;
                 }
             }
-            // OneToMany 默认为延迟加载,如果没有标注立即加载则都是延迟加载
+            // OneToMany 榛樿涓哄欢杩熷姞杞�,濡傛灉娌℃湁鏍囨敞绔嬪嵆鍔犺浇鍒欓兘鏄欢杩熷姞杞�
             if (annotation instanceof OneToMany) {
                 if (!FetchType.EAGER.equals(((OneToMany) annotation).fetch())) {
                     return true;
                 }
             }
-            // ManyToMany 同上
+            // ManyToMany 鍚屼笂
             if (annotation instanceof ManyToMany) {
                 if (!FetchType.EAGER.equals(((ManyToMany) annotation).fetch())) {
                     return true;
                 }
             }
 
-            // Lob字段内容庞大,不管是不是延迟加载,全部不进行处理
+            // Lob瀛楁鍐呭搴炲ぇ,涓嶇鏄笉鏄欢杩熷姞杞�,鍏ㄩ儴涓嶈繘琛屽鐞�
             if (annotation instanceof Lob) {
                 return true;
             }
 
-            // 非持久字段不处理
+            // 闈炴寔涔呭瓧娈典笉澶勭悊
             if (annotation instanceof Transient) {
                 return true;
             }
@@ -226,10 +226,10 @@ public class EOUtility {
     PropertyDescriptor[] propertyDescriptors = null;
 
     /**
-     * 初始化get和set方法
+     * 鍒濆鍖杇et鍜宻et鏂规硶
      *
      * @author slx
-     * @date 2009-7-17 上午08:51:50
+     * @date 2009-7-17 涓婂崍08:51:50
      * @modifyNote
      */
     private void initGetterAndSetters() {
@@ -257,15 +257,15 @@ public class EOUtility {
     }
 
     /**
-     * 设置指定属性的值
+     * 璁剧疆鎸囧畾灞炴�х殑鍊�
      *
      * @author slx
-     * @date 2009-7-17 上午08:51:28
+     * @date 2009-7-17 涓婂崍08:51:28
      * @modifyNote
      * @param attName
-     *            属性名
+     *            灞炴�у悕
      * @param value
-     *            值
+     *            鍊�
      */
     public void setAttributeValue(String attName, Object value) {
         try {
@@ -277,14 +277,14 @@ public class EOUtility {
     }
 
     /**
-     * 得到指定属性的值
+     * 寰楀埌鎸囧畾灞炴�х殑鍊�
      *
      * @author slx
-     * @date 2009-7-17 上午08:51:12
+     * @date 2009-7-17 涓婂崍08:51:12
      * @modifyNote
      * @param attName
-     *            属性名
-     * @return 值
+     *            灞炴�у悕
+     * @return 鍊�
      */
     public Object getAttributeValue(String attName) {
         Object o = null;
@@ -299,12 +299,12 @@ public class EOUtility {
     }
 
     /**
-     * 得到表名称
+     * 寰楀埌琛ㄥ悕绉�
      *
      * @author slx
-     * @date 2009-7-17 上午08:50:56
+     * @date 2009-7-17 涓婂崍08:50:56
      * @modifyNote
-     * @return 表名
+     * @return 琛ㄥ悕
      */
     public String getTableName() {
         javax.persistence.Table table = clazz
@@ -334,12 +334,12 @@ public class EOUtility {
     private String[] fieldNames;
 
     /**
-     * 得到实体中所有持久化字段名
+     * 寰楀埌瀹炰綋涓墍鏈夋寔涔呭寲瀛楁鍚�
      *
      * @author slx
-     * @date 2009-7-17 上午08:53:21
+     * @date 2009-7-17 涓婂崍08:53:21
      * @modifyNote
-     * @return 字段名称数组
+     * @return 瀛楁鍚嶇О鏁扮粍
      */
     public String[] getAttributeNames() {
         if (fieldNames == null) {
@@ -351,17 +351,17 @@ public class EOUtility {
     }
 
     /**
-     * 将一个对象String化 <br>
-     * 格式如下： <br>
-     * TABLE_NAME::表名 <br>
-     * 字段名::字段值 字段名::字段值
+     * 灏嗕竴涓璞tring鍖� <br>
+     * 鏍煎紡濡備笅锛� <br>
+     * TABLE_NAME::琛ㄥ悕 <br>
+     * 瀛楁鍚�::瀛楁鍊� 瀛楁鍚�::瀛楁鍊�
      *
      * @param bean
      * @return
      */
     public String beanToString() {
         StringBuffer sb_tostring = new StringBuffer();
-        sb_tostring.append("对象:[").append(getEODisplayName())
+        sb_tostring.append("瀵硅薄:[").append(getEODisplayName())
                 .append("] ");
 
         String[] fieldnames = getAttributeNames();
@@ -386,26 +386,26 @@ public class EOUtility {
     }
 
     /**
-     * 判断当前bean是否与参数对象相同
+     * 鍒ゆ柇褰撳墠bean鏄惁涓庡弬鏁板璞＄浉鍚�
      *
      * @param obj
      * @return
      */
     public boolean equalsBean(Object obj) {
-        if (obj == null)// 对象为空不比较
+        if (obj == null)// 瀵硅薄涓虹┖涓嶆瘮杈�
             return false;
 
-        // 不是BaseEntity，不必比较
+        // 涓嶆槸BaseEntity锛屼笉蹇呮瘮杈�
         if (!(obj instanceof BaseEntity)) {
             return false;
         }
 
-        // 类型不同不必进行比较
+        // 绫诲瀷涓嶅悓涓嶅繀杩涜姣旇緝
         if (!clazz.equals(obj.getClass())) {
             return false;
         }
 
-        // 依次比较字段值，遇到不同的则返回false
+        // 渚濇姣旇緝瀛楁鍊硷紝閬囧埌涓嶅悓鐨勫垯杩斿洖false
         String[] fieldnames = getAttributeNames();
         for (String fieldname : fieldnames) {
             boolean same = equalsField(fieldname, bean, obj);
@@ -418,17 +418,17 @@ public class EOUtility {
     }
 
     /**
-     * 比较当前对象与另一个对象的差别，并返回值不同的字段的名称。
+     * 姣旇緝褰撳墠瀵硅薄涓庡彟涓�涓璞＄殑宸埆锛屽苟杩斿洖鍊间笉鍚岀殑瀛楁鐨勫悕绉般��
      *
      * @author slx
-     * @date 2009-7-17 上午09:34:39
+     * @date 2009-7-17 涓婂崍09:34:39
      * @modifyNote
      * @param antherBean
-     *            将要比较的对象
-     * @return 值不同的字段名
+     *            灏嗚姣旇緝鐨勫璞�
+     * @return 鍊间笉鍚岀殑瀛楁鍚�
      */
     public List<String> getDifferentField(BaseEntity anotherBean) {
-        // 类型不同不必进行比较
+        // 绫诲瀷涓嶅悓涓嶅繀杩涜姣旇緝
         if (!clazz.equals(anotherBean.getClass())) {
             throw new ClassCastException(anotherBean.getClass().getName()
                     + "Cann't Cast to " + clazz.getName());
@@ -445,18 +445,18 @@ public class EOUtility {
     }
 
     /**
-     * 比较两个对象，指定的字段值是否相同
+     * 姣旇緝涓や釜瀵硅薄锛屾寚瀹氱殑瀛楁鍊兼槸鍚︾浉鍚�
      *
      * @author slx
-     * @date 2009-7-17 上午09:51:58
+     * @date 2009-7-17 涓婂崍09:51:58
      * @modifyNote
      * @param fieldName
-     *            需要比较的字段
+     *            闇�瑕佹瘮杈冪殑瀛楁
      * @param obj1
-     *            对象1
+     *            瀵硅薄1
      * @param obj2
-     *            对象2
-     * @return 值相同则为true
+     *            瀵硅薄2
+     * @return 鍊肩浉鍚屽垯涓簍rue
      */
     private boolean equalsField(String fieldName, Object obj1, Object obj2) {
         try {
@@ -470,10 +470,10 @@ public class EOUtility {
             if (current_value == null && obj_value == null) {
                 return true;
             }else if(current_value != null && obj_value != null){
-                if(current_value instanceof BaseEntity && obj_value instanceof BaseEntity){// 避免递归比较,内部字段如果是BaseEntity子类则只比较pk
+                if(current_value instanceof BaseEntity && obj_value instanceof BaseEntity){// 閬垮厤閫掑綊姣旇緝,鍐呴儴瀛楁濡傛灉鏄疊aseEntity瀛愮被鍒欏彧姣旇緝pk
                     return ((BaseEntity)current_value).equalsPK(obj_value);
                 }
-                if(current_value instanceof Date && obj_value instanceof Date){ // 日期类型比较特殊处理
+                if(current_value instanceof Date && obj_value instanceof Date){ // 鏃ユ湡绫诲瀷姣旇緝鐗规畩澶勭悊
                     return DateUtil.equalsDate((Date)current_value, (Date)obj_value);
                 }
 
@@ -491,23 +491,23 @@ public class EOUtility {
     }
 
     /**
-     * 返回该对象的哈希码值
+     * 杩斿洖璇ュ璞＄殑鍝堝笇鐮佸��
      */
     public int hashCodeBean() {
 
-        // 生成简单的位运算hash散列码
+        // 鐢熸垚绠�鍗曠殑浣嶈繍绠梙ash鏁ｅ垪鐮�
         String key = bean.toString();
         int prime = key.hashCode();
         int hash = prime;
         for (int i = 0; i < key.length(); i++) {
             hash ^= (hash << 23 >> 17) ^ key.charAt(i) * 13131;
         }
-        // 返回结果
+        // 杩斿洖缁撴灉
         return (hash % prime) * 33;
     }
 
     /**
-     * 利用流深度克隆实体类
+     * 鍒╃敤娴佹繁搴﹀厠闅嗗疄浣撶被
      *
      * @return
      * @throws IOException
@@ -518,14 +518,14 @@ public class EOUtility {
     }
 
     /**
-     * 取得一个枚举值上的描述注解.
+     * 鍙栧緱涓�涓灇涓惧�间笂鐨勬弿杩版敞瑙�.
      *
      * @author slx
-     * @date 2009-9-3 上午09:13:53
-     * @modifyNote yongtree 2010-1-17修改
+     * @date 2009-9-3 涓婂崍09:13:53
+     * @modifyNote yongtree 2010-1-17淇敼
      * @param emumValue
-     *            枚举值
-     * @return 如果传入的不是枚举值，则返回空串,或者枚举没有标注注解,则返回枚举toString.
+     *            鏋氫妇鍊�
+     * @return 濡傛灉浼犲叆鐨勪笉鏄灇涓惧�硷紝鍒欒繑鍥炵┖涓�,鎴栬�呮灇涓炬病鏈夋爣娉ㄦ敞瑙�,鍒欒繑鍥炴灇涓総oString.
      */
     public static String getEnumDescription(Object emumValue) {
         String desValue = "";
@@ -557,10 +557,10 @@ public class EOUtility {
     }
 
     /**
-     * 加载所有延迟加载的字段.
+     * 鍔犺浇鎵�鏈夊欢杩熷姞杞界殑瀛楁.
      *
      * @author slx
-     * @date 2010年4月1日17:09:44
+     * @date 2010骞�4鏈�1鏃�17:09:44
      */
     void loadLazyField(){
         Iterator<Method> i_mds = hm_LazyGeters.values().iterator();
