@@ -75,6 +75,6 @@ public class Country {
 
     private String getFileName(){
         UpLoadBean upLoad= new UpLoadBean();
-       return upLoad.getFile().getFilename().toString();
+       return upLoad.getFile().toString();
     }
 }

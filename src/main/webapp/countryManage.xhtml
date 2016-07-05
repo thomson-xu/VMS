@@ -3,13 +3,13 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:tr="http://myfaces.apache.org/trinidad">
+      xmlns:t="http://myfaces.apache.org/tomahawk">
 <h:head></h:head>
 <h:body>
     <f:view>
         <div id="content" class="center_content">
             <ui:insert name="content">
-                <h:form>
+                <h:form enctype="multipart/form-data">
                     <h:panelGrid columns="3">
                         　　<h:outputText value="国家名称:" id="lblName"/>
                         　　<h:inputText value="#{country.countryName}" id="txtName"/>
@@ -19,11 +19,10 @@
                             <f:selectItems value="#{country.selectItemList}"/>
                         </h:selectOneMenu>
                         　　<h:outputText value="上传国旗图标：" id="lblNationalFlag"/>
-                        <tr:form usesUpload="true">
-                            <tr:inputFile label="上传:" value="#{upLoadBean.file}"/>
-                            <tr:commandButton text="开始" action="#{upLoadBean.uploadedfile}"/>
-                        </tr:form>
-                        <h:inputText value="#{country.nationalFlag}" id="txtNationalFlag"/>
+
+                        <t:inputFileUpload value="#{upLoadBean.file}"/>
+                        <h:commandButton value="submit" action="#{upLoadBean.submit}"/>
+                        <h:messages/>
 
                     </h:panelGrid>
                     <h:commandButton actionListener="#{country.addCountry}" id="addcountry"
