@@ -25,7 +25,10 @@ public class UpLoadBean {
         this.file = file;
     }
 
-    public void submit() throws IOException {
+    public UpLoadBean(UploadedFile file){
+        this.file=file;
+    }
+    public Boolean submit() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
         ServletContext sc = (ServletContext)context.getExternalContext().getContext();
         String path=sc.getRealPath("\\resources\\images") ;
@@ -41,9 +44,9 @@ public class UpLoadBean {
 
         writer.flush();
         reader.close();
-        writer.close();*/
+        writer.close();
         context.addMessage(null,
-                new FacesMessage(String.format("File '%s' of type '%s' successfully uploaded!", fileName, contentType)));
+                new FacesMessage(String.format("File '%s' of type '%s' successfully uploaded!", fileName, contentType)));*/
 
         try {
             InputStream stream = file.getInputStream();// 把文件读入
@@ -56,12 +59,11 @@ public class UpLoadBean {
             }
             bos.close();
             stream.close();
+            return Boolean.TRUE;
         } catch (Exception e) {
             System.err.print(e);
+            return Boolean.FALSE;
         }
-
-
-
     }
 
     public String processMyFile() {
@@ -78,7 +80,7 @@ public class UpLoadBean {
 
             try {
 
-                byte[] buffer = new byte[64 * 1024];
+                byte[] buffer = new byte[1024 * 1024];
 
                 int count;
 

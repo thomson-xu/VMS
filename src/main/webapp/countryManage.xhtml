@@ -10,28 +10,29 @@
         <div id="content" class="center_content">
             <ui:insert name="content">
                 <h:form enctype="multipart/form-data">
-                    <h:panelGrid columns="3">
-                        　　<h:outputText value="国家名称:" id="lblName"/>
-                        　　<h:inputText value="#{country.countryName}" id="txtName"/>
+                    <h:panelGrid columns="4">
+                        　　<h:outputText value="国家名称:" id="lblName"/><span style="color: red;">*</span>
+                        　　<h:inputText value="#{country.countryName}" id="txtName" style="width: 160px"/>
                         　　<h:message for="txtName" style="color: red"/>
-                        <h:outputLabel value="所属洲:" id="continents"/>
-                        <h:selectOneMenu value="#{country.interContinental}" id="selContinents">
+
+                        <h:outputLabel value="所属洲:" id="continents"/><span style="color: red;">*</span>
+                        <h:selectOneMenu binding="#{country.selectone}" valueChangeListener="#{country.selectChange}" id="selContinents" style="width: 165px">
                             <f:selectItems value="#{country.selectItemList}"/>
                         </h:selectOneMenu>
-                        　　<h:outputText value="上传国旗图标：" id="lblNationalFlag"/>
+                        <h:message for="selContinents" style="color: red"/>
 
-                        <t:inputFileUpload value="#{upLoadBean.file}"/>
-                        <h:commandButton value="submit" action="#{upLoadBean.submit}"/>
-                        <h:messages/>
-
+                        <h:outputText value="国旗图标(.png/jpg)：" id="lblNationalFlag"/><span style="color: red;">*</span>
+                        <t:inputFileUpload value="#{country.file}" id="uploadfile"/>
+                        <h:message for="uploadfile" style="color: red"/>
                     </h:panelGrid>
                     <h:commandButton actionListener="#{country.addCountry}" id="addcountry"
                                      value="添 加" style="center">
-                        <!--<f:ajax execute="soNumber num" render="status"/>-->
+                        <!--<f:ajax execute="soNumber num" render="result"/>-->
                     </h:commandButton>
-                    <!--<p style="color: red; font-size: 18pt">
-                        <h:outputText value="#{omsSoBean.status}"
-                                      id="status"/> </p>-->
+
+                    <p style="color: red; font-size: 18pt">
+                        <h:outputText value="#{country.result}"
+                                      id="status"/></p>
                 </h:form>
             </ui:insert> 　
         </div>
