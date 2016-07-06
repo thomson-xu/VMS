@@ -4,6 +4,7 @@ import com.visa.bean.ContinentsEnum;
 import com.visa.entity.CountryEntity;
 import com.visa.service.CountryService;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.custom.fileupload.UploadedFile;
 import org.springframework.context.annotation.Scope;
 
@@ -39,14 +40,10 @@ public class Country {
     private String result;
 
     public String getCountryName() {
-
         return countryName;
     }
 
     public void setCountryName(String countryName) {
-        if (countryName == null) {
-            throw new RuntimeException("请输入数据");
-        }
         this.countryName = countryName;
     }
 
@@ -59,11 +56,7 @@ public class Country {
     }
 
     public String getNationalFlag() {
-        if (file != null) {
             return FilenameUtils.getName(file.getName());
-        } else {
-            throw new RuntimeException("请选择相应国旗图片");
-        }
     }
 
 
@@ -102,9 +95,12 @@ public class Country {
     }
 
     public void addCountry(ActionEvent evt) {
+        if(!validationField()){
+            return;
+        }
         CountryEntity countryEntity = new CountryEntity();
-
-        countryEntity.setName(countryName);
+        countryEntity.setId(countryService.getKeyValue());
+        countryEntity.setName(getCountryName());
         countryEntity.setNationalFlag(getNationalFlag());
         countryEntity.setInterContinental(getInterContinental());
         try {
@@ -119,7 +115,26 @@ public class Country {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL, null, result);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-
+     private boolean validationField(){
+         boolean validateResult=false;
+         boolean countryNameValidatedResult=true;
+         boolean fileValidatedResult=true;
+         if (this.countryName!=null && StringUtils.trim(countryName).equals("")) {
+             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                     "国家名称不能为空", "请输入国家名称");
+             // Add the message into context for a specific component
+             FacesContext.getCurrentInstance().addMessage("countryName", message);
+             countryNameValidatedResult=false;
+         }
+         if(file==null) {
+             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                     "未选中图片", "请选择相应国旗图片");
+             // Add the message into context for a specific component
+             FacesContext.getCurrentInstance().addMessage("uploadfile", message);
+             fileValidatedResult=false;
+    }
+          return validateResult=(countryNameValidatedResult&&fileValidatedResult);
+     }
     public List<SelectItem> getSelectItemList() {
         List<SelectItem> selectItemList = new ArrayList<SelectItem>();
         for (int index = 1; index < 8; index++) {
@@ -129,7 +144,7 @@ public class Country {
         return selectItemList;
     }
 
-    private int selectIndex = 0;
+    private int selectIndex = 1;
 
     public void selectChange(ValueChangeEvent event) {
         selectIndex = Integer.parseInt((String) selectone.getValue());

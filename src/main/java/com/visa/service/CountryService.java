@@ -2,9 +2,8 @@ package com.visa.service;
 
 import com.visa.dao.CountryDao;
 import com.visa.entity.CountryEntity;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 
 /**
@@ -36,5 +35,8 @@ public class CountryService {
 
     public void findAllCountry(CountryEntity countryEntity){
         //countryDao.find(countryEntity,null);
+    }
+    public Long getKeyValue(){
+       return countryDao.generateKeyValue(CountryEntity.class) ;
     }
 }

@@ -422,4 +422,11 @@ public abstract class BaseJpaDao implements DAO {
         }
     }
 
+    public <T extends BaseEntity> Long generateKeyValue(Class<T> entityClass){
+
+        String entityname = sqlBuilder.getEntityName(entityClass);
+        Query query = getEntityManager().createQuery(
+                "SELECT max(o.id) FROM " + entityname + " o ");
+        return (Long) query.getResultList().get(0)+1;
+    }
 }
