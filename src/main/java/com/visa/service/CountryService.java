@@ -33,8 +33,8 @@ public class CountryService {
         //countryDao.find(countryEntity,(Object)id);
     }
 
-    public void findAllCountry(CountryEntity countryEntity){
-        //countryDao.find(countryEntity,null);
+    public void findAllCountry(){
+        countryDao.find(CountryEntity.class,null);
     }
     public Long getKeyValue(){
        return countryDao.generateKeyValue(CountryEntity.class) ;

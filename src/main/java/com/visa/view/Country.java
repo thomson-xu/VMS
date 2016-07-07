@@ -115,6 +115,29 @@ public class Country {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL, null, result);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+
+
+
+    private List<CountryEntity> listCountry;
+
+    public void setListCountry(List<CountryEntity> listCountry) {
+        this.listCountry = listCountry;
+    }
+    public List<CountryEntity> getListCountry(){
+        if(listCountry==null){
+            listCountry= new ArrayList<CountryEntity>();
+            CountryEntity entity= new CountryEntity();
+            entity.setName("USA");
+            entity.setNationalFlag("log.png");
+            entity.setInterContinental(1);
+            listCountry.add(entity);
+            //countryService.findAllCountry();
+        }
+        return listCountry;
+
+    }
+
+
      private boolean validationField(){
          boolean validateResult=false;
          boolean countryNameValidatedResult=true;
@@ -173,4 +196,6 @@ public class Country {
             return Boolean.FALSE;
         }
     }
+
+
 }

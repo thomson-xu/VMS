@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:t="http://myfaces.apache.org/tomahawk">
 <h:head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </h:head>
 <h:body>
     <f:view>
@@ -13,16 +13,17 @@
             <ui:insert name="content">
                 <h:form id="country" enctype="multipart/form-data">
                     <h:panelGrid columns="4">　　
-                            <h:outputText value="国家名称:" id="lblName"/><span style="color: red;">*</span>
-                            <h:inputText value="#{country.countryName}" id="countryName"  style="width: 160px">
-                                       <!--  maxlength="15"
-                                             size="20">
-                                    <f:validateLength maximum="15" minimum="6"/>-->
-                                <f:validator validatorId="com.visa.view.Country"/>
-                            </h:inputText>
-                            <h:messages for="countryName" style="color: red"/>
+                        <h:outputText value="国家名称:" id="lblName"/><span style="color: red;">*</span>
+                        <h:inputText value="#{country.countryName}" id="countryName" style="width: 160px">
+                            <!--  maxlength="15"
+                                  size="20">
+                         <f:validateLength maximum="15" minimum="6"/>-->
+                            <f:validator validatorId="com.visa.view.Country"/>
+                        </h:inputText>
+                        <h:messages for="countryName" style="color: red"/>
                         <h:outputLabel value="所属洲:" id="continents"/><span style="color: red;">*</span>
-                        <h:selectOneMenu binding="#{country.selectone}" valueChangeListener="#{country.selectChange}" id="selContinents" style="width: 165px">
+                        <h:selectOneMenu binding="#{country.selectone}" valueChangeListener="#{country.selectChange}"
+                                         id="selContinents" style="width: 165px">
                             <f:selectItems value="#{country.selectItemList}"/>
                         </h:selectOneMenu>
                         <h:messages for="selContinents" style="color: red"/>
@@ -41,6 +42,45 @@
                     <p style="color: red; font-size: 18pt">
                         <h:outputText value="#{country.result}"
                                       id="status"/></p>
+
+                    <div>
+                        <h1>国家列表：</h1>
+                        <h:dataTable width="600px" border="0" value="#{country.listCountry}" var="countrys">
+                            <!-- 定义第一列 -->
+                            <h:column>
+                                <f:facet name="header">
+                                    国旗图标
+                                </f:facet>
+
+                                <h:graphicImage value="/resources/images/#{countrys.nationalFlag}"></h:graphicImage>
+                                <!--<h:inputText value="#{countrys.nationalFlag }" size="130" />-->
+                            </h:column>
+                            <!-- 定义第二列 -->
+                            <h:column>
+                                <f:facet name="header">
+                                    国家名称
+                                </f:facet>
+                                <h:outputLink value="#{book.url }">
+                                    <h:inputText value="#{countrys.name}"/>
+                                </h:outputLink>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    所属洲
+                                </f:facet>
+                                <h:outputLink value="#{book.url }">
+                                    <h:inputText value="#{countrys.interContinental}"/>
+                                </h:outputLink>
+                            </h:column>
+                            <!-- 生成表格底部 -->
+                            <f:facet name="footer">
+                                <!--<h:panelGroup>
+                                    <h:outputText value="计算机书籍" />
+                                </h:panelGroup>-->
+                            </f:facet>
+                        </h:dataTable>
+                    </div>
                 </h:form>
             </ui:insert> 　
         </div>
