@@ -95,9 +95,6 @@ public class Country {
     }
 
     public void addCountry(ActionEvent evt) {
-     /*   if(!validationField()){
-            return;
-        }*/
         CountryEntity countryEntity = new CountryEntity();
         countryEntity.setId(countryService.getKeyValue());
         countryEntity.setName(getCountryName());
@@ -130,6 +127,21 @@ public class Country {
             entity.setName("USA");
             entity.setNationalFlag("log.png");
             entity.setInterContinental(1);
+            listCountry.add(entity);
+            entity= new CountryEntity();
+            entity.setName("JP");
+            entity.setNationalFlag("log.png");
+            entity.setInterContinental(2);
+            listCountry.add(entity);
+            entity= new CountryEntity();
+            entity.setName("SG");
+            entity.setNationalFlag("log.png");
+            entity.setInterContinental(3);
+            listCountry.add(entity);
+            entity= new CountryEntity();
+            entity.setName("AST");
+            entity.setNationalFlag("log.png");
+            entity.setInterContinental(4);
             listCountry.add(entity);
             //countryService.findAllCountry();
         }

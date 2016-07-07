@@ -16,22 +16,22 @@ public class Country implements Validator {
         if(field!=null&& field.equals("")) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR,
-                    "can not be null haha!",
+                    "å›½å®¶åç§°ä¸èƒ½ä¸ºç©ºï¼Œè¯·è¾“å…¥æ•°æ®ï¼",
                     "isnull!");
             throw new ValidatorException(message);
         }
      /*   if(field.length() < 1) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR,
-                    "×Ö·û³¤¶ÈĞ¡ÓÚ1",
-                    "×Ö·û³¤¶È²»µÃĞ¡ÓÚ1");
+                    "ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½1",
+                    "ï¿½Ö·ï¿½ï¿½ï¿½ï¿½È²ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½1");
             throw new ValidatorException(message);
         }
         if(!field.matches(".+[0-9]+")) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR,
-                    "ÃÜÂë±ØĞë°üÀ¨×Ö·ûÓëÊı×Ö",
-                    "ÃÜÂë±ØĞëÊÇ×Ö·û¼ÓÊı×ÖËù×é³É");
+                    "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",
+                    "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
             throw new ValidatorException(message);
         }*/
     }
