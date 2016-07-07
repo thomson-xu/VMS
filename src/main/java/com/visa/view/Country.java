@@ -95,9 +95,9 @@ public class Country {
     }
 
     public void addCountry(ActionEvent evt) {
-        if(!validationField()){
+     /*   if(!validationField()){
             return;
-        }
+        }*/
         CountryEntity countryEntity = new CountryEntity();
         countryEntity.setId(countryService.getKeyValue());
         countryEntity.setName(getCountryName());
@@ -121,14 +121,14 @@ public class Country {
          boolean fileValidatedResult=true;
          if (this.countryName!=null && StringUtils.trim(countryName).equals("")) {
              FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                     "国家名称不能为空", "请输入国家名称");
+                     "国家名称不能为空，请输入国家名称","errormessage");
              // Add the message into context for a specific component
              FacesContext.getCurrentInstance().addMessage("countryName", message);
              countryNameValidatedResult=false;
          }
          if(file==null) {
              FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                     "未选中图片", "请选择相应国旗图片");
+                     "未选图片，请选择相应国旗图片", "errormessage");
              // Add the message into context for a specific component
              FacesContext.getCurrentInstance().addMessage("uploadfile", message);
              fileValidatedResult=false;
@@ -156,20 +156,6 @@ public class Country {
         String path = sc.getRealPath("\\resources\\images");
         String fileName = FilenameUtils.getName(file.getName());
         String contentType = file.getContentType();
-        // Now you can save bytes in DB (and also content type?)
-       /* InputStreamReader reader = new InputStreamReader(file.getInputStream());
-        OutputStreamWriter  writer = new OutputStreamWriter (new FileOutputStream(new File(path+"\\"+fileName)));
-        int ch = 0;
-        while((ch = reader.read())!=-1 ){
-            writer.write(ch);
-        }
-
-        writer.flush();
-        reader.close();
-        writer.close();
-        context.addMessage(null,
-                new FacesMessage(String.format("File '%s' of type '%s' successfully uploaded!", fileName, contentType)));*/
-
         try {
             InputStream stream = file.getInputStream();// 把文件读入
             ByteArrayOutputStream baos = new ByteArrayOutputStream();

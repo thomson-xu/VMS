@@ -15,4 +15,13 @@
             <var>msg</var>
         </resource-bundle>
     </application>
+    <validator>
+        <validator-id>
+            com.visa.view.Country
+        </validator-id>
+        <validator-class>
+            com.visa.validator.Country
+        </validator-class>
+    </validator>
+
 </faces-config>

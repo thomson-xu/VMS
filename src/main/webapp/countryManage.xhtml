@@ -11,22 +11,27 @@
     <f:view>
         <div id="content" class="table-view">
             <ui:insert name="content">
-                <h:form enctype="multipart/form-data">
-                    <h:panelGrid columns="4">
-
-                        　　<h:outputText value="国家名称:" id="lblName"/><span style="color: red;">*</span>
-                        　　<h:inputText value="#{country.countryName}" id="countryName" style="width: 160px"/>
-                        　　<h:message for="countryName" style="color: red"/>
-
+                <h:form id="country" enctype="multipart/form-data">
+                    <h:panelGrid columns="4">　　
+                            <h:outputText value="国家名称:" id="lblName"/><span style="color: red;">*</span>
+                            <h:inputText value="#{country.countryName}" id="countryName"  style="width: 160px">
+                                       <!--  maxlength="15"
+                                             size="20">
+                                    <f:validateLength maximum="15" minimum="6"/>-->
+                                <f:validator validatorId="com.visa.view.Country"/>
+                            </h:inputText>
+                            <h:messages for="countryName" style="color: red"/>
                         <h:outputLabel value="所属洲:" id="continents"/><span style="color: red;">*</span>
                         <h:selectOneMenu binding="#{country.selectone}" valueChangeListener="#{country.selectChange}" id="selContinents" style="width: 165px">
                             <f:selectItems value="#{country.selectItemList}"/>
                         </h:selectOneMenu>
-                        <h:message for="selContinents" style="color: red"/>
+                        <h:messages for="selContinents" style="color: red"/>
 
                         <h:outputText value="国旗图标(.png/jpg)：" id="lblNationalFlag"/><span style="color: red;">*</span>
-                        <t:inputFileUpload value="#{country.file}" id="uploadfile"/>
-                        <h:message for="uploadfile" style="color: red"/>
+                        <t:inputFileUpload value="#{country.file}" id="uploadfile">
+                            <f:validator validatorId="com.visa.view.Country"/>
+                        </t:inputFileUpload>
+                        <h:messages for="uploadfile" style="color: red"/>
                     </h:panelGrid>
                     <h:commandButton actionListener="#{country.addCountry}" id="addcountry"
                                      value="添 加" style="center">
