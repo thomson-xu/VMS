@@ -14,10 +14,8 @@
                 <h:form id="country" enctype="multipart/form-data">
                     <h:panelGrid columns="4">　　
                         <h:outputText value="国家名称:" id="lblName"/><span style="color: red;">*</span>
-                        <h:inputText value="#{country.countryName}" id="countryName" style="width: 160px"
-                                     maxlength="10"
-                                     size="20">
-                            <f:validateLength maximum="15" minimum="2"/>
+                        <h:inputText value="#{country.countryName}" id="countryName" style="width: 160px" label="国家名称">
+                            <!--<f:validateLength maximum="15" minimum="2"/>-->
                             <f:validator validatorId="CountryName"/>
                         </h:inputText>
                         <h:messages for="countryName" style="color: red"/>
@@ -44,7 +42,7 @@
                                       id="status"/></p>
                     </h:form>
             </ui:insert>
-             <ui:include src="/country/countrylist.xhtml"/>
+
 
         </div>
     </f:view>

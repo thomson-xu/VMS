@@ -5,6 +5,7 @@ import com.visa.entity.CountryEntity;
 import com.visa.service.CountryService;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.custom.fileupload.StorageStrategy;
 import org.apache.myfaces.custom.fileupload.UploadedFile;
 import org.springframework.context.annotation.Scope;
 
@@ -56,7 +57,7 @@ public class Country {
     }
 
     public String getNationalFlag() {
-            return FilenameUtils.getName(file.getName());
+        return nationalFlag;
     }
 
 
@@ -114,62 +115,54 @@ public class Country {
     }
 
 
+    private List<Country> listCountry;
 
-    private List<CountryEntity> listCountry;
-
-    public void setListCountry(List<CountryEntity> listCountry) {
+    public void setListCountry(List<Country> listCountry) {
         this.listCountry = listCountry;
     }
-    public List<CountryEntity> getListCountry(){
-        if(listCountry==null){
-            listCountry= new ArrayList<CountryEntity>();
-            CountryEntity entity= new CountryEntity();
-            entity.setName("USA");
-            entity.setNationalFlag("log.png");
-            entity.setInterContinental(1);
-            listCountry.add(entity);
-            entity= new CountryEntity();
-            entity.setName("JP");
-            entity.setNationalFlag("log.png");
-            entity.setInterContinental(2);
-            listCountry.add(entity);
-            entity= new CountryEntity();
-            entity.setName("SG");
-            entity.setNationalFlag("log.png");
-            entity.setInterContinental(3);
-            listCountry.add(entity);
-            entity= new CountryEntity();
-            entity.setName("AST");
-            entity.setNationalFlag("log.png");
-            entity.setInterContinental(4);
-            listCountry.add(entity);
-            //countryService.findAllCountry();
+
+    public List<Country> getListCountry() {
+        if (listCountry == null) {
+            listCountry = new ArrayList<Country>();
+            List<CountryEntity> entityCls=countryService.findAllCountry();
+            for(CountryEntity countryEntity:entityCls){
+                Country country = new Country();
+                country.setCountryName(countryEntity.getName());
+                country.setInterContinental(countryEntity.getInterContinental());
+                country.setNationalFlag(countryEntity.getNationalFlag());
+                listCountry.add(country);
+            }
         }
         return listCountry;
 
     }
 
 
-     private boolean validationField(){
-         boolean validateResult=false;
-         boolean countryNameValidatedResult=true;
-         boolean fileValidatedResult=true;
-         if (this.countryName!=null && StringUtils.trim(countryName).equals("")) {
-             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                     "国家名称不能为空，请输入国家名称","errormessage");
-             // Add the message into context for a specific component
-             FacesContext.getCurrentInstance().addMessage("countryName", message);
-             countryNameValidatedResult=false;
-         }
-         if(file==null) {
-             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                     "未选图片，请选择相应国旗图片", "errormessage");
-             // Add the message into context for a specific component
-             FacesContext.getCurrentInstance().addMessage("uploadfile", message);
-             fileValidatedResult=false;
+    private boolean validationField() {
+        boolean validateResult = false;
+        boolean countryNameValidatedResult = true;
+        boolean fileValidatedResult = true;
+        if (this.countryName != null && StringUtils.trim(countryName).equals("")) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "国家名称不能为空，请输入国家名称", "errormessage");
+            // Add the message into context for a specific component
+            FacesContext.getCurrentInstance().addMessage("countryName", message);
+            countryNameValidatedResult = false;
+        }
+        if (file == null) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "未选图片，请选择相应国旗图片", "errormessage");
+            // Add the message into context for a specific component
+            FacesContext.getCurrentInstance().addMessage("uploadfile", message);
+            fileValidatedResult = false;
+        }
+        return validateResult = (countryNameValidatedResult && fileValidatedResult);
     }
-          return validateResult=(countryNameValidatedResult&&fileValidatedResult);
-     }
+
+    public void delCountry(CountryEntity country){
+        countryService.deleteCountryById(country.getId());
+    }
+
     public List<SelectItem> getSelectItemList() {
         List<SelectItem> selectItemList = new ArrayList<SelectItem>();
         for (int index = 1; index < 8; index++) {
@@ -177,6 +170,30 @@ public class Country {
             selectItemList.add(new SelectItem(index, ContinentsEnum.getName(index)));
         }
         return selectItemList;
+    }
+
+    public String getContinentValue(int index) {
+        return ContinentsEnum.getName(index);
+
+    }
+
+    public void updateCountry(CountryEntity countryEntity ){
+        //CountryEntity country= countryService.findCountryId(countryEntity.getId());
+        countryEntity.setName(getCountryName());
+        countryEntity.setNationalFlag(getNationalFlag());
+        countryEntity.setInterContinental(getInterContinental());
+        try {
+            if (submit()) {
+               countryService.updateCountry(countryEntity);
+            }
+            result = "Create country successfully";
+        } catch (IOException e) {
+            e.printStackTrace();
+            result = "Create country unsuccessfully";
+        }
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL, null, result);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+
     }
 
     private int selectIndex = 1;
@@ -208,6 +225,30 @@ public class Country {
             return Boolean.FALSE;
         }
     }
+    boolean editable;
 
+    public boolean isEditable() {
+        return editable;
+    }
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+
+    public String editAction(Country country) {
+
+        country.setEditable(true);
+        return null;
+    }
+
+    public String saveAction(Country country) {
+
+        //get all existing value but set "editable" to false
+
+            country.setEditable(false);
+
+        //return to current page
+        return null;
+
+    }
 
 }

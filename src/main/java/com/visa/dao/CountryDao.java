@@ -10,8 +10,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CountryDao extends BaseJpaDao {
 
-    public <T extends BaseEntity> void delete(Class<T> entityClass, Object entityid) {
-
-    }
-
 }

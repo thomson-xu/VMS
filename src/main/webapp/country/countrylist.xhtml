@@ -5,7 +5,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:t="http://myfaces.apache.org/tomahawk">
     <h:form>
         <!-- content -->
         <div class="col-sm-12">
@@ -16,67 +16,95 @@
                             <div class="text-muted bootstrap-admin-box-title"><strong>国家信息列表：</strong></div>
                         </div>
                         <div class="bootstrap-admin-panel-content">
+                            <div class="row">
+                                <!-- <t:saveState value="#{country.listCountry}"></t:saveState>-->
+                                <h:dataTable
+                                        class="table table-striped table-hover dataTables_wrapper form-inline bootstrap-admin-table-with-actions"
+                                        value="#{country.listCountry}" var="countrys" width="1000px" id="countrytable"
+                                        rows="5">
+                                    <!-- 定义第一列 -->
+                                    <h:column>
+                                        <f:facet name="header">
+                                            国旗图标
+                                        </f:facet>
+                                        <t:inputFileUpload value="#{country.file}" id="uploadfile"  rendered="#{country.editable}" required="true">
+                                            <f:validator validatorId="Uploadfile"/>
+                                        </t:inputFileUpload>
+                                        <h:graphicImage
+                                                value="/resources/images/#{countrys.nationalFlag}"
+                                                rendered="#{ not country.editable}"></h:graphicImage>
+                                        <!--<h:inputText value="#{countrys.nationalFlag }" size="130" />-->
+                                    </h:column>
+                                    <!-- 定义第二列 -->
+                                    <h:column>
+                                        <f:facet name="header">
+                                            国家名称
+                                        </f:facet>
+                                        <h:inputText value="#{country.countryName}" rendered="#{country.editable}"/>
+                                        <h:outputText value="#{countrys.countryName}" rendered="#{not country.editable}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            所属洲
+                                        </f:facet>
+                                        <h:selectOneMenu binding="#{country.selectone}" valueChangeListener="#{country.selectChange}"
+                                                         id="selContinents" style="width: 165px" rendered="#{country.editable}">
+                                            <f:selectItems value="#{country.selectItemList}"/>
+                                        </h:selectOneMenu>
+                                        <h:outputText value="#{country.getContinentValue(countrys.interContinental)}" rendered="#{not country.editable}"/>
+                                    </h:column>
+                                    <h:column class="actions">
+                                        <f:facet name="header">
+                                            操 作
+                                        </f:facet>
+                                        <h:commandLink value="Edit"
+                                                       action="#{country.editAction(country)}"
+                                        rendered="#{not country.editable}"
+                                                       styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
+                                        <h:commandLink value="Save"
+                                                       action="#{country.updateCountry(countrys)}"
+                                                       styleClass="btn btn-success glyphicon glyphicon-ok-sign"/>
+                                        <h:commandLink value="Delete"
+                                                       action="#{country.delCountry(countrys)}"
+                                                       styleClass="btn btn-danger glyphicon glyphicon-trash"/>
 
-                            <h:dataTable class="table table-striped table-hover bootstrap-admin-table-with-actions"
-                                         value="#{country.listCountry}" var="countrys" width="1000px">
-                                <!-- 定义第一列 -->
-                                <h:column>
-                                    <f:facet name="header">
-                                        国旗图标
-                                    </f:facet>
+                                    </h:column>
+                                    <!-- 生成表格底部 -->
+                                    <f:facet name="footer">
+                                        <!--   <t:dataScroller id="ds_sataion" for="countrytable" fastStep="2"
+                                                           paginatorMaxPages="6" paginator="true" styleClass="dataTables_paginate paging_bootstrap" >
+                                               <f:facet name="first">
+                                                   <h:outputText value="首页   " />
+                                               </f:facet>
+                                               <f:facet name="last">
+                                                   <h:outputText value="尾页   " />
+                                               </f:facet>
+                                               <f:facet name="previous">
+                                                   <h:outputText value="上一页   " />
+                                               </f:facet>
+                                               <f:facet name="next">
+                                                   <h:outputText value="下一页   " />
+                                               </f:facet>
+                                           </t:dataScroller>-->
 
-                                    <h:graphicImage value="/resources/images/#{countrys.nationalFlag}"></h:graphicImage>
-                                    <!--<h:inputText value="#{countrys.nationalFlag }" size="130" />-->
-                                </h:column>
-                                <!-- 定义第二列 -->
-                                <h:column>
-                                    <f:facet name="header">
-                                        国家名称
                                     </f:facet>
-                                    <h:outputLink value="#{book.url }">
-                                        <h:inputText value="#{countrys.name}"/>
-                                    </h:outputLink>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        所属洲
-                                    </f:facet>
-                                    <h:inputText value="#{countrys.interContinental}"/>
-                                </h:column>
-                                <h:column class="actions">
-                                    <f:facet name="header">
-                                        操 作
-                                    </f:facet>
-                                    <a href="#">
-                                        <button class="btn btn-sm btn-primary">
-                                            <i class="glyphicon glyphicon-pencil"></i>
-                                            Edit
-                                        </button>
-                                    </a>
-                                    <a href="#">
-                                        <button class="btn btn-sm btn-success">
-                                            <i class="glyphicon glyphicon-ok-sign"></i>
-                                            Confirm
-                                        </button>
-                                    </a>
-                                    <a href="#">
-                                        <button class="btn btn-sm btn-danger">
-                                            <i class="glyphicon glyphicon-trash"></i>
-                                            Delete
-                                        </button>
-                                    </a>
-                                </h:column>
-                                <!-- 生成表格底部 -->
-                                <f:facet name="footer">
-                                    <!--<h:panelGroup>
-                                        <h:outputText value="计算机书籍" />
-                                    </h:panelGroup>-->
-                                </f:facet>
-                            </h:dataTable>
+                                </h:dataTable>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+     <!--       <div>
+                <div class="ads-in-post hide_if_width_less_800">
+                    <h:outputScript src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></h:outputScript>
+                    &lt;!&ndash; 728x90 - After2ndH4 &ndash;&gt;
+                    <h:outputScript>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </h:outputScript>
+                </div>
+            </div>
+-->
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">

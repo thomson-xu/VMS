@@ -66,7 +66,7 @@ public abstract class BaseJpaDao implements DAO {
     }*/
 
     @Transactional
-    public <T extends BaseEntity> void delete(CountryEntity entityClass, Object entityid) {
+    public <T extends BaseEntity> void delete(Class<T> entityClass, Object entityid) {
         delete(entityClass, new Object[] { entityid });
     }
 
@@ -427,6 +427,7 @@ public abstract class BaseJpaDao implements DAO {
         String entityname = sqlBuilder.getEntityName(entityClass);
         Query query = getEntityManager().createQuery(
                 "SELECT max(o.id) FROM " + entityname + " o ");
-        return (Long) query.getResultList().get(0)+1;
+        List result= query.getResultList();
+        return (result.get(0)==null? Long.valueOf(100000000):((Long)result.get(0)+1));
     }
 }

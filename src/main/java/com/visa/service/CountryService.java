@@ -5,6 +5,7 @@ import com.visa.entity.CountryEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/7/3.
@@ -26,15 +27,18 @@ public class CountryService {
     public void updateCountry(CountryEntity countryEntity){
         countryDao.update(countryEntity);
     }
-    public void deleteCountryById(CountryEntity countryEntity,Long id){
-        countryDao.delete(countryEntity,(Object)id);
-    }
-    public void findCountryId(CountryEntity countryEntity, Long id){
-        //countryDao.find(countryEntity,(Object)id);
+    public void deleteCountryById(Long id){
+        countryDao.delete(CountryEntity.class,(Object)id);
     }
 
-    public void findAllCountry(){
-        countryDao.find(CountryEntity.class,null);
+
+    public CountryEntity findCountryId( Long id){
+        return (CountryEntity)countryDao.find(CountryEntity.class,(Object)id);
+    }
+
+    public List<CountryEntity> findAllCountry(){
+        String[] filedsName={"id","name","nationalFlag","interContinental"};
+        return countryDao.queryByWhere(CountryEntity.class,filedsName,null,null);
     }
     public Long getKeyValue(){
        return countryDao.generateKeyValue(CountryEntity.class) ;

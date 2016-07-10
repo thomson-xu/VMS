@@ -16,7 +16,13 @@ public class CountryEntity extends BaseEntity {
     private String nationalFlag;
     private int interContinental;
     private List<ConsulateEntity> consulateEntitylist;
-
+    public CountryEntity(){}
+    public CountryEntity(long id, String name, String nationalFlag,int interContinental){
+        this.id = id;
+        this.name = name;
+        this.nationalFlag = nationalFlag;
+        this.interContinental = interContinental;
+    }
     @Id
     @Column(name = "ID")
     public long getId() {
