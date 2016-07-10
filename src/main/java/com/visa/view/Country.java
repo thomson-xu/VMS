@@ -3,6 +3,7 @@ package com.visa.view;
 import com.visa.bean.ContinentsEnum;
 import com.visa.entity.CountryEntity;
 import com.visa.service.CountryService;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.custom.fileupload.StorageStrategy;
@@ -31,7 +32,7 @@ public class Country {
 
     @Resource
     private CountryService countryService;
-
+    private Long id;
     private String countryName;
     private String nationalFlag;
     private int interContinental;
@@ -39,6 +40,14 @@ public class Country {
     private UISelectOne selectone;
     private UploadedFile file;
     private String result;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getCountryName() {
         return countryName;
@@ -57,7 +66,8 @@ public class Country {
     }
 
     public String getNationalFlag() {
-        return nationalFlag;
+
+        return  this.nationalFlag;           //FilenameUtils.getName(file.getName());
     }
 
 
@@ -70,7 +80,9 @@ public class Country {
     }
 
     public void setNationalFlag(String nationalFlag) {
-        this.nationalFlag = nationalFlag;
+
+            this.nationalFlag= nationalFlag; //FilenameUtils.getName(file.getName());
+
     }
 
     public UploadedFile getFile() {
@@ -99,7 +111,7 @@ public class Country {
         CountryEntity countryEntity = new CountryEntity();
         countryEntity.setId(countryService.getKeyValue());
         countryEntity.setName(getCountryName());
-        countryEntity.setNationalFlag(getNationalFlag());
+        countryEntity.setNationalFlag(FilenameUtils.getName(file.getName()));
         countryEntity.setInterContinental(getInterContinental());
         try {
             if (submit()) {
@@ -124,12 +136,13 @@ public class Country {
     public List<Country> getListCountry() {
         if (listCountry == null) {
             listCountry = new ArrayList<Country>();
-            List<CountryEntity> entityCls=countryService.findAllCountry();
-            for(CountryEntity countryEntity:entityCls){
-                Country country = new Country();
-                country.setCountryName(countryEntity.getName());
-                country.setInterContinental(countryEntity.getInterContinental());
-                country.setNationalFlag(countryEntity.getNationalFlag());
+            List<CountryEntity> listCls=countryService.findAllCountry();
+            for(CountryEntity entity: listCls){
+                Country country=new Country();
+                country.setId(entity.getId());
+                country.setCountryName(entity.getName());
+                country.setNationalFlag(entity.getNationalFlag());
+                country.setInterContinental(getInterContinental());
                 listCountry.add(country);
             }
         }
@@ -159,7 +172,7 @@ public class Country {
         return validateResult = (countryNameValidatedResult && fileValidatedResult);
     }
 
-    public void delCountry(CountryEntity country){
+    public void delCountry(Country country){
         countryService.deleteCountryById(country.getId());
     }
 
@@ -177,14 +190,14 @@ public class Country {
 
     }
 
-    public void updateCountry(CountryEntity countryEntity ){
+    public void updateCountry(Country country ){
         //CountryEntity country= countryService.findCountryId(countryEntity.getId());
-        countryEntity.setName(getCountryName());
-        countryEntity.setNationalFlag(getNationalFlag());
-        countryEntity.setInterContinental(getInterContinental());
+        country.setCountryName(getCountryName());
+        country.setNationalFlag(getNationalFlag());
+        country.setInterContinental(getInterContinental());
         try {
             if (submit()) {
-               countryService.updateCountry(countryEntity);
+              // countryService.updateCountry(countryEntity);
             }
             result = "Create country successfully";
         } catch (IOException e) {
@@ -240,11 +253,12 @@ public class Country {
         return null;
     }
 
-    public String saveAction(Country country) {
+    public String saveAction() {
 
         //get all existing value but set "editable" to false
-
+    /*    for (Country country : listCountry){
             country.setEditable(false);
+        }*/
 
         //return to current page
         return null;
