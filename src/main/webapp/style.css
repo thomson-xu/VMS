@@ -1,0 +1,33 @@
+.dt {
+	border-collapse: collapse;
+	background-color: #cccccc;
+	float: left;
+	width: 600px;
+	background-repeat: no-repeat;
+	BORDER-RIGHT: #999 1px solid;
+	BORDER-TOP: #999 1px solid;
+	BORDER-LEFT: #999 1px solid;
+	BORDER-BOTTOM: #999 1px solid;
+}
+
+.dt-head {
+	background-color: #eeeeee;
+	FONT-SIZE: 14px;
+}
+
+.dt-r1 {
+	FONT-SIZE: 12px;
+	background: #fff;
+}
+
+.dt-r2 {
+	FONT-SIZE: 12px;
+	background: #F1F9FF;
+}
+
+.errorMsg {
+	color: red;
+	display: block;
+	margin: 5px;
+	padding: .1em;
+}

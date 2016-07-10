@@ -1,12 +1,10 @@
 package com.visa.view;
 
 import com.visa.bean.ContinentsEnum;
+import com.visa.bean.CountryBean;
 import com.visa.entity.CountryEntity;
 import com.visa.service.CountryService;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.custom.fileupload.StorageStrategy;
 import org.apache.myfaces.custom.fileupload.UploadedFile;
 import org.springframework.context.annotation.Scope;
 
@@ -22,6 +20,7 @@ import javax.servlet.ServletContext;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Test-Lab on 2016/6/29.
@@ -29,47 +28,29 @@ import java.util.List;
 @Named
 @Scope("request")
 public class Country {
-
+    @Resource
+    private CountryBean  countryBean;
     @Resource
     private CountryService countryService;
-    private Long id;
-    private String countryName;
-    private String nationalFlag;
-    private int interContinental;
-
     private UISelectOne selectone;
     private UploadedFile file;
     private String result;
 
-    public Long getId() {
-        return id;
+    public Country(){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map requestParams = fc.getExternalContext().getRequestParameterMap();
+        String id = (String) requestParams.get("Id");
+        if (id != null) {
+            countryBean = countryService.findCountryId(new Long(id));
+        } else {
+            countryBean = new CountryBean();
+        }
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCountryName() {
-        return countryName;
-    }
-
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
-    }
 
     public int getInterContinental() {
         return selectIndex;
     }
-
-    public void setInterContinental(int interContinental) {
-        this.interContinental = interContinental;
-    }
-
-    public String getNationalFlag() {
-
-        return  this.nationalFlag;           //FilenameUtils.getName(file.getName());
-    }
-
 
     public String getResult() {
         return result;
@@ -79,11 +60,6 @@ public class Country {
         this.result = result;
     }
 
-    public void setNationalFlag(String nationalFlag) {
-
-            this.nationalFlag= nationalFlag; //FilenameUtils.getName(file.getName());
-
-    }
 
     public UploadedFile getFile() {
         return file;
@@ -108,14 +84,14 @@ public class Country {
     }
 
     public void addCountry(ActionEvent evt) {
-        CountryEntity countryEntity = new CountryEntity();
-        countryEntity.setId(countryService.getKeyValue());
-        countryEntity.setName(getCountryName());
-        countryEntity.setNationalFlag(FilenameUtils.getName(file.getName()));
-        countryEntity.setInterContinental(getInterContinental());
+        CountryBean countryBean = new CountryBean();
+        countryBean.setId(countryService.getKeyValue());
+        countryBean.setCountryName("");
+        countryBean.setNationalFlag(FilenameUtils.getName(file.getName()));
+        countryBean.setInterContinental(getInterContinental());
         try {
             if (submit()) {
-                countryService.addCountry(countryEntity);
+                countryService.addCountry(countryBean);
             }
             result = "Create country successfully";
         } catch (IOException e) {
@@ -139,10 +115,7 @@ public class Country {
             List<CountryEntity> listCls=countryService.findAllCountry();
             for(CountryEntity entity: listCls){
                 Country country=new Country();
-                country.setId(entity.getId());
-                country.setCountryName(entity.getName());
-                country.setNationalFlag(entity.getNationalFlag());
-                country.setInterContinental(getInterContinental());
+
                 listCountry.add(country);
             }
         }
@@ -155,13 +128,13 @@ public class Country {
         boolean validateResult = false;
         boolean countryNameValidatedResult = true;
         boolean fileValidatedResult = true;
-        if (this.countryName != null && StringUtils.trim(countryName).equals("")) {
+        /*if (this.countryName != null && StringUtils.trim(countryName).equals("")) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "国家名称不能为空，请输入国家名称", "errormessage");
             // Add the message into context for a specific component
             FacesContext.getCurrentInstance().addMessage("countryName", message);
             countryNameValidatedResult = false;
-        }
+        }*/
         if (file == null) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "未选图片，请选择相应国旗图片", "errormessage");
@@ -173,7 +146,7 @@ public class Country {
     }
 
     public void delCountry(Country country){
-        countryService.deleteCountryById(country.getId());
+       /* countryService.deleteCountryById(country.getId());*/
     }
 
     public List<SelectItem> getSelectItemList() {
@@ -192,9 +165,9 @@ public class Country {
 
     public void updateCountry(Country country ){
         //CountryEntity country= countryService.findCountryId(countryEntity.getId());
-        country.setCountryName(getCountryName());
+        /*country.setCountryName(getCountryName());
         country.setNationalFlag(getNationalFlag());
-        country.setInterContinental(getInterContinental());
+        country.setInterContinental(getInterContinental());*/
         try {
             if (submit()) {
               // countryService.updateCountry(countryEntity);
