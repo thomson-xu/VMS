@@ -1,17 +1,11 @@
 package com.visa.service;
 
-import com.visa.bean.EmployeeBean;
 import com.visa.dao.EmployeeDao;
 import com.visa.entity.EmployeeEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 
 @Service
@@ -20,7 +14,7 @@ public class EmployeeService {
 	private EmployeeDao employeeDao;
 
 	public EmployeeService() {
-		try {
+		/*try {
 			Properties props = new Properties();
 			props.setProperty(Context.INITIAL_CONTEXT_FACTORY,
 					"org.jnp.interfaces.NamingContextFactory");
@@ -32,12 +26,12 @@ public class EmployeeService {
 			e.printStackTrace();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		}
+		}*/
 	}
 	
 
-	public void add(EmployeeBean employee){
-		employeeDao.create(employee.getPO());
+	public void add(EmployeeEntity employee){
+		employeeDao.create(employee);
 	}
 
 
@@ -45,27 +39,21 @@ public class EmployeeService {
 		employeeDao.delete(EmployeeEntity.class,(Object)(id));
 	}
 
-	public void update(EmployeeBean employee){
-		employeeDao.update(employee.getPO());
+	public void update(EmployeeEntity employee){
+		employeeDao.update(employee);
 	}
 
 
-	public List<EmployeeBean> findAllEmployees(){
+	public List<EmployeeEntity> findAllEmployees(){
 		String fields[]={"id","name","age","address","registerTime"};
-		List<EmployeeBean> result = new ArrayList<EmployeeBean>();
+		List<EmployeeEntity> listEmployees = employeeDao.queryByWhere(EmployeeEntity.class,fields,null,null);
+		return (listEmployees == null ? null : listEmployees);
 
-		List<EmployeeEntity> list = employeeDao.queryByWhere(EmployeeEntity.class,fields,null,null);
-		int size = list == null ? 0 : list.size();
-		for (int i = 0; i < size; i++) {
-			result.add(new EmployeeBean(list.get(i)));
-		}
-		
-		return result;
 	}
 
-	public EmployeeBean findEmployee(Integer id){
+	public EmployeeEntity findEmployee(Integer id){
 		EmployeeEntity empl = employeeDao.find(EmployeeEntity.class,id);
-		return (empl == null ? null : new EmployeeBean(empl));
+		return (empl == null ? null : new EmployeeEntity());
 	}
 
 }

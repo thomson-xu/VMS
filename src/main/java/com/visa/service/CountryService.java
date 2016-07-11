@@ -1,6 +1,5 @@
 package com.visa.service;
 
-import com.visa.bean.CountryBean;
 import com.visa.dao.CountryDao;
 import com.visa.entity.CountryEntity;
 import org.springframework.stereotype.Service;
@@ -22,8 +21,8 @@ public class CountryService {
         this.countryDao = countryDao;
     }
 
-    public void addCountry(CountryBean countryBean){
-        countryDao.create(countryBean.getEntity());
+    public void addCountry(CountryEntity country){
+        countryDao.create(country);
     }
     public void updateCountry(CountryEntity countryEntity){
         countryDao.update(countryEntity);
@@ -33,9 +32,9 @@ public class CountryService {
     }
 
 
-    public CountryBean findCountryId(Long id){
+    public CountryEntity findCountryId(Long id){
         CountryEntity entity= countryDao.find(CountryEntity.class,(Object)id);
-        return (entity== null ? null : new CountryBean(entity));
+        return (entity== null ? null : new CountryEntity());
     }
 
     public List<CountryEntity> findAllCountry(){

@@ -1,7 +1,6 @@
 package com.visa.view;
 
 import com.visa.bean.ContinentsEnum;
-import com.visa.bean.CountryBean;
 import com.visa.entity.CountryEntity;
 import com.visa.service.CountryService;
 import org.apache.commons.io.FilenameUtils;
@@ -29,33 +28,57 @@ import java.util.Map;
 @Named
 @Scope("request")
 public class Country {
-
-    @Resource
-    private CountryBean  countryBean;
     @Resource
     private CountryService countryService;
+
+    private Long id;
+    private String countryName;
+    private String nationalFlag;
+    private int interContinental;
+
     private UISelectOne selectone;
     private UploadedFile file;
     private String result;
 
     public Country(){
-        FacesContext context = FacesContext.getCurrentInstance();
-        Map requestParams = context.getExternalContext().getRequestParameterMap();
+        countryService = new CountryService();
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map requestParams = fc.getExternalContext().getRequestParameterMap();
         String id = (String) requestParams.get("Id");
-        if (id != null) {
-            countryBean = countryService.findCountryId(new Long(id));
-        } else {
-            countryBean = new CountryBean();
-        }
+
+    }
+    public Long getId() {
+        return id;
     }
 
-    public CountryBean getCountryBean() {
-        return countryBean;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setCountryBean(CountryBean countryBean) {
-        this.countryBean = countryBean;
+    public String getCountryName() {
+        return countryName;
     }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
+    public String getNationalFlag() {
+        return nationalFlag;
+    }
+
+    public void setNationalFlag(String nationalFlag) {
+        this.nationalFlag = nationalFlag;
+    }
+
+
+
+    public void setInterContinental(int interContinental) {
+        this.interContinental = interContinental;
+    }
+
+
+
 
     public int getInterContinental() {
         return selectIndex;
@@ -93,14 +116,14 @@ public class Country {
     }
 
     public void addCountry(ActionEvent evt) {
-        CountryBean countryBean = new CountryBean();
-        countryBean.setId(countryService.getKeyValue());
-        countryBean.setCountryName("");
-        countryBean.setNationalFlag(FilenameUtils.getName(file.getName()));
-        countryBean.setInterContinental(getInterContinental());
+        CountryEntity country = new CountryEntity();
+        country.setId(countryService.getKeyValue());
+        country.setName(getCountryName());
+        country.setNationalFlag(FilenameUtils.getName(file.getName()));
+        country.setInterContinental(getInterContinental());
         try {
             if (submit()) {
-                countryService.addCountry(countryBean);
+                countryService.addCountry(country);
             }
             result = "Create country successfully";
         } catch (IOException e) {
@@ -112,18 +135,18 @@ public class Country {
     }
 
 
-    private List<CountryBean> listCountry;
+    private List<Country> listCountry;
 
-    public void setListCountry(List<CountryBean> listCountry) {
+    public void setListCountry(List<Country> listCountry) {
         this.listCountry = listCountry;
     }
 
-    public List<CountryBean> getListCountry() {
+    public List<Country> getListCountry() {
         if (listCountry == null) {
-            listCountry = new ArrayList<CountryBean>();
+            listCountry = new ArrayList<Country>();
             List<CountryEntity> listCls=countryService.findAllCountry();
             for(CountryEntity entity: listCls){
-                CountryBean country=new CountryBean();
+                Country country=new Country();
                 country.setId(entity.getId());
                 country.setCountryName(entity.getName());
                 country.setNationalFlag(entity.getNationalFlag());
@@ -158,7 +181,7 @@ public class Country {
     }
 
     public void delCountry(Country country){
-       /* countryService.deleteCountryById(country.getId());*/
+        countryService.deleteCountryById(country.getId());
     }
 
     public List<SelectItem> getSelectItemList() {
@@ -176,13 +199,13 @@ public class Country {
     }
 
     public void updateCountry(Country country ){
-        //CountryEntity country= countryService.findCountryId(countryEntity.getId());
-        /*country.setCountryName(getCountryName());
-        country.setNationalFlag(getNationalFlag());
-        country.setInterContinental(getInterContinental());*/
+        CountryEntity entity= countryService.findCountryId(country.getId());
+        entity.setName(country.getCountryName());
+        entity.setNationalFlag(country.getNationalFlag());
+        entity.setInterContinental(country.getInterContinental());
         try {
             if (submit()) {
-              // countryService.updateCountry(countryEntity);
+              countryService.updateCountry(entity);
             }
             result = "Create country successfully";
         } catch (IOException e) {
@@ -233,7 +256,6 @@ public class Country {
     }
 
     public String editAction(Country country) {
-
         country.setEditable(true);
         return null;
     }

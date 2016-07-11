@@ -1,6 +1,6 @@
 package com.visa.view;
 
-import com.visa.bean.EmployeeBean;
+import com.visa.entity.EmployeeEntity;
 import com.visa.service.EmployeeService;
 import org.springframework.context.annotation.Scope;
 
@@ -13,17 +13,9 @@ import javax.inject.Named;
 import java.util.Date;
 import java.util.Map;
 
-/**
- * 员工管理BackingBean
- * 
- * @author qiujy
- * @version 1.0
- */
 @Named("emplview")
 @Scope("request")
 public class Employee {
-	@Resource
-	private EmployeeBean employee;
 
 	/** 为DataTable显示行号而设置的 */
 	private UIData table;
@@ -31,17 +23,18 @@ public class Employee {
 	@Resource
 	private EmployeeService service;
 
+	private EmployeeEntity employee;
 	public Employee() {
 		service = new EmployeeService();
-		
+
 		//如果请求参数中有emplId,就根据这个ID获取该员工实例,否则创建一个新实例
 		FacesContext fc = FacesContext.getCurrentInstance();
 		Map requestParams = fc.getExternalContext().getRequestParameterMap();
-		String id = (String) requestParams.get("emplId");
+		String id = (String) requestParams.get("Id");
 		if (id != null) {
 			employee = service.findEmployee(new Integer(id));
 		} else {
-			employee = new EmployeeBean();
+			employee = new EmployeeEntity();
 		}
 	}
 
@@ -70,20 +63,20 @@ public class Employee {
 		return "removed";
 	}
 
-	public EmployeeBean getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(EmployeeBean employee) {
-		this.employee = employee;
-	}
-
 	public UIData getTable() {
 		return table;
 	}
 
 	public void setTable(UIData table) {
 		this.table = table;
+	}
+
+	public EmployeeEntity getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(EmployeeEntity employee) {
+		this.employee = employee;
 	}
 
 }
