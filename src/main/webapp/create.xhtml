@@ -1,8 +1,10 @@
-<%@ page language="java" pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
 <html>
     <head>
  		<link href="style.css" rel="stylesheet" type="text/css"/>
@@ -10,15 +12,14 @@
 	</head>
 <f:view>
 <body>
-	<h2>JSF1.2+EJB3的一个CRUD实例</h2>
 	<h3>--新增一个员工</h3>
 	<h:messages errorClass="errorMsg" />
-	<h:form id="create">
+	<h:form id="createform">
 	<table>
 	  <tr>
 	    <td>姓名:</td>
 	    <td>
-	      <h:inputText id="name" value="#{emplBean.employee.name}">
+	      <h:inputText id="name" value="#{emplview.employee.name}">
 	        <f:validateLength minimum="2"/>
 	      </h:inputText>
 	    </td>
