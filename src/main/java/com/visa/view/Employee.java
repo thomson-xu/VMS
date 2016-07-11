@@ -2,11 +2,14 @@ package com.visa.view;
 
 import com.visa.bean.EmployeeBean;
 import com.visa.service.EmployeeService;
+import org.springframework.context.annotation.Scope;
 
+import javax.annotation.Resource;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.inject.Named;
 import java.util.Date;
 import java.util.Map;
 
@@ -16,12 +19,16 @@ import java.util.Map;
  * @author qiujy
  * @version 1.0
  */
+@Named("emplview")
+@Scope("request")
 public class Employee {
+	@Resource
 	private EmployeeBean employee;
 
 	/** 为DataTable显示行号而设置的 */
 	private UIData table;
 
+	@Resource
 	private EmployeeService service;
 
 	public Employee() {
@@ -59,7 +66,7 @@ public class Employee {
 	}
 
 	public String deleteAction() {
-		this.service.delete(employee);
+		this.service.delete(Long.valueOf((Integer)employee.getId()));
 		return "removed";
 	}
 

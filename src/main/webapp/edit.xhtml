@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -11,16 +10,15 @@
 	</head>
 <f:view>
 <body>
-	<h2>JSF1.2+EJB3的一个CRUD实例</h2>
 	<h3>--编辑员工信息</h3>
 	<h:messages errorClass="errorMsg" />
 	<h:form id="edit">
-	<input type="hidden" name="emplId" value="${emplBean.employee.id}"/>
+	<input type="hidden" name="emplId" value="${emplview.employee.id}"/>
 	<table>
 	  <tr>
 	    <td>姓名:</td>
 	    <td>
-	      <h:inputText id="name" value="#{emplBean.employee.name}" required="true">
+	      <h:inputText id="name" value="#{emplview.employee.name}" required="true">
 	        <f:validateLength minimum="2"/>
 	      </h:inputText>
 	    </td>
@@ -29,7 +27,7 @@
 	  <tr>
 	    <td>年龄:</td>
 	    <td>
-	      <h:inputText id="age" value="#{emplBean.employee.age}">
+	      <h:inputText id="age" value="#{emplview.employee.age}">
 	      	<f:validateLongRange minimum="18" maximum="60" />
 	      </h:inputText>
 	    </td>
@@ -37,7 +35,7 @@
 	  <tr>
 	    <td>地址:</td>
 	    <td>
-	      <h:inputTextarea id="address" value="#{emplBean.employee.address}" cols="35">
+	      <h:inputTextarea id="address" value="#{emplview.employee.address}" cols="35">
 	      	<f:validateLength minimum="2" maximum="128"/>
 	      </h:inputTextarea>
 	    </td>
@@ -45,10 +43,10 @@
 	
 	</table>
 	<h:commandButton type="submit" id="update" value="更新"
-                 action="#{emplBean.updateAction}"/>
+                 action="#{emplview.updateAction}"/>
     <h:outputText value=" "/>
     <h:commandButton type="submit" id="delete" value="删除"
-    			action="#{emplBean.deleteAction}"
+    			action="#{emplview.deleteAction}"
     			onclick="if(!confirm('你确定删除?')){return false;}"/>
 	</h:form>
 </body>

@@ -5,6 +5,7 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <class>com.visa.entity.ConsulateEntity</class>
         <class>com.visa.entity.CountryEntity</class>
+        <class>com.visa.entity.EmployeeEntity</class>
         <class>com.visa.entity.MaterialEntity</class>
         <class>com.visa.entity.ProfessionEntity</class>
         <class>com.visa.entity.VisaorderEntity</class>

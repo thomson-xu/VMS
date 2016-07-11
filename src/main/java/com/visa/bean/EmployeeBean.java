@@ -2,14 +2,13 @@ package com.visa.bean;
 
 
 import com.visa.entity.EmployeeEntity;
+import org.springframework.context.annotation.Scope;
 
+import javax.inject.Named;
 import java.util.Date;
 
-
-/**
- * @author qiujy
- * @version 1.0
- */
+@Named
+@Scope("request")
 public class EmployeeBean {
 	private Integer id;
 	private String name;

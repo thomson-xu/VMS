@@ -10,23 +10,22 @@
 	</head>
 	<f:view>
 		<body>
-			<h2>JSF1.2+EJB3的一个CRUD实例</h2>
 				<h3>--所有员工列表</h3>
 			<h:form>
 				<h:commandButton action="create" value="新增一个员工" type="submit" />
 				
-				<h:dataTable value="#{emplBean.allEmployees}" var="empl" 
+				<h:dataTable value="#{emplview.allEmployees}" var="empl"
 						styleClass="dt"
 						headerClass="dt-head"
 						rowClasses="dt-r1,dt-r2"
 						cellpadding="4"
 						border="1"
-						binding="#{emplBean.table}">
+						binding="#{emplview.table}">
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="序号" />
 						</f:facet>   
-     					<h:outputText value="#{emplBean.table.rowIndex + 1}"/>
+     					<h:outputText value="#{emplview.table.rowIndex + 1}"/>
 					</h:column>
 					<h:column>
 						<f:facet name="header">
@@ -61,7 +60,7 @@
 								<h:outputText value="编辑"/>
 							</h:outputLink>
 							<h:outputText value=" "/>
-							<h:commandLink action="#{emplBean.deleteAction}"
+							<h:commandLink action="#{emplview.deleteAction}"
 								onclick="if(!confirm('你确定删除?')){return false;}">
 								<h:outputText value="删除"/>
 								<f:param name="emplId" value="#{empl.id}"/>

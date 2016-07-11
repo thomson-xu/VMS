@@ -1,18 +1,16 @@
 package com.visa.entity;
 
+import com.visa.dao.util.BaseEntity;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * 员工实体类
- * @author qiujy
- * @version 1.0
- */
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="employees")
-public class EmployeeEntity implements Serializable {
+public class EmployeeEntity extends BaseEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +22,14 @@ public class EmployeeEntity implements Serializable {
 	private Date registerTime;
 
 	public EmployeeEntity() {
+	}
+
+	public EmployeeEntity(Integer id,String name,Integer age,String address,Date registerTime){
+		this.id=id;
+		this.name=name;
+		this.age=age;
+		this.address=address;
+		this.registerTime=registerTime;
 	}
 
 	public Integer getId() {
@@ -66,4 +72,8 @@ public class EmployeeEntity implements Serializable {
 		this.registerTime = registerTime;
 	}
 
+	@Override
+	public Object getPrimaryKey() {
+		return  (Object) getId();
+	}
 }

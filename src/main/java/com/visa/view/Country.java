@@ -8,6 +8,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.myfaces.custom.fileupload.UploadedFile;
 import org.springframework.context.annotation.Scope;
 
+
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UISelectOne;
@@ -28,6 +29,7 @@ import java.util.Map;
 @Named
 @Scope("request")
 public class Country {
+
     @Resource
     private CountryBean  countryBean;
     @Resource
@@ -37,8 +39,8 @@ public class Country {
     private String result;
 
     public Country(){
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map requestParams = fc.getExternalContext().getRequestParameterMap();
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestParams = context.getExternalContext().getRequestParameterMap();
         String id = (String) requestParams.get("Id");
         if (id != null) {
             countryBean = countryService.findCountryId(new Long(id));
@@ -47,6 +49,13 @@ public class Country {
         }
     }
 
+    public CountryBean getCountryBean() {
+        return countryBean;
+    }
+
+    public void setCountryBean(CountryBean countryBean) {
+        this.countryBean = countryBean;
+    }
 
     public int getInterContinental() {
         return selectIndex;
@@ -103,19 +112,22 @@ public class Country {
     }
 
 
-    private List<Country> listCountry;
+    private List<CountryBean> listCountry;
 
-    public void setListCountry(List<Country> listCountry) {
+    public void setListCountry(List<CountryBean> listCountry) {
         this.listCountry = listCountry;
     }
 
-    public List<Country> getListCountry() {
+    public List<CountryBean> getListCountry() {
         if (listCountry == null) {
-            listCountry = new ArrayList<Country>();
+            listCountry = new ArrayList<CountryBean>();
             List<CountryEntity> listCls=countryService.findAllCountry();
             for(CountryEntity entity: listCls){
-                Country country=new Country();
-
+                CountryBean country=new CountryBean();
+                country.setId(entity.getId());
+                country.setCountryName(entity.getName());
+                country.setNationalFlag(entity.getNationalFlag());
+                country.setInterContinental(entity.getInterContinental());
                 listCountry.add(country);
             }
         }

@@ -27,12 +27,12 @@
                                         <f:facet name="header">
                                             国旗图标
                                         </f:facet>
-                                        <t:inputFileUpload value="#{country.file}" id="uploadfile"  rendered="#{countrys.editable}" required="true">
+                                        <t:inputFileUpload value="#{country.file}" id="uploadfile"  rendered="#{country.editable}" required="true">
                                             <f:validator validatorId="Uploadfile"/>
                                         </t:inputFileUpload>
                                         <h:graphicImage
-                                                value="/resources/images/#{countrys.nationalFlag}"
-                                                rendered="#{ not countrys.editable}"></h:graphicImage>
+                                                value="/resources/images/#{countrys.countryBean.nationalFlag}"
+                                                rendered="#{ not country.editable}"></h:graphicImage>
                                         <!--<h:inputText value="#{countrys.nationalFlag }" size="130" />-->
                                     </h:column>
                                     <!-- 定义第二列 -->
@@ -40,18 +40,18 @@
                                         <f:facet name="header">
                                             国家名称
                                         </f:facet>
-                                        <h:inputText value="#{countrys.countryName}" id="countryName" rendered="#{countrys.editable}"/>
-                                        <h:outputText value="#{countrys.countryName}" rendered="#{not countrys.editable}"/>
+                                        <h:inputText value="#{countrys.countryName}" id="countryName" rendered="#{country.editable}"/>
+                                        <h:outputText value="#{countrys.countryBean.countryName}" rendered="#{not country.editable}"/>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             所属洲
                                         </f:facet>
                                         <h:selectOneMenu binding="#{country.selectone}" valueChangeListener="#{country.selectChange}"
-                                                         id="selContinents" style="width: 165px" rendered="#{countrys.editable}">
+                                                         id="selContinents" style="width: 165px" rendered="#{country.editable}">
                                             <f:selectItems value="#{country.selectItemList}"/>
                                         </h:selectOneMenu>
-                                        <h:outputText value="#{country.getContinentValue(countrys.interContinental)}" rendered="#{not countrys.editable}"/>
+                                        <h:outputText value="#{country.getContinentValue(countrys.countryBean.interContinental)}" rendered="#{not country.editable}"/>
                                     </h:column>
                                     <h:column class="actions">
                                         <f:facet name="header">
