@@ -14,6 +14,8 @@ import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
@@ -134,16 +136,18 @@ public class Country {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
+    public DataModel getListCountry() {
+        return new ListDataModel(getCountryList());
+    }
+    private List<Country> countryList;
 
-    private List<Country> listCountry;
-
-    public void setListCountry(List<Country> listCountry) {
-        this.listCountry = listCountry;
+    private void setCountryList(List<Country> listCountry) {
+        this.countryList = listCountry;
     }
 
-    public List<Country> getListCountry() {
-        if (listCountry == null) {
-            listCountry = new ArrayList<Country>();
+    private List<Country> getCountryList() {
+        if (countryList == null) {
+            countryList = new ArrayList<Country>();
             List<CountryEntity> listCls=countryService.findAllCountry();
             for(CountryEntity entity: listCls){
                 Country country=new Country();
@@ -151,10 +155,10 @@ public class Country {
                 country.setCountryName(entity.getName());
                 country.setNationalFlag(entity.getNationalFlag());
                 country.setInterContinental(entity.getInterContinental());
-                listCountry.add(country);
+                countryList.add(country);
             }
         }
-        return listCountry;
+        return countryList;
 
     }
 
