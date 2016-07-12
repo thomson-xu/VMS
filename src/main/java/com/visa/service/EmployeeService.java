@@ -10,6 +10,8 @@ import java.util.List;
 
 @Service
 public class EmployeeService {
+
+
 	@Resource
 	private EmployeeDao employeeDao;
 
@@ -28,7 +30,10 @@ public class EmployeeService {
 			ex.printStackTrace();
 		}*/
 	}
-	
+
+	public void setEmployeeDao(EmployeeDao employeeDao) {
+		this.employeeDao = employeeDao;
+	}
 
 	public void add(EmployeeEntity employee){
 		employeeDao.create(employee);
@@ -47,13 +52,13 @@ public class EmployeeService {
 	public List<EmployeeEntity> findAllEmployees(){
 		String fields[]={"id","name","age","address","registerTime"};
 		List<EmployeeEntity> listEmployees = employeeDao.queryByWhere(EmployeeEntity.class,fields,null,null);
-		return (listEmployees == null ? null : listEmployees);
+		return ((listEmployees != null) ? listEmployees : null);
 
 	}
 
 	public EmployeeEntity findEmployee(Integer id){
 		EmployeeEntity empl = employeeDao.find(EmployeeEntity.class,id);
-		return (empl == null ? null : new EmployeeEntity());
+		return ((empl != null) ? empl : new EmployeeEntity());
 	}
 
 }

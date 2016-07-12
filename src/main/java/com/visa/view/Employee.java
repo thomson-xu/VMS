@@ -17,7 +17,7 @@ import java.util.Map;
 @Scope("request")
 public class Employee {
 
-	/** ÎªDataTableÏÔÊ¾ĞĞºÅ¶øÉèÖÃµÄ */
+
 	private UIData table;
 
 	@Resource
@@ -27,19 +27,19 @@ public class Employee {
 	public Employee() {
 		service = new EmployeeService();
 
-		//Èç¹ûÇëÇó²ÎÊıÖĞÓĞemplId,¾Í¸ù¾İÕâ¸öID»ñÈ¡¸ÃÔ±¹¤ÊµÀı,·ñÔò´´½¨Ò»¸öĞÂÊµÀı
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		FacesContext fc = FacesContext.getCurrentInstance();
 		Map requestParams = fc.getExternalContext().getRequestParameterMap();
-		String id = (String) requestParams.get("Id");
+		String id = (String) requestParams.get("emplId");
 		if (id != null) {
-			employee = service.findEmployee(new Integer(id));
+			employee = this.service.findEmployee(new Integer(id));
 		} else {
 			employee = new EmployeeEntity();
 		}
 	}
 
 	/**
-	 * »ñµÃËùÓĞÔ±¹¤ÁĞ±í
+	 * ï¿½ï¿½
 	 * 
 	 * @return
 	 */

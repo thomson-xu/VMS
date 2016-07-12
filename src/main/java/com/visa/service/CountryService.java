@@ -34,7 +34,7 @@ public class CountryService {
 
     public CountryEntity findCountryId(Long id){
         CountryEntity entity= countryDao.find(CountryEntity.class,(Object)id);
-        return (entity== null ? null : new CountryEntity());
+        return ((entity != null) ? entity : new CountryEntity());
     }
 
     public List<CountryEntity> findAllCountry(){
