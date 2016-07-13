@@ -26,20 +26,11 @@ public class Employee {
 	private EmployeeEntity employee;
 	public Employee() {
 		service = new EmployeeService();
-
-		//�������
-		FacesContext fc = FacesContext.getCurrentInstance();
-		Map requestParams = fc.getExternalContext().getRequestParameterMap();
-		String id = (String) requestParams.get("emplId");
-		if (id != null) {
-			employee = this.service.findEmployee(new Integer(id));
-		} else {
-			employee = new EmployeeEntity();
-		}
+		employee = new EmployeeEntity();
 	}
 
 	/**
-	 * ��
+	 *
 	 * 
 	 * @return
 	 */
@@ -72,6 +63,16 @@ public class Employee {
 	}
 
 	public EmployeeEntity getEmployee() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		Map requestParams = fc.getExternalContext().getRequestParameterMap();
+
+		if(requestParams.containsKey("emplId")){
+			String id = (String) requestParams.get("emplId");
+			return service.findEmployee(new Integer(id));
+		}
+		else {
+			employee = new EmployeeEntity();
+		}
 		return employee;
 	}
 

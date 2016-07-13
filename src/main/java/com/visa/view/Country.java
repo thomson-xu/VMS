@@ -45,14 +45,7 @@ public class Country {
     public Country(){
 
         countryService = new CountryService();
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map requestParams = fc.getExternalContext().getRequestParameterMap();
-        String id = (String) requestParams.get("Id");
-        if (id != null) {
-            countryEntity = countryService.findCountryId(new Long(id));
-        } else {
-            countryEntity = new CountryEntity();
-        }
+        countryEntity = new CountryEntity();
     }
    /* public Long getId() {
         return id;
@@ -286,6 +279,19 @@ public class Country {
     }
 
     public CountryEntity getCountryEntity() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map requestParams = fc.getExternalContext().getRequestParameterMap();
+       if( requestParams.containsKey("Id")){
+           String id = (String) requestParams.get("Id");
+           countryEntity = countryService.findCountryId(new Long(id));
+       }
+        else if (requestParams.containsKey("countryId")){
+            String id = (String) requestParams.get("countryId");
+            countryEntity = countryService.findCountryId(new Long(id));
+        }
+      else {
+            countryEntity = new CountryEntity();
+        }
         return countryEntity;
     }
 

@@ -57,10 +57,10 @@
                                         <f:facet name="header">
                                             操 作
                                         </f:facet>
-                                        <h:outputLink value="countryedit.faces?Id=#{countrys.id}">
+                                        <h:outputLink value="countryedit.xhtml?Id=#{countrys.id}">
                                             <h:outputText value="编辑" styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
                                         </h:outputLink>
-
+                                        <h:outputText value=" "/>
                                         <h:commandLink action="#{country.delCountry()}"
                                                        onclick="if(!confirm('你确定删除?')){return false;}">
                                             <h:outputText value="删除"  styleClass="btn btn-danger glyphicon glyphicon-trash"/>

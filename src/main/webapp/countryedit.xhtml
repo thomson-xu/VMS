@@ -13,9 +13,9 @@
             <ui:insert name="content">
                 <h:form id="country" enctype="multipart/form-data">
                     <h:panelGrid columns="4">
-                        <input type="hidden" name="countryId" value="${country.id}"/>　　
+                        <input type="hidden" name="countryId" value="${country.countryEntity.id}"/>　　
                         <h:outputText value="国家名称:" id="lblName"/><span style="color: red;">*</span>
-                        <h:inputText value="#{country.countryName}" id="countryName" style="width: 160px" label="国家名称">
+                        <h:inputText value="#{country.countryEntity.name}" id="countryName" style="width: 160px" label="国家名称">
                             <!--<f:validateLength maximum="15" minimum="2"/>-->
                             <f:validator validatorId="CountryName"/>
                         </h:inputText>
@@ -33,8 +33,8 @@
                         </t:inputFileUpload>
                         <h:messages for="uploadfile" style="color: red"/>
                     </h:panelGrid>
-                    <h:commandButton actionListener="#{country.addCountry}" id="addcountry"
-                                     value="添 加" style="center">
+                    <h:commandButton actionListener="#{country.updateCountry}" id="addcountry"
+                                     value="修 改" style="center">
                         <!--<f:ajax execute="soNumber num" render="result"/>-->
                     </h:commandButton>
 
