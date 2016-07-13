@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:t="http://myfaces.apache.org/tomahawk">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</h:head>
+<h:body>
+    <f:view>
+        <div id="content" class="table-view">
+            <ui:insert name="content">
+                <h:form id="country" enctype="multipart/form-data">
+                    <h:panelGrid columns="4">
+                        <input type="hidden" name="countryId" value="${country.countryEntity.id}"/>　　
+                        <h:outputText value="国家名称:" id="lblName"/><span style="color: red;">*</span>
+                        <h:inputText value="#{country.countryEntity.name}" id="countryName" style="width: 160px" label="国家名称">
+                            <!--<f:validateLength maximum="15" minimum="2"/>-->
+                            <f:validator validatorId="CountryName"/>
+                        </h:inputText>
+                        <h:messages for="countryName" style="color: red"/>
+                        <h:outputLabel value="所属洲:" id="continents"/><span style="color: red;">*</span>
+                        <h:selectOneMenu binding="#{country.selectone}" valueChangeListener="#{country.selectChange}"
+                                         id="selContinents" style="width: 165px">
+                            <f:selectItems value="#{country.selectItemList}"/>
+                        </h:selectOneMenu>
+                        <h:messages for="selContinents" style="color: red"/>
+
+                        <h:outputText value="国旗图标(.png/jpg)：" id="lblNationalFlag"/><span style="color: red;">*</span>
+                        <t:inputFileUpload value="#{country.file}" id="uploadfile">
+                            <f:validator validatorId="Uploadfile"/>
+                        </t:inputFileUpload>
+                        <h:messages for="uploadfile" style="color: red"/>
+                    </h:panelGrid>
+                    <h:commandButton actionListener="#{country.updateCountry}" id="addcountry"
+                                     value="修 改" style="center">
+                        <!--<f:ajax execute="soNumber num" render="result"/>-->
+                    </h:commandButton>
+
+                    <p style="color: red; font-size: 18pt">
+                        <h:outputText value="#{country.result}"
+                                      id="status"/></p>
+                    </h:form>
+            </ui:insert>
+
+
+        </div>
+    </f:view>
+</h:body>
+</html>
