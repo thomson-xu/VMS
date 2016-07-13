@@ -33,11 +33,6 @@ public class Country {
     @Resource
     private CountryService countryService;
 
-    /*private Long id;
-    private String countryName;
-    private String nationalFlag;
-    private int interContinental;*/
-
     private UISelectOne selectone;
     private UploadedFile file;
     private String result;
@@ -47,38 +42,6 @@ public class Country {
         countryService = new CountryService();
         countryEntity = new CountryEntity();
     }
-   /* public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCountryName() {
-        return countryName;
-    }
-
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
-    }
-
-    public String getNationalFlag() {
-        return nationalFlag;
-    }
-
-    public void setNationalFlag(String nationalFlag) {
-        this.nationalFlag = nationalFlag;
-    }
-
-
-
-    public void setInterContinental(int interContinental) {
-        this.interContinental = interContinental;
-    }
-
-*/
-
 
     public int getInterContinental() {
         return selectIndex;
@@ -137,30 +100,6 @@ public class Country {
     public DataModel getListCountry() {
         return new ListDataModel(countryService.findAllCountry());
     }
-    private List<Country> countryList;
-
-    private void setCountryList(List<Country> listCountry) {
-        this.countryList = listCountry;
-    }
-
-    private List<Country> getCountryList() {
-        if (countryList == null) {
-            countryList = new ArrayList<Country>();
-            List<CountryEntity> listCls=countryService.findAllCountry();
-            /*for(CountryEntity entity: listCls){
-                Country country=new Country();
-                country.setId(entity.getId());
-                country.setCountryName(entity.getName());
-                country.setNationalFlag(entity.getNationalFlag());
-                country.setInterContinental(entity.getInterContinental());
-                countryList.add(country);
-            }*/
-
-        }
-        return countryList;
-
-    }
-
 
     private boolean validationField() {
         boolean validateResult = false;

@@ -1,5 +1,7 @@
 package com.visa.entity;
 
+import com.visa.dao.util.BaseEntity;
+
 import javax.persistence.*;
 
 /**
@@ -7,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "consulate")
-public class ConsulateEntity {
+public class ConsulateEntity extends BaseEntity {
     private long id;
     private String consulateName;
     private String consulateArea;
@@ -55,26 +57,7 @@ public class ConsulateEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ConsulateEntity that = (ConsulateEntity) o;
-
-        if (id != that.id) return false;
-        if (consulateName != null ? !consulateName.equals(that.consulateName) : that.consulateName != null)
-            return false;
-        if (consulateArea != null ? !consulateArea.equals(that.consulateArea) : that.consulateArea != null)
-            return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (consulateName != null ? consulateName.hashCode() : 0);
-        result = 31 * result + (consulateArea != null ? consulateArea.hashCode() : 0);
-        return result;
+    public Object getPrimaryKey() {
+        return (Object) getId();
     }
 }
