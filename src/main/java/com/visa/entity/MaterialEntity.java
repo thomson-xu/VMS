@@ -1,5 +1,7 @@
 package com.visa.entity;
 
+import com.visa.dao.util.BaseEntity;
+
 import javax.persistence.*;
 
 /**
@@ -7,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "material")
-public class MaterialEntity {
+public class MaterialEntity extends BaseEntity {
     private long id;
     private String document;
     private String remark;
@@ -42,25 +44,8 @@ public class MaterialEntity {
         this.remark = remark;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        MaterialEntity that = (MaterialEntity) o;
-
-        if (id != that.id) return false;
-        if (document != null ? !document.equals(that.document) : that.document != null) return false;
-        if (remark != null ? !remark.equals(that.remark) : that.remark != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (document != null ? document.hashCode() : 0);
-        result = 31 * result + (remark != null ? remark.hashCode() : 0);
-        return result;
+    @Transient
+    public Object getPrimaryKey() {
+        return  (Object) getId();
     }
 }

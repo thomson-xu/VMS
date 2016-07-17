@@ -1,5 +1,7 @@
 package com.visa.entity;
 
+import com.visa.dao.util.BaseEntity;
+
 import javax.persistence.*;
 
 /**
@@ -7,13 +9,28 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "visatype")
-public class VisatypeEntity {
-    private int id;
-    private String type;
-    private String remark;
-
+public class VisatypeEntity extends BaseEntity {
     @Id
     @Column(name = "Id")
+    private int id;
+    @Basic
+    @Column(name = "Type")
+    private String type;
+
+    @Basic
+    @Column(name = "Remark")
+    private String remark;
+
+    public VisatypeEntity() {
+    }
+
+    public VisatypeEntity(int id, String type, String remark) {
+        this.id = id;
+        this.type = type;
+        this.remark = remark;
+    }
+
+
     public int getId() {
         return id;
     }
@@ -22,8 +39,6 @@ public class VisatypeEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "Type")
     public String getType() {
         return type;
     }
@@ -32,8 +47,6 @@ public class VisatypeEntity {
         this.type = type;
     }
 
-    @Basic
-    @Column(name = "Remark")
     public String getRemark() {
         return remark;
     }
@@ -42,25 +55,8 @@ public class VisatypeEntity {
         this.remark = remark;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        VisatypeEntity that = (VisatypeEntity) o;
-
-        if (id != that.id) return false;
-        if (type != null ? !type.equals(that.type) : that.type != null) return false;
-        if (remark != null ? !remark.equals(that.remark) : that.remark != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (remark != null ? remark.hashCode() : 0);
-        return result;
+    @Transient
+    public Object getPrimaryKey() {
+        return (Object) getId();
     }
 }

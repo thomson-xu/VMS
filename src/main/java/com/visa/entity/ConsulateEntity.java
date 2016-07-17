@@ -10,13 +10,20 @@ import javax.persistence.*;
 @Entity
 @Table(name = "consulate")
 public class ConsulateEntity extends BaseEntity {
-    private long id;
-    private String consulateName;
-    private String consulateArea;
-
-    private CountryEntity countryEntity;
     @Id
     @Column(name = "Id")
+    private long id;
+    @Basic
+    @Column(name = "ConsulateName")
+    private String consulateName;
+    @Basic
+    @Column(name = "ConsulateArea")
+    private String consulateArea;
+
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH }, optional = true)
+    @JoinColumn(name="Country_Id" )
+    private CountryEntity countryEntity;
+
     public long getId() {
         return id;
     }
@@ -25,8 +32,6 @@ public class ConsulateEntity extends BaseEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "ConsulateName")
     public String getConsulateName() {
         return consulateName;
     }
@@ -35,8 +40,7 @@ public class ConsulateEntity extends BaseEntity {
         this.consulateName = consulateName;
     }
 
-    @Basic
-    @Column(name = "ConsulateArea")
+
     public String getConsulateArea() {
         return consulateArea;
     }
@@ -45,9 +49,6 @@ public class ConsulateEntity extends BaseEntity {
         this.consulateArea = consulateArea;
     }
 
-
-    @ManyToOne
-    @JoinColumn(name="Country_Id",foreignKey = @ForeignKey(name="none",value=ConstraintMode.NO_CONSTRAINT) )
     public CountryEntity getCountryEntity() {
         return countryEntity;
     }
@@ -56,7 +57,7 @@ public class ConsulateEntity extends BaseEntity {
         this.countryEntity = countryEntity;
     }
 
-    @Override
+    @Transient
     public Object getPrimaryKey() {
         return (Object) getId();
     }

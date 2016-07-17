@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:t="http://myfaces.apache.org/tomahawk">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</h:head>
+<h:body>
+    <f:view>
+        <div id="contentadd" class="table-view">
+            <ui:insert name="content">
+                <h:form id="visatype" enctype="multipart/form-data">
+                    <h:panelGrid columns="4">　　
+                        <h:outputText value="签证类型:" id="lbltype"/><span style="color: red;">*</span>
+                        <h:inputText value="#{visaType.visatypeEntity.type}" id="txtType" style="width: 200px" label="类型">
+                            <f:validateLength maximum="15" minimum="2"/>
+                        </h:inputText>
+                        <h:messages for="txtType" style="color: red"/>
+
+                        <h:outputText value="备注:" id="lblremark"/> <span style="color: red;"></span>
+                        <h:inputTextarea value="#{visaType.visatypeEntity.remark}" id="remark" style="width: 260px">
+                        </h:inputTextarea>
+                  </h:panelGrid>
+                    <h:commandButton actionListener="#{visaType.addAction}" id="addVisatype"
+                                     value="添加" style="center">
+                        <!--<f:ajax execute="soNumber num" render="result"/>-->
+                    </h:commandButton>
+                </h:form>
+            </ui:insert>
+
+
+        </div>
+         <ui:insert>
+             <h:form>
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="text-muted bootstrap-admin-box-title"><strong>签证类型列表：</strong></div>
+                        </div>
+                        <div class="bootstrap-admin-panel-content">
+                            <div class="row">
+                                <h:dataTable value="#{visaType.allVisaType}" var="visatype"
+                                             styleClass="dt"
+                                             headerClass="dt-head"
+                                             rowClasses="dt-r1,dt-r2"
+                                             cellpadding="4"
+                                             border="1"
+                                             binding="#{visaType.table}">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="序号" />
+                                        </f:facet>
+                                        <h:outputText value="#{visaType.table.rowIndex + 1}"/>
+                                    </h:column>
+                                    <!-- 定义第一列 -->
+                                    <h:column>
+                                        <f:facet name="header">
+                                            签证类型
+                                        </f:facet>
+                                        <h:inputText value="#{visatype.type}" id="Name"
+                                                     rendered="#{visaType.editable}"/>
+                                        <h:outputText value="#{visatype.type}" rendered="#{not visaType.editable}"/>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            备 注
+                                        </f:facet>
+                                        <h:inputText value="#{visatype.remark}" id="remarklist"
+                                                     rendered="#{visaType.editable}"/>
+                                        <h:outputText value="#{visatype.type}" rendered="#{not visaType.editable}"/>
+                                    </h:column>
+
+                                    <h:column class="actions">
+                                        <f:facet name="header">
+                                            操 作
+                                        </f:facet>
+                                        <h:commandLink action="#{visaType.editAction}">
+
+                                         <h:outputText value="编辑"
+                                                          styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
+                                        </h:commandLink>
+                                        <h:outputText value=" "/>
+                                        <h:commandLink action="#{visaType.deleteAction()}"
+                                                       onclick="if(!confirm('你确定删除?')){return false;}">
+                                            <h:outputText value="删除"
+                                                          styleClass="btn btn-danger glyphicon glyphicon-trash"/>
+                                            <f:param name="Id" value="#{visatype.id}"/>
+                                        </h:commandLink>
+                                    </h:column>
+                                </h:dataTable>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:form>
+</ui:insert>
+    </f:view>
+</h:body>
+</html>

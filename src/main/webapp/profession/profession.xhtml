@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:t="http://myfaces.apache.org/tomahawk">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</h:head>
+<h:body>
+    <f:view>
+        <div id="contentadd" class="table-view">
+            <ui:insert name="content">
+                <h:form id="profession" enctype="multipart/form-data">
+                    <h:panelGrid columns="5">　　
+                        <h:outputText value="职业类型:" id="lblproName"/><span style="color: red;">*</span>
+                        <h:inputText value="#{profession.professionEntity.name}" id="proName" style="width: 160px" label="职业类型">
+                            <f:validateLength maximum="15" minimum="2"/>
+
+                        </h:inputText>
+                        <h:messages for="proName" style="color: red"/>
+                  </h:panelGrid>
+                    <h:commandButton actionListener="#{profession.addAction}" id="addprofession"
+                                     value="添加" style="center">
+                        <!--<f:ajax execute="soNumber num" render="result"/>-->
+                    </h:commandButton>
+                </h:form>
+            </ui:insert>
+
+
+        </div>
+         <ui:insert>
+             <h:form>
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="text-muted bootstrap-admin-box-title"><strong>职业列表：</strong></div>
+                        </div>
+                        <div class="bootstrap-admin-panel-content">
+                            <div class="row">
+                                <h:dataTable value="#{profession.allProfession}" var="pro"
+                                             styleClass="dt"
+                                             headerClass="dt-head"
+                                             rowClasses="dt-r1,dt-r2"
+                                             cellpadding="4"
+                                             border="1"
+                                             binding="#{profession.table}">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="序号" />
+                                        </f:facet>
+                                        <h:outputText value="#{profession.table.rowIndex + 1}"/>
+                                    </h:column>
+                                    <!-- 定义第一列 -->
+                                    <h:column>
+                                        <f:facet name="header">
+                                            国家名称
+                                        </f:facet>
+                                        <h:inputText value="#{profession.entity.name}" id="Name"
+                                                     rendered="#{profession.editable}"/>
+                                        <h:outputText value="#{pro.name}" rendered="#{not profession.editable}"/>
+                                    </h:column>
+
+                                    <h:column class="actions">
+                                        <f:facet name="header">
+                                            操 作
+                                        </f:facet>
+                                        <h:commandLink action="#{profession.editAction}">
+
+                                         <h:outputText value="编辑"
+                                                          styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
+                                        </h:commandLink>
+                                        <h:outputText value=" "/>
+                                        <h:commandLink action="#{profession.delCountry()}"
+                                                       onclick="if(!confirm('你确定删除?')){return false;}">
+                                            <h:outputText value="删除"
+                                                          styleClass="btn btn-danger glyphicon glyphicon-trash"/>
+                                            <f:param name="Id" value="#{pro.id}"/>
+                                        </h:commandLink>
+                                    </h:column>
+                                </h:dataTable>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:form>
+</ui:insert>
+    </f:view>
+</h:body>
+</html>

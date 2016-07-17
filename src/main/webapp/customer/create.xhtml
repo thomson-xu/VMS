@@ -9,14 +9,14 @@
 	</head>
 <f:view>
 <body>
-	<h3>--新增一个员工</h3>
+	<h3>新增一个员工</h3>
 	<h:messages errorClass="errorMsg" />
 	<h:form id="createform">
 	<table>
 	  <tr>
 	    <td>姓名:</td>
 	    <td>
-	      <h:inputText id="name" value="#{emplview.name}">
+	      <h:inputText id="name" value="#{emplview.employee.name}">
 	        <f:validateLength minimum="2"/>
 	      </h:inputText>
 	    </td>
@@ -25,7 +25,7 @@
 	  <tr>
 	    <td>年龄:</td>
 	    <td>
-	      <h:inputText id="age" value="#{emplview.age}">
+	      <h:inputText id="age" value="#{emplview.employee.age}">
 	      	<f:validateLongRange minimum="18" maximum="60" />
 	      </h:inputText>
 	    </td>
@@ -33,7 +33,7 @@
 	  <tr>
 	    <td>地址:</td>
 	    <td>
-	      <h:inputTextarea id="address" value="#{emplview.address}" cols="35">
+	      <h:inputTextarea id="address" value="#{emplview.employee.address}" cols="35">
 	      	<f:validateLength minimum="2" maximum="128"/>
 	      </h:inputTextarea>
 	    </td>

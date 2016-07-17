@@ -4,13 +4,10 @@ package com.visa.dao.util;
  * Created by Test-Lab on 2016/6/26.
  */
 
-import com.visa.entity.CountryEntity;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +31,9 @@ public abstract class BaseJpaDao implements DAO {
 
     @Transactional
     public <T extends BaseEntity> void create(T entity) {
-        getEntityManager().persist(entity);
+
+      getEntityManager().persist(entity);
+
     }
 
     public <T extends BaseEntity> void createBatch(List<T> entitys) {
@@ -428,6 +427,7 @@ public abstract class BaseJpaDao implements DAO {
         Query query = getEntityManager().createQuery(
                 "SELECT max(o.id) FROM " + entityname + " o ");
         List result= query.getResultList();
-        return (result.get(0)==null? Long.valueOf(100000000):((Long)result.get(0)+1));
+
+        return (result.get(0)==null? Long.valueOf(100000000):(Long.valueOf(result.get(0).toString())+Long.valueOf("1")));
     }
 }

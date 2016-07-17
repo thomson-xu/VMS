@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:t="http://myfaces.apache.org/tomahawk">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</h:head>
+<h:body>
+    <f:view>
+        <div id="content" class="table-view">
+            <ui:insert name="content">
+                <table>
+                <tbody>
+                <tr>
+                    <td><h:graphicImage value="/resources/images/#{consulate.consulateEntity.countryEntity.nationalFlag}"></h:graphicImage>
+                    </td>
+                    <td> <h:outputText value="#{consulate.consulateEntity.countryEntity.name}" id="countryName"/></td>
+                </tr></tbody>
+                </table>
+                <h:form id="country" enctype="multipart/form-data">
+                    <table>
+                        <tbody>
+                     <!--   <tr>
+                            <td><h:graphicImage value="/resources/images/#{consulate.consulateEntity.countryEntity.nationalFlag}"></h:graphicImage>
+                               </td>
+                            <td> <h:outputText value="#{consulate.consulateEntity.countryEntity.name}" id="countryName"/></td>
+                        </tr>-->
+                        <tr>
+                            <td><h:outputText value="领事馆名:" id="lblName"/><span style="color: red;">*</span></td>
+                            <td>
+                                <h:inputText value="#{consulate.consulateEntity.consulateName}" id="consulateName" style="width: 160px" label="领事馆名">
+                                    <f:validateLength maximum="15" minimum="2"/>
+
+                                </h:inputText>
+                            </td>
+                            <td> <h:messages for="consulateName" style="color: red"/></td>
+                        </tr>
+                        <tr>
+                            <td> <h:outputLabel value="领区:" id="continents"/><span style="color: red;">*</span></td>
+                            <td> <h:inputTextarea value="#{consulate.consulateEntity.consulateArea}" id="consulateArea" style="width: 160px" label="领区">
+                                <f:validateLength maximum="100" minimum="4"/>
+                            </h:inputTextarea></td>
+                            <td> <h:messages for="consulateArea" style="color: red"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h:commandButton actionListener="#{consulate.addConsulate}" id="addconsulate"
+                                     value="添 加" style="center">
+                        <!--<f:ajax execute="soNumber num" render="result"/>-->
+                    </h:commandButton>
+
+                    <p style="color: red; font-size: 18pt">
+                        <h:outputText value="#{consulate.result}"
+                                      id="status"/></p>
+                    </h:form>
+            </ui:insert>
+
+
+        </div>
+    </f:view>
+</h:body>
+</html>

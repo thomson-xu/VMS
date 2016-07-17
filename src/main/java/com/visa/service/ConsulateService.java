@@ -22,6 +22,7 @@ public class ConsulateService {
     }
 
     public void addCountry(ConsulateEntity consulate){
+
         consulateDao.create(consulate);
     }
     public void updateCountry(ConsulateEntity consulate){
@@ -38,7 +39,7 @@ public class ConsulateService {
     }
 
     public List<ConsulateEntity> findAllConsulate(){
-        String[] filedsName={"id","name","nationalFlag","interContinental"};
+        //String[] filedsName={"id","name","nationalFlag","interContinental"};
         return consulateDao.queryByWhere(ConsulateEntity.class,null,null);
     }
     public Long getKeyValue(){

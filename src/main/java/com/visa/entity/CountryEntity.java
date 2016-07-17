@@ -11,10 +11,23 @@ import java.util.List;
 @Entity
 @Table(name = "country")
 public class CountryEntity extends BaseEntity {
+    @Id
+    @Column(name = "ID")
     private long id;
+
+    @Basic
+    @Column(name = "Name")
     private String name;
+
+    @Basic
+    @Column(name = "NationalFlag")
     private String nationalFlag;
+
+    @Basic
+    @Column(name = "InterContinental")
     private int interContinental;
+
+    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY, mappedBy = "countryEntity")
     private List<ConsulateEntity> consulateEntitylist;
     public CountryEntity(){}
     public CountryEntity(long id, String name, String nationalFlag,int interContinental){
@@ -23,8 +36,7 @@ public class CountryEntity extends BaseEntity {
         this.nationalFlag = nationalFlag;
         this.interContinental = interContinental;
     }
-    @Id
-    @Column(name = "ID")
+
     public long getId() {
         return id;
     }
@@ -33,8 +45,6 @@ public class CountryEntity extends BaseEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "Name")
     public String getName() {
         return name;
     }
@@ -43,8 +53,7 @@ public class CountryEntity extends BaseEntity {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "NationalFlag")
+
     public String getNationalFlag() {
         return nationalFlag;
     }
@@ -53,8 +62,7 @@ public class CountryEntity extends BaseEntity {
         this.nationalFlag = nationalFlag;
     }
 
-    @Basic
-    @Column(name = "InterContinental")
+
     public int getInterContinental() {
         return interContinental;
     }
@@ -63,9 +71,8 @@ public class CountryEntity extends BaseEntity {
         this.interContinental = interContinental;
     }
 
-
- @OneToMany(mappedBy = "countryEntity",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    public List<ConsulateEntity> getConsulateEntitylist() {
+    //@OneToMany(cascade = { CascadeType.REFRESH, CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REMOVE },mappedBy
+   public List<ConsulateEntity> getConsulateEntitylist() {
         return consulateEntitylist;
     }
 

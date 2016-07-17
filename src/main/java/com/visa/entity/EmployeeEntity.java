@@ -73,6 +73,7 @@ public class EmployeeEntity extends BaseEntity implements Serializable {
 	}
 
 	@Override
+	@Transient
 	public Object getPrimaryKey() {
 		return  (Object) getId();
 	}
