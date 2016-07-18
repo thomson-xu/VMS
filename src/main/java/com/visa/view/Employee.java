@@ -25,7 +25,6 @@ public class Employee {
 
 	private EmployeeEntity employee;
 	public Employee() {
-		service = new EmployeeService();
 		employee = new EmployeeEntity();
 	}
 
@@ -45,6 +44,8 @@ public class Employee {
 	}
 
 	public String updateAction() {
+		//employee.setId(getEntity().getId());
+		employee.setRegisterTime(new Date());
 		this.service.update(employee);
 		return "updated";
 	}
@@ -63,16 +64,6 @@ public class Employee {
 	}
 
 	public EmployeeEntity getEmployee() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		Map requestParams = fc.getExternalContext().getRequestParameterMap();
-
-		if(requestParams.containsKey("emplId")){
-			String id = (String) requestParams.get("emplId");
-			return service.findEmployee(new Integer(id));
-		}
-		else {
-			employee = new EmployeeEntity();
-		}
 		return employee;
 	}
 
@@ -80,4 +71,22 @@ public class Employee {
 		this.employee = employee;
 	}
 
+	public EmployeeService getService() {
+		return service;
+	}
+
+	public void setService(EmployeeService service) {
+		this.service = service;
+	}
+
+	public EmployeeEntity getEntity(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		Map requestParams = fc.getExternalContext().getRequestParameterMap();
+		if(requestParams.containsKey("emplId")){
+			String id = (String) requestParams.get("emplId");
+			employee = service.findEmployee(new Integer(id));
+
+		}
+		return employee;
+	}
 }

@@ -12,7 +12,7 @@
 	<h3>--编辑员工信息</h3>
 	<h:messages errorClass="errorMsg" />
 	<h:form id="edit">
-	<input type="hidden" name="emplId" value="${emplview.employee.id}"/>
+	<h:inputHidden name="emplId" value="${emplview.entity.id}"  />
 	<table>
 	  <tr>
 	    <td>姓名:</td>
