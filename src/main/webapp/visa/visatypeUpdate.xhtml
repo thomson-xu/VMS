@@ -8,31 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </h:head>
 <h:body>
-    <f:view>
-        <div id="contentadd" class="table-view">
-            <ui:insert name="content">
-                <h:form id="visatype" enctype="multipart/form-data">
-                    <h:panelGrid columns="4">　　
-                        <h:outputText value="签证类型:" id="lbltype"/><span style="color: red;">*</span>
-                        <h:inputText value="#{visaType.entity.type}" id="txtType" style="width: 200px" label="类型">
-                            <f:validateLength maximum="15" minimum="2"/>
-                        </h:inputText>
-                        <h:messages for="txtType" style="color: red"/>
-
-                        <h:outputText value="备注:" id="lblremark"/> <span style="color: red;"></span>
-                        <h:inputTextarea value="#{visaType.entity.remark}" id="remark" style="width: 260px">
-                        </h:inputTextarea>
-                  </h:panelGrid>
-                    <h:commandButton actionListener="#{visaType.addAction}" id="addVisatype"
-                                     value="添加" style="center">
-                        <!--<f:ajax execute="soNumber num" render="result"/>-->
-                    </h:commandButton>
-                </h:form>
-            </ui:insert>
 
 
-        </div>
-         <ui:insert>
              <h:form id="visatypelistform">
         <div class="col-sm-12">
             <div class="row">
@@ -44,12 +21,6 @@
                         <div class="bootstrap-admin-panel-content">
                             <div class="row">
                                 <h:dataTable value="#{visaType.visatypeEntityList}" var="visatype" border="1">
-                                  <!--  <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="序号" />
-                                        </f:facet>
-                                        <h:outputText value="#{visaType.table.rowIndex + 1}"/>
-                                    </h:column>-->
                                     <!-- 定义第一列 -->
                                     <h:column>
                                         <f:facet name="header">
@@ -73,10 +44,7 @@
                                         <f:facet name="header">
                                             操 作
                                         </f:facet>
-                                        <h:commandLink action="#{visaType.editAction(visatype)}" rendered="#{not visatype.editable}">
-
-                                         <h:outputText value="编辑"
-                                                          styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
+                                        <h:commandLink   value="编辑" action="#{visaType.editAction(visatype)}" rendered="#{not visatype.editable}" styleClass="btn btn-primary glyphicon glyphicon-pencil">
                                         </h:commandLink>
                                         <h:outputText value=" "/>
                                         <h:commandLink action="#{visaType.updateAction(visatype.id)}">
@@ -101,7 +69,5 @@
             </div>
         </div>
     </h:form>
-</ui:insert>
-    </f:view>
 </h:body>
 </html>

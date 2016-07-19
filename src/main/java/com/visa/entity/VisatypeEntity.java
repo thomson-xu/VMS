@@ -21,8 +21,8 @@ public class VisatypeEntity extends BaseEntity {
     @Column(name = "Remark")
     private String remark;
 
-    public VisatypeEntity() {
-    }
+    @Transient
+    boolean editable;
 
     public VisatypeEntity(int id, String type, String remark) {
         this.id = id;
@@ -59,4 +59,15 @@ public class VisatypeEntity extends BaseEntity {
     public Object getPrimaryKey() {
         return (Object) getId();
     }
+
+    public boolean getEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+    public VisatypeEntity() {
+    }
+
 }

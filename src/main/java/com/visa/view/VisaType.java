@@ -5,12 +5,10 @@ import com.visa.service.VisaTypeService;
 import org.springframework.context.annotation.Scope;
 
 import javax.annotation.Resource;
-import javax.faces.component.UIData;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.inject.Named;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 @Named("visaType")
@@ -18,95 +16,102 @@ import java.util.Map;
 public class VisaType {
 
 
-	private UIData table;
+ //  private UIData table;
+    @Resource
+    private VisaTypeService service;
 
-	@Resource
-	private VisaTypeService service;
+    private VisatypeEntity entity;
+     private List<VisatypeEntity> visatypeEntityList;
+    public VisaType() {
+        entity = new VisatypeEntity();
+    }
 
-	private VisatypeEntity entity;
-	public VisaType() {
-		entity = new VisatypeEntity();
-	}
+    /**
+     * @return
+     */
+    public List<VisatypeEntity> getVisatypeEntityList() {
+        return this.service.findAllVisatype();
+    }
 
-	/**
-	 *
-	 * 
-	 * @return
-	 */
-	public DataModel getAllVisaType() {
-		return new ListDataModel(this.service.findAllVisatype());
-	}
+    public String addAction() {
+        entity.setId(service.getKeyValue());
+        this.service.add(entity);
+        return "persisted";
+    }
 
-	public String addAction() {
-		entity.setId(service.getKeyValue());
-		this.service.add(entity);
-		return "persisted";
-	}
+    public String updateAction(int id) {
 
-	public String updateAction() {
-		getVisatypeEntity();
-		FacesContext fc = FacesContext.getCurrentInstance();
-		Map requestParams = fc.getExternalContext().getRequestParameterMap();
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map requestParams = fc.getExternalContext().getRequestParameterMap();
+        int mapsize = requestParams.size();
+        Iterator keyValue = requestParams.entrySet().iterator();
+        VisatypeEntity visatype= service.findVisatype(id);
+        for (int i = 0; i < mapsize; i++) {
+            Map.Entry entry = (Map.Entry) keyValue.next();
+            Object key = entry.getKey();
+           /* if (key.toString().toLowerCase().equalsIgnoreCase("id")) {
+                visatype.setId(new Integer(entry.getValue().toString()).intValue());
+            } else*/ if (key.toString().toLowerCase().contains("name")) {
+                visatype.setType(entry.getValue().toString());
+            } else if (key.toString().toLowerCase().contains("remarklist")) {
+                visatype.setRemark(entry.getValue().toString());
+            }
+        }
+        if(visatype != null){
+            this.service.update(visatype);
+        }else{
+            return "update failed";
+        }
+        visatype.setEditable(false);
+        return "updated";
+    }
 
-		if(requestParams.containsKey("Id")){
-			String id = (String) requestParams.get("Id");
-			entity.setId(new Integer(id).intValue());
-		}
-		if(requestParams.containsKey("Name")){
-			String id = (String) requestParams.get("Id");
-			entity.setId(new Integer(id).intValue());
-		}
+    public String editAction(VisatypeEntity visatypeEntity) {
+        visatypeEntity.setEditable(true);
+        return null;
+    }
 
-		this.service.update(entity);
-		setEditable(false);
-		return "updated";
-	}
+    public String deleteAction() {
+        this.service.delete(getVisatypeEntity().getId());
+        return "removed";
+    }
 
-	public String editAction(VisatypeEntity visatypeEntity) {
+/*    public UIData getTable() {
+        return table;
+    }
 
-		setEditable(true);
-		return null;
-	}
-	public String deleteAction() {
-		this.service.delete(getVisatypeEntity().getId());
-		return "removed";
-	}
+    public void setTable(UIData table) {
+        this.table = table;
+    }*/
 
-	public UIData getTable() {
-		return table;
-	}
+    public VisatypeEntity getVisatypeEntity() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map requestParams = fc.getExternalContext().getRequestParameterMap();
 
-	public void setTable(UIData table) {
-		this.table = table;
-	}
+        if (requestParams.containsKey("Id")) {
+            String id = (String) requestParams.get("Id");
+            return service.findVisatype(new Integer(id).intValue());
+        } else {
+            entity = new VisatypeEntity();
+        }
+        return entity;
+    }
 
-	public VisatypeEntity getVisatypeEntity() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		Map requestParams = fc.getExternalContext().getRequestParameterMap();
+    public VisatypeEntity getEntity() {
+        return entity;
+    }
 
-		if(requestParams.containsKey("Id")){
-			String id = (String) requestParams.get("Id");
-			return service.findVisatype( new Integer(id).intValue());
-		}
-		else {
-			entity = new VisatypeEntity();
-		}
-		return entity;
-	}
-	public VisatypeEntity getEntity() {
-		return entity;
-	}
+    public void setEntity(VisatypeEntity entity) {
+        this.entity = entity;
+    }
 
-	public void setEntity(VisatypeEntity entity) {
-		this.entity = entity;
-	}
+    boolean editable;
 
-	boolean editable;
+    public boolean isEditable() {
+        return editable;
+    }
 
-	public boolean isEditable() {
-		return editable;
-	}
-	public void setEditable(boolean editable) {
-		this.editable = editable;
-	}
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
 }
