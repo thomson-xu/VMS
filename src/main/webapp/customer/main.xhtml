@@ -56,12 +56,12 @@
 					<h:column>
 						<h:panelGroup>
 							<h:outputLink value="edit.faces?emplId=#{empl.id}">
-								<h:outputText value="编辑"/>
+								<h:outputText value="编辑"  styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
 							</h:outputLink>
 							<h:outputText value=" "/>
 							<h:commandLink action="#{emplview.deleteAction}"
 								onclick="if(!confirm('你确定删除?')){return false;}">
-								<h:outputText value="删除"/>
+								<h:outputText value="删除"  styleClass="btn btn-danger glyphicon glyphicon-trash"/>
 								<f:param name="emplId" value="#{empl.id}"/>
 							</h:commandLink>
 						</h:panelGroup>

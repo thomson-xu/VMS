@@ -44,7 +44,7 @@ public class VisaTypeService {
 
     }
 
-    public VisatypeEntity findVisatype(Integer id) {
+    public VisatypeEntity findVisatype(int id) {
         VisatypeEntity visatypeEntity = visaTypeDao.find(VisatypeEntity.class, id);
         return ((visatypeEntity != null) ? visatypeEntity : new VisatypeEntity());
     }

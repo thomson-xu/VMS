@@ -17,7 +17,7 @@
                         </div>
                         <div class="bootstrap-admin-panel-content">
                             <div class="row">
-                                <t:saveState value="#{country.listCountry}"></t:saveState>
+                               <!-- <t:saveState value="#{country.listCountry}"></t:saveState>-->
                                 <h:dataTable
                                         class="table table-striped table-hover dataTables_wrapper"
                                         value="#{country.listCountry}" var="countrys" width="1000px" id="countrytable"
@@ -81,7 +81,7 @@
                                     </h:column>
                                     <!-- 生成表格底部 -->
                                     <f:facet name="footer">
-                                         <t:dataScroller id="ds_sataion" for="countrytable" fastStep="2"
+                                         <!--<t:dataScroller id="ds_sataion" for="countrytable" fastStep="2"
                                                            paginatorMaxPages="10" paginator="true" styleClass="paging_bootstrap" >
                                                <f:facet name="first">
                                                    <h:outputText value="首页" />
@@ -101,7 +101,7 @@
                                                    <h:outputText value="下一页   " />
                                                </f:facet>
                                            </t:dataScroller>
-
+-->
                                     </f:facet>
                                 </h:dataTable>
                             </div>

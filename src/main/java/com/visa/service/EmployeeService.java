@@ -40,7 +40,7 @@ public class EmployeeService {
 	}
 
 
-	public void delete(Long id){
+	public void delete(Integer id){
 		employeeDao.delete(EmployeeEntity.class,(Object)(id));
 	}
 

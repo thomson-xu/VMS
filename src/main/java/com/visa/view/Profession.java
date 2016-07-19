@@ -24,7 +24,6 @@ public class Profession {
 
 	private ProfessionEntity entity;
 	public Profession() {
-		service = new ProfessionService();
 		entity = new ProfessionEntity();
 	}
 
@@ -53,7 +52,7 @@ public class Profession {
 		return null;
 	}
 	public String deleteAction() {
-		this.service.delete(Long.valueOf((Integer)entity.getId()));
+		this.service.delete(Long.valueOf((Integer) entity.getId()));
 		return "removed";
 	}
 
@@ -79,7 +78,11 @@ public class Profession {
 		return entity;
 	}
 
-	public void setProfessionEntity(ProfessionEntity entity) {
+	public ProfessionEntity getEntity(){
+
+		return entity;
+	}
+	public void setEntity(ProfessionEntity entity) {
 		this.entity = entity;
 	}
 

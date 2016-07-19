@@ -14,13 +14,13 @@
                 <h:form id="visatype" enctype="multipart/form-data">
                     <h:panelGrid columns="4">　　
                         <h:outputText value="签证类型:" id="lbltype"/><span style="color: red;">*</span>
-                        <h:inputText value="#{visaType.visatypeEntity.type}" id="txtType" style="width: 200px" label="类型">
+                        <h:inputText value="#{visaType.entity.type}" id="txtType" style="width: 200px" label="类型">
                             <f:validateLength maximum="15" minimum="2"/>
                         </h:inputText>
                         <h:messages for="txtType" style="color: red"/>
 
                         <h:outputText value="备注:" id="lblremark"/> <span style="color: red;"></span>
-                        <h:inputTextarea value="#{visaType.visatypeEntity.remark}" id="remark" style="width: 260px">
+                        <h:inputTextarea value="#{visaType.entity.remark}" id="remark" style="width: 260px">
                         </h:inputTextarea>
                   </h:panelGrid>
                     <h:commandButton actionListener="#{visaType.addAction}" id="addVisatype"
@@ -33,7 +33,7 @@
 
         </div>
          <ui:insert>
-             <h:form>
+             <h:form id="visatypelistform">
         <div class="col-sm-12">
             <div class="row">
                 <div class="col-lg-12">
@@ -61,7 +61,7 @@
                                         <f:facet name="header">
                                             签证类型
                                         </f:facet>
-                                        <h:inputText value="#{visatype.type}" id="Name"
+                                        <h:inputText value="#{visatype.type}" id="Name" bing="#{visatype.type}"
                                                      rendered="#{visaType.editable}"/>
                                         <h:outputText value="#{visatype.type}" rendered="#{not visaType.editable}"/>
                                     </h:column>
@@ -70,21 +70,28 @@
                                         <f:facet name="header">
                                             备 注
                                         </f:facet>
-                                        <h:inputText value="#{visatype.remark}" id="remarklist"
+                                        <h:inputText bing="#{visatype.remark}" id="remarklist" value="#{visatype.remark}"
                                                      rendered="#{visaType.editable}"/>
-                                        <h:outputText value="#{visatype.type}" rendered="#{not visaType.editable}"/>
+                                        <h:outputText value="#{visatype.remark}" rendered="#{not visaType.editable}"/>
                                     </h:column>
 
                                     <h:column class="actions">
                                         <f:facet name="header">
                                             操 作
                                         </f:facet>
-                                        <h:commandLink action="#{visaType.editAction}">
+                                        <h:commandLink action="#{visaType.editAction(visatype)}" rendered="#{not visaType.editable}">
 
                                          <h:outputText value="编辑"
                                                           styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
                                         </h:commandLink>
                                         <h:outputText value=" "/>
+                                        <h:commandLink action="#{visaType.updateAction}" rendered="#{visaType.editable}">
+
+                                            <h:outputText value="保存"
+                                                          styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
+                                        </h:commandLink>
+                                        <h:outputText value=" "/>
+
                                         <h:commandLink action="#{visaType.deleteAction()}"
                                                        onclick="if(!confirm('你确定删除?')){return false;}">
                                             <h:outputText value="删除"

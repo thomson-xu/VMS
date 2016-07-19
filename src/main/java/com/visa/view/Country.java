@@ -123,6 +123,12 @@ public class Country {
     }
 
     public void delCountry(){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map requestParams = fc.getExternalContext().getRequestParameterMap();
+        if( requestParams.containsKey("Id")){
+            String id = (String) requestParams.get("Id");
+            countryEntity = countryService.findCountryId(new Long(id));
+        }
         countryService.deleteCountryById(countryEntity.getId());
     }
 
@@ -233,6 +239,24 @@ public class Country {
         }
         return countryEntity;
     }
+
+    public CountryEntity getEntity() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map requestParams = fc.getExternalContext().getRequestParameterMap();
+        if( requestParams.containsKey("Id")){
+            String id = (String) requestParams.get("Id");
+            countryEntity = countryService.findCountryId(new Long(id));
+        }
+        else if (requestParams.containsKey("countryId")){
+            String id = (String) requestParams.get("countryId");
+            countryEntity = countryService.findCountryId(new Long(id));
+        }
+        else {
+            countryEntity = new CountryEntity();
+        }
+        return countryEntity;
+    }
+
 
     public void setCountryEntity(CountryEntity countryEntity) {
         this.countryEntity = countryEntity;

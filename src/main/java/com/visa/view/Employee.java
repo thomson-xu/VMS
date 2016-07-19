@@ -51,7 +51,8 @@ public class Employee {
 	}
 
 	public String deleteAction() {
-		this.service.delete(Long.valueOf((Integer)employee.getId()));
+		getEntity();
+		this.service.delete(employee.getId());
 		return "removed";
 	}
 

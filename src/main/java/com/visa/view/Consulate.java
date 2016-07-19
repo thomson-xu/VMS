@@ -33,8 +33,6 @@ public class Consulate {
     private ConsulateEntity consulateEntity;
     private UISelectOne selectone;
     public Consulate(){
-
-        consulateService = new ConsulateService();
         consulateEntity = new ConsulateEntity();
 
     }
@@ -169,6 +167,34 @@ public class Consulate {
            }
       else {
            consulateEntity = new ConsulateEntity();
+        }
+        return consulateEntity;
+    }
+
+    public ConsulateEntity getEntity(){
+
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map requestParams = fc.getExternalContext().getRequestParameterMap();
+        if( requestParams.containsKey("Id")){
+            String id = (String) requestParams.get("Id");
+            consulateEntity = consulateService.findConsulateId(new Long(id));
+        }
+        else if (requestParams.containsKey("country")){
+
+            String param = (String) requestParams.get("country");
+            if (param.contains("CountryEntity")) {
+                String params[] = param.substring(20).split("\t");
+                params[0].substring(4, params[0].length() - 1);
+                countryEntity = new CountryEntity();
+                countryEntity.setId(Long.valueOf(params[0].substring(4, params[0].length() - 1))); //setID
+                countryEntity.setName(params[1].substring(6, params[1].length() - 1));    //setName
+                countryEntity.setInterContinental(Integer.valueOf(params[2].substring(18, params[2].length() - 1)));//setIntercontinental
+                countryEntity.setNationalFlag(params[3].substring(14, params[3].length() - 1)); //setNationalFlag
+            }
+            consulateEntity.setCountryEntity(countryEntity);
+        }
+        else {
+            consulateEntity = new ConsulateEntity();
         }
         return consulateEntity;
     }

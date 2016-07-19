@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Scope;
 
 import javax.annotation.Resource;
 import javax.faces.component.UIData;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -24,7 +25,6 @@ public class VisaType {
 
 	private VisatypeEntity entity;
 	public VisaType() {
-		service = new VisaTypeService();
 		entity = new VisatypeEntity();
 	}
 
@@ -44,16 +44,22 @@ public class VisaType {
 	}
 
 	public String updateAction() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		UIViewRoot root = facesContext.getViewRoot();
+		UIData table = (UIData) root.findComponent("visatypelistform").findComponent("Name");
 		this.service.update(entity);
+		setEditable(false);
 		return "updated";
 	}
 
-	public String editAction(VisaType profession) {
-		profession.setEditable(true);
+	public String editAction(VisatypeEntity visatypeEntity) {
+
+		setEditable(true);
 		return null;
 	}
 	public String deleteAction() {
-		this.service.delete(entity.getId());
+		this.service.delete(getVisatypeEntity().getId());
 		return "removed";
 	}
 
@@ -71,15 +77,18 @@ public class VisaType {
 
 		if(requestParams.containsKey("Id")){
 			String id = (String) requestParams.get("Id");
-			return service.findVisatype(new Integer(id));
+			return service.findVisatype( new Integer(id).intValue());
 		}
 		else {
 			entity = new VisatypeEntity();
 		}
 		return entity;
 	}
+	public VisatypeEntity getEntity() {
+		return entity;
+	}
 
-	public void setVisatypeEntity(VisatypeEntity entity) {
+	public void setEntity(VisatypeEntity entity) {
 		this.entity = entity;
 	}
 
