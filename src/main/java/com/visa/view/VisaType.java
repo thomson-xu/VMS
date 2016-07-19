@@ -44,10 +44,19 @@ public class VisaType {
 	}
 
 	public String updateAction() {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
+		getVisatypeEntity();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		Map requestParams = fc.getExternalContext().getRequestParameterMap();
 
-		UIViewRoot root = facesContext.getViewRoot();
-		UIData table = (UIData) root.findComponent("visatypelistform").findComponent("Name");
+		if(requestParams.containsKey("Id")){
+			String id = (String) requestParams.get("Id");
+			entity.setId(new Integer(id).intValue());
+		}
+		if(requestParams.containsKey("Name")){
+			String id = (String) requestParams.get("Id");
+			entity.setId(new Integer(id).intValue());
+		}
+
 		this.service.update(entity);
 		setEditable(false);
 		return "updated";

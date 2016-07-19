@@ -61,7 +61,7 @@
                                         <f:facet name="header">
                                             签证类型
                                         </f:facet>
-                                        <h:inputText value="#{visatype.type}" id="Name" bing="#{visatype.type}"
+                                        <h:inputText value="#{visatype.type}" id="Name" bing="#{visaType.entity.type}"
                                                      rendered="#{visaType.editable}"/>
                                         <h:outputText value="#{visatype.type}" rendered="#{not visaType.editable}"/>
                                     </h:column>
@@ -70,7 +70,7 @@
                                         <f:facet name="header">
                                             备 注
                                         </f:facet>
-                                        <h:inputText bing="#{visatype.remark}" id="remarklist" value="#{visatype.remark}"
+                                        <h:inputText bing="#{visaType.entity.remark}" id="remarklist" value="#{visatype.remark}"
                                                      rendered="#{visaType.editable}"/>
                                         <h:outputText value="#{visatype.remark}" rendered="#{not visaType.editable}"/>
                                     </h:column>
@@ -85,10 +85,11 @@
                                                           styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
                                         </h:commandLink>
                                         <h:outputText value=" "/>
-                                        <h:commandLink action="#{visaType.updateAction}" rendered="#{visaType.editable}">
+                                        <h:commandLink action="#{visaType.updateAction()}">
 
                                             <h:outputText value="保存"
                                                           styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
+                                            <f:param name="Id" value="#{visatype.id}"/>
                                         </h:commandLink>
                                         <h:outputText value=" "/>
 
