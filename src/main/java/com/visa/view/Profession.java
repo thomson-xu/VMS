@@ -70,7 +70,7 @@ public class Profession {
 
 		if(requestParams.containsKey("Id")){
 			String id = (String) requestParams.get("Id");
-			return service.findProfession(new Integer(id));
+			entity= service.findProfession(new Integer(id));
 		}
 		else {
 			entity = new ProfessionEntity();

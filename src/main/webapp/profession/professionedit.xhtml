@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:t="http://myfaces.apache.org/tomahawk">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</h:head>
+<h:body>
+    <f:view>
+        <div id="contentadd" class="table-view">
+            <ui:insert name="content">
+                <h:form id="profession" enctype="multipart/form-data">
+                    <h:inputHidden name="Id" value="${profession.professionEntity.id}"  />
+                    <h:panelGrid columns="5">　　
+                        <h:outputText value="职业类型:" id="lblproName"/><span style="color: red;">*</span>
+                        <h:inputText value="#{profession.entity.name}" id="proName" style="width: 160px" label="职业类型">
+                            <f:validateLength maximum="15" minimum="2"/>
+
+                        </h:inputText>
+                        <h:messages for="proName" style="color: red"/>
+                  </h:panelGrid>
+                    <h:commandButton actionListener="#{profession.updateAction}" id="editprofession"
+                                     value="更 新" style="center">
+                        <!--<f:ajax execute="soNumber num" render="result"/>-->
+                    </h:commandButton>
+                </h:form>
+            </ui:insert>
+        </div>
+    </f:view>
+</h:body>
+</html>

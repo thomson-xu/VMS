@@ -67,11 +67,10 @@
                                         <f:facet name="header">
                                             操 作
                                         </f:facet>
-                                        <h:commandLink action="#{profession.editAction}">
+                                        <h:outputLink value="professionedit.xhtml?Id=#{pro.id}">
+                                            <h:outputText value="编辑"  styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
+                                        </h:outputLink>
 
-                                         <h:outputText value="编辑"
-                                                          styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
-                                        </h:commandLink>
                                         <h:outputText value=" "/>
                                         <h:commandLink action="#{profession.delCountry()}"
                                                        onclick="if(!confirm('你确定删除?')){return false;}">

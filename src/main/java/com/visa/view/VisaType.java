@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Scope;
 import javax.annotation.Resource;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -39,9 +38,9 @@ public class VisaType {
         return "persisted";
     }
 
-    public String updateAction(int id) {
+    public String updateAction() {
 
-        FacesContext fc = FacesContext.getCurrentInstance();
+       /* FacesContext fc = FacesContext.getCurrentInstance();
         Map requestParams = fc.getExternalContext().getRequestParameterMap();
         int mapsize = requestParams.size();
         Iterator keyValue = requestParams.entrySet().iterator();
@@ -49,20 +48,15 @@ public class VisaType {
         for (int i = 0; i < mapsize; i++) {
             Map.Entry entry = (Map.Entry) keyValue.next();
             Object key = entry.getKey();
-           /* if (key.toString().toLowerCase().equalsIgnoreCase("id")) {
+           *//* if (key.toString().toLowerCase().equalsIgnoreCase("id")) {
                 visatype.setId(new Integer(entry.getValue().toString()).intValue());
-            } else*/ if (key.toString().toLowerCase().contains("name")) {
+            } else*//* if (key.toString().toLowerCase().contains("name")) {
                 visatype.setType(entry.getValue().toString());
             } else if (key.toString().toLowerCase().contains("remarklist")) {
                 visatype.setRemark(entry.getValue().toString());
             }
-        }
-        if(visatype != null){
-            this.service.update(visatype);
-        }else{
-            return "update failed";
-        }
-        visatype.setEditable(false);
+        }*/
+        this.service.update(entity);
         return "updated";
     }
 
@@ -90,7 +84,7 @@ public class VisaType {
 
         if (requestParams.containsKey("Id")) {
             String id = (String) requestParams.get("Id");
-            return service.findVisatype(new Integer(id).intValue());
+            entity= service.findVisatype(new Integer(id).intValue());
         } else {
             entity = new VisatypeEntity();
         }

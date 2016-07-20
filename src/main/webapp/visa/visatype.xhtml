@@ -73,11 +73,10 @@
                                         <f:facet name="header">
                                             操 作
                                         </f:facet>
-                                        <h:commandLink action="#{visaType.editAction(visatype)}" rendered="#{not visatype.editable}">
 
-                                         <h:outputText value="编辑"
-                                                          styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
-                                        </h:commandLink>
+                                        <h:outputLink value="visatypeedit.xhtml?Id=#{visatype.id}">
+                                            <h:outputText value="编辑"  styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
+                                        </h:outputLink>
                                         <h:outputText value=" "/>
                                         <h:commandLink action="#{visaType.updateAction(visatype.id)}">
 

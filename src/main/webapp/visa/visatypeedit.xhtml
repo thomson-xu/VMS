@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:t="http://myfaces.apache.org/tomahawk">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</h:head>
+<h:body>
+
+
+    <h:form id="visatypeedit">
+        <div class="col-sm-12">
+            <ui:insert name="content">
+                <h:form id="visatype" enctype="multipart/form-data">
+                    <h:inputHidden name="Id" value="${visaType.visatypeEntity.id}"  />
+                    <h:panelGrid columns="4">　　
+                        <h:outputText value="签证类型:" id="lbltype"/><span style="color: red;">*</span>
+                        <h:inputText value="#{visaType.entity.type}" id="txtType" style="width: 200px" label="类型">
+                            <f:validateLength maximum="15" minimum="2"/>
+                        </h:inputText>
+                        <h:messages for="txtType" style="color: red"/>
+
+                        <h:outputText value="备注:" id="lblremark"/> <span style="color: red;"></span>
+                        <h:inputTextarea value="#{visaType.entity.remark}" id="remark" style="width: 260px">
+                        </h:inputTextarea>
+                    </h:panelGrid>
+                    <h:commandButton actionListener="#{visaType.updateAction}" id="addVisatype"
+                                     value="更 新" style="center">
+                        <!--<f:ajax execute="soNumber num" render="result"/>-->
+                    </h:commandButton>
+                </h:form>
+            </ui:insert>
+        </div>
+    </h:form>
+</h:body>
+</html>
