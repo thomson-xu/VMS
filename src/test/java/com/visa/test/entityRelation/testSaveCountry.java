@@ -40,7 +40,7 @@ public class testSaveCountry {
         ConsulateEntity consulateEntity= new ConsulateEntity();
         List<ConsulateEntity> consulateEntityList = new ArrayList<ConsulateEntity>();
 
-        countryEntity.setId(1000000000);
+        countryEntity.setId(1000000002);
         countryEntity.setName("USA");
         countryEntity.setInterContinental(1);
         countryEntity.setNationalFlag("img/nationflag/usa.png");

@@ -18,6 +18,9 @@
                         <div class="bootstrap-admin-panel-content">
                             <div class="row">
                                 <!-- <t:saveState value="#{country.listCountry}"></t:saveState>-->
+                                <h:outputLink value="consulateadd.xhtml?countryId=#{consulate.entity.countryEntity.id}">
+                                    <h:outputText value="添 加" styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
+                                </h:outputLink>
                                 <h:dataTable
                                         class="table table-striped table-hover dataTables_wrapper form-inline bootstrap-admin-table-with-actions"
                                         value="#{consulate.listConsulate}" var="consulates" width="1000px" id="countrytable"

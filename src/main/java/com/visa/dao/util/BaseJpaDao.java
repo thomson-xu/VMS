@@ -392,6 +392,7 @@ public abstract class BaseJpaDao implements DAO {
     private  EntityManager entityManager;
 
     public EntityManager getEntityManager() {
+
         return entityManager;//=entityManagerFactory.g.createEntityManager();
     }
 

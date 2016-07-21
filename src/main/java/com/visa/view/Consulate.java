@@ -4,6 +4,7 @@ import com.visa.bean.ContinentsEnum;
 import com.visa.entity.ConsulateEntity;
 import com.visa.entity.CountryEntity;
 import com.visa.service.ConsulateService;
+import com.visa.service.CountryService;
 import org.springframework.context.annotation.Scope;
 
 import javax.annotation.Resource;
@@ -28,6 +29,9 @@ import java.util.Map;
 public class Consulate {
     @Resource
     private ConsulateService consulateService;
+    @Resource
+    private CountryService countryService;
+
     private String result;
     private static CountryEntity countryEntity;
     private ConsulateEntity consulateEntity;
@@ -52,7 +56,7 @@ public class Consulate {
     public void addConsulate(ActionEvent evt) {
         consulateEntity.setId(consulateService.getKeyValue());
         //countryEntity.setName(getCountryName());
-
+        consulateEntity.setCountryEntity(countryEntity);
         //consulateEntity.setInterContinental(getInterContinental());
         try {
 
@@ -95,10 +99,9 @@ public class Consulate {
        /* CountryEntity entity= consulateService.findCountryId(country.getId());
         entity.setName(country.getCountryName());
         entity.setNationalFlag(country.getNationalFlag());*/
-        countryEntity.setInterContinental(getInterContinental());
+        //countryEntity.setInterContinental(getInterContinental());
         try {
-
-              consulateService.updateCountry(consulateEntity);
+            consulateService.updateCountry(consulateEntity);
 
             result = "Create country successfully";
         } catch (Exception e) {
@@ -145,29 +148,6 @@ public class Consulate {
     }
 
     public ConsulateEntity getConsulateEntity() {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map requestParams = fc.getExternalContext().getRequestParameterMap();
-       if( requestParams.containsKey("Id")){
-           String id = (String) requestParams.get("Id");
-           consulateEntity = consulateService.findConsulateId(new Long(id));
-       }
-        else if (requestParams.containsKey("country")){
-
-               String param = (String) requestParams.get("country");
-               if (param.contains("CountryEntity")) {
-                   String params[] = param.substring(20).split("\t");
-                   params[0].substring(4, params[0].length() - 1);
-                   countryEntity = new CountryEntity();
-                   countryEntity.setId(Long.valueOf(params[0].substring(4, params[0].length() - 1))); //setID
-                   countryEntity.setName(params[1].substring(6, params[1].length() - 1));    //setName
-                   countryEntity.setInterContinental(Integer.valueOf(params[2].substring(18, params[2].length() - 1)));//setIntercontinental
-                   countryEntity.setNationalFlag(params[3].substring(14, params[3].length() - 1)); //setNationalFlag
-               }
-                consulateEntity.setCountryEntity(countryEntity);
-           }
-      else {
-           consulateEntity = new ConsulateEntity();
-        }
         return consulateEntity;
     }
 
@@ -179,18 +159,10 @@ public class Consulate {
             String id = (String) requestParams.get("Id");
             consulateEntity = consulateService.findConsulateId(new Long(id));
         }
-        else if (requestParams.containsKey("country")){
+        else if (requestParams.containsKey("countryId")){
 
-            String param = (String) requestParams.get("country");
-            if (param.contains("CountryEntity")) {
-                String params[] = param.substring(20).split("\t");
-                params[0].substring(4, params[0].length() - 1);
-                countryEntity = new CountryEntity();
-                countryEntity.setId(Long.valueOf(params[0].substring(4, params[0].length() - 1))); //setID
-                countryEntity.setName(params[1].substring(6, params[1].length() - 1));    //setName
-                countryEntity.setInterContinental(Integer.valueOf(params[2].substring(18, params[2].length() - 1)));//setIntercontinental
-                countryEntity.setNationalFlag(params[3].substring(14, params[3].length() - 1)); //setNationalFlag
-            }
+            String countryid = (String) requestParams.get("countryId");
+            countryEntity=countryService.findCountryId(Long.valueOf(countryid));
             consulateEntity.setCountryEntity(countryEntity);
         }
         else {
@@ -210,4 +182,6 @@ public class Consulate {
     public void setCountryEntity(CountryEntity countryEntity) {
         this.countryEntity = countryEntity;
     }
+
+
 }

@@ -21,7 +21,7 @@ public class ConsulateEntity extends BaseEntity {
     private String consulateArea;
 
     @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH }, optional = true)
-    @JoinColumn(name="Country_Id" )
+    @JoinColumn(name="Country_Id",insertable = false,updatable = false)
     private CountryEntity countryEntity;
 
     public long getId() {

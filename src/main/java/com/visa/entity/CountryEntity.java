@@ -10,6 +10,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "country")
+
 public class CountryEntity extends BaseEntity {
     @Id
     @Column(name = "ID")
@@ -27,7 +28,7 @@ public class CountryEntity extends BaseEntity {
     @Column(name = "InterContinental")
     private int interContinental;
 
-    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY, mappedBy = "countryEntity")
+    @OneToMany(cascade= CascadeType.ALL,fetch=FetchType.LAZY, mappedBy = "countryEntity")
     private List<ConsulateEntity> consulateEntitylist;
     public CountryEntity(){}
     public CountryEntity(long id, String name, String nationalFlag,int interContinental){
