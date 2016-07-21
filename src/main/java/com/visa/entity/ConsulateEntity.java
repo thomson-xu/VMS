@@ -20,9 +20,12 @@ public class ConsulateEntity extends BaseEntity {
     @Column(name = "ConsulateArea")
     private String consulateArea;
 
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH }, optional = true)
-    @JoinColumn(name="Country_Id",insertable = false,updatable = false)
+    @ManyToOne(cascade = CascadeType.ALL, optional = true)
+    @JoinColumn(name="Country_Id",referencedColumnName = "Id",insertable = false,updatable = false,unique = false)
     private CountryEntity countryEntity;
+    @Basic
+    @Column(name = "Country_Id")
+    private Long countryId;
 
     public long getId() {
         return id;
@@ -55,6 +58,14 @@ public class ConsulateEntity extends BaseEntity {
 
     public void setCountryEntity(CountryEntity countryEntity) {
         this.countryEntity = countryEntity;
+    }
+
+    public Long getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(Long countryId) {
+        this.countryId = countryId;
     }
 
     @Transient

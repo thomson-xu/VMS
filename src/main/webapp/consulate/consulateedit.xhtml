@@ -14,7 +14,7 @@
                 <h:form id="consulate" enctype="multipart/form-data">
                     <h:panelGrid columns="4">
                         <input type="hidden" name="countryId" value="${consulate.countryEntity.id}"/>　　
-
+                        <input type="hidden" name="Id" value="${consulate.entity.id}"/>
                         <h:graphicImage
                                 value="/resources/images/#{consulate.countryEntity.nationalFlag}"></h:graphicImage>
                     </h:panelGrid>

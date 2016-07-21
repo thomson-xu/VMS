@@ -39,8 +39,12 @@ public class ConsulateService {
     }
 
     public List<ConsulateEntity> findAllConsulate(){
-        //String[] filedsName={"id","name","nationalFlag","interContinental"};
         return consulateDao.queryByWhere(ConsulateEntity.class,null,null);
+    }
+
+    public List<ConsulateEntity> findConsulateByCountry(Long countryId){
+        Object[]  obj={(Object)countryId};
+        return consulateDao.queryByWhere(ConsulateEntity.class,"o.countryId=?",obj);
     }
     public Long getKeyValue(){
        return consulateDao.generateKeyValue(ConsulateEntity.class) ;

@@ -40,7 +40,7 @@ public class testSaveCountry {
         ConsulateEntity consulateEntity= new ConsulateEntity();
         List<ConsulateEntity> consulateEntityList = new ArrayList<ConsulateEntity>();
 
-        countryEntity.setId(1000000002);
+        countryEntity.setId(1000000005);
         countryEntity.setName("USA");
         countryEntity.setInterContinental(1);
         countryEntity.setNationalFlag("img/nationflag/usa.png");
@@ -52,7 +52,7 @@ public class testSaveCountry {
         consulateEntity.setCountryEntity(countryEntity);
         consulateEntityList.add(consulateEntity);
 
-        consulateEntity= new ConsulateEntity();
+       consulateEntity= new ConsulateEntity();
         consulateEntity.setId(1000000001);
         consulateEntity.setConsulateArea("sh,suz,zj");
         consulateEntity.setConsulateName("shanghai_consulate_USA");

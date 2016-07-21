@@ -23,7 +23,7 @@
                                 </h:outputLink>
                                 <h:dataTable
                                         class="table table-striped table-hover dataTables_wrapper form-inline bootstrap-admin-table-with-actions"
-                                        value="#{consulate.listConsulate}" var="consulates" width="1000px" id="countrytable"
+                                        value="#{consulate.getListConsulateForCountry(consulate.entity.countryEntity.id)}" var="consulates" width="1000px" id="countrytable"
                                         >
                                     <!-- 定义第一列 -->
                                     <h:column>

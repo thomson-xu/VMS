@@ -56,7 +56,7 @@ public class Consulate {
     public void addConsulate(ActionEvent evt) {
         consulateEntity.setId(consulateService.getKeyValue());
         //countryEntity.setName(getCountryName());
-        consulateEntity.setCountryEntity(countryEntity);
+        consulateEntity.setCountryId(countryEntity.getId());
         //consulateEntity.setInterContinental(getInterContinental());
         try {
 
@@ -75,7 +75,9 @@ public class Consulate {
         return new ListDataModel(consulateService.findAllConsulate());
     }
 
-
+    public DataModel getListConsulateForCountry(Long id) {
+        return new ListDataModel(consulateService.findConsulateByCountry(id));
+    }
 
     public void delCountry(){
         consulateService.deleteConsulateById(consulateEntity.getId());
@@ -101,6 +103,8 @@ public class Consulate {
         entity.setNationalFlag(country.getNationalFlag());*/
         //countryEntity.setInterContinental(getInterContinental());
         try {
+            consulateEntity.setCountryId(countryEntity.getId());
+            //consulateEntity.setCountryEntity(null);
             consulateService.updateCountry(consulateEntity);
 
             result = "Create country successfully";
@@ -156,17 +160,18 @@ public class Consulate {
         FacesContext fc = FacesContext.getCurrentInstance();
         Map requestParams = fc.getExternalContext().getRequestParameterMap();
         if( requestParams.containsKey("Id")){
-            String id = (String) requestParams.get("Id");
-            consulateEntity = consulateService.findConsulateId(new Long(id));
+            if(consulateEntity==null){
+                String id = (String) requestParams.get("Id");
+                consulateEntity = consulateService.findConsulateId(new Long(id));
+            }
         }
-        else if (requestParams.containsKey("countryId")){
+        if (requestParams.containsKey("countryId")){
 
             String countryid = (String) requestParams.get("countryId");
+            countryEntity = new CountryEntity();
             countryEntity=countryService.findCountryId(Long.valueOf(countryid));
+            //country.setId(countryEntity.getId());
             consulateEntity.setCountryEntity(countryEntity);
-        }
-        else {
-            consulateEntity = new ConsulateEntity();
         }
         return consulateEntity;
     }
