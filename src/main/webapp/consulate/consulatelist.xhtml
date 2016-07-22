@@ -52,14 +52,14 @@
                                         <f:facet name="header">
                                             操 作
                                         </f:facet>
-                                        <h:outputLink value="consulateedit.xhtml?Id=#{consulates.id}">
+                                        <h:outputLink value="consulateedit.xhtml?consulateId=#{consulates.id}">
                                             <h:outputText value="编辑" styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
                                         </h:outputLink>
                                         <h:outputText value=" "/>
                                         <h:commandLink action="#{consulate.delCountry()}"
                                                        onclick="if(!confirm('你确定删除?')){return false;}">
                                             <h:outputText value="删除"  styleClass="btn btn-danger glyphicon glyphicon-trash"/>
-                                            <f:param name="Id" value="#{consulates.id}"/>
+                                            <f:param name="consulateId" value="#{consulates.id}"/>
                                         </h:commandLink>
                                     </h:column>
                                     <!-- 生成表格底部 -->

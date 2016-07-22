@@ -55,9 +55,7 @@ public class Consulate {
 
     public void addConsulate(ActionEvent evt) {
         consulateEntity.setId(consulateService.getKeyValue());
-        //countryEntity.setName(getCountryName());
         consulateEntity.setCountryId(countryEntity.getId());
-        //consulateEntity.setInterContinental(getInterContinental());
         try {
 
             consulateService.addCountry(consulateEntity);
@@ -98,19 +96,14 @@ public class Consulate {
     }
 
     public void updateCountry(){
-       /* CountryEntity entity= consulateService.findCountryId(country.getId());
-        entity.setName(country.getCountryName());
-        entity.setNationalFlag(country.getNationalFlag());*/
-        //countryEntity.setInterContinental(getInterContinental());
         try {
             consulateEntity.setCountryId(countryEntity.getId());
-            //consulateEntity.setCountryEntity(null);
             consulateService.updateCountry(consulateEntity);
 
-            result = "Create country successfully";
+            result = "Update successfully";
         } catch (Exception e) {
             e.printStackTrace();
-            result = "Create country unsuccessfully";
+            result = "Update unsuccessfully";
         }
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL, null, result);
         FacesContext.getCurrentInstance().addMessage(null, message);
@@ -140,13 +133,6 @@ public class Consulate {
     }
 
     public String saveAction() {
-
-        //get all existing value but set "editable" to false
-    /*    for (Country country : listCountry){
-            country.setEditable(false);
-        }*/
-
-        //return to current page
         return null;
 
     }
@@ -160,18 +146,25 @@ public class Consulate {
         FacesContext fc = FacesContext.getCurrentInstance();
         Map requestParams = fc.getExternalContext().getRequestParameterMap();
         if( requestParams.containsKey("Id")){
-            if(consulateEntity==null){
+            if(consulateEntity!=null && consulateEntity.getId()==0){
                 String id = (String) requestParams.get("Id");
                 consulateEntity = consulateService.findConsulateId(new Long(id));
             }
         }
         if (requestParams.containsKey("countryId")){
-
+            if(countryEntity==null){
             String countryid = (String) requestParams.get("countryId");
             countryEntity = new CountryEntity();
             countryEntity=countryService.findCountryId(Long.valueOf(countryid));
-            //country.setId(countryEntity.getId());
+            }
             consulateEntity.setCountryEntity(countryEntity);
+        }
+        if( requestParams.containsKey("consulateId")){
+
+                String id = (String) requestParams.get("consulateId");
+                consulateEntity = consulateService.findConsulateId(new Long(id));
+
+
         }
         return consulateEntity;
     }

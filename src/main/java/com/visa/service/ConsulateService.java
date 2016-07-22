@@ -29,7 +29,8 @@ public class ConsulateService {
         consulateDao.update(consulate);
     }
     public void deleteConsulateById(Long id){
-        consulateDao.delete(ConsulateEntity.class,(Object)id);
+        Object[]  obj={(Object)id};
+        consulateDao.deleteByWhere(ConsulateEntity.class, "o.id=?", obj);
     }
 
 

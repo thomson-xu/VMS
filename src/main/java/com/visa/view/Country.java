@@ -79,19 +79,17 @@ public class Country {
     }
 
     public void addCountry(ActionEvent evt) {
-        //CountryEntity country = new CountryEntity();
         countryEntity.setId(countryService.getKeyValue());
-        //countryEntity.setName(getCountryName());
         countryEntity.setNationalFlag(FilenameUtils.getName(file.getName()));
         countryEntity.setInterContinental(getInterContinental());
         try {
             if (submit()) {
                 countryService.addCountry(countryEntity);
             }
-            result = "Create country successfully";
+            result = "Create successfully";
         } catch (IOException e) {
             e.printStackTrace();
-            result = "Create country unsuccessfully";
+            result = "Create unsuccessfully";
         }
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL, null, result);
         FacesContext.getCurrentInstance().addMessage(null, message);
@@ -147,19 +145,16 @@ public class Country {
     }
 
     public void updateCountry(){
-       /* CountryEntity entity= countryService.findCountryId(country.getId());
-        entity.setName(country.getCountryName());
-        entity.setNationalFlag(country.getNationalFlag());*/
         countryEntity.setInterContinental(getInterContinental());
         countryEntity.setNationalFlag(FilenameUtils.getName(file.getName()));
         try {
             if (submit()) {
               countryService.updateCountry(countryEntity);
             }
-            result = "Create country successfully";
+            result = "Update successfully";
         } catch (IOException e) {
             e.printStackTrace();
-            result = "Create country unsuccessfully";
+            result = "Updte unsuccessfully";
         }
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL, null, result);
         FacesContext.getCurrentInstance().addMessage(null, message);
@@ -213,12 +208,6 @@ public class Country {
 
     public String saveAction() {
 
-        //get all existing value but set "editable" to false
-    /*    for (Country country : listCountry){
-            country.setEditable(false);
-        }*/
-
-        //return to current page
         return null;
 
     }
