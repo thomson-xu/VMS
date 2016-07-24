@@ -37,6 +37,12 @@ public class CountryService {
         return ((entity != null) ? entity : new CountryEntity());
     }
 
+    public List<CountryEntity> findCountryByContinent(int id){
+        String wheresql="o.interContinental=?" ;
+        Object[] obj={id};
+        return countryDao.queryByWhere(CountryEntity.class,wheresql,obj);
+    }
+
     public List<CountryEntity> findAllCountry(){
         String[] filedsName={"id","name","nationalFlag","interContinental"};
         return countryDao.queryByWhere(CountryEntity.class,filedsName,null,null);

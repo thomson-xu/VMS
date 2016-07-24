@@ -16,21 +16,21 @@ public class Country implements Validator {
         if(field!=null&& field.equals("")) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR,
-                    "å›½å®¶åç§°ä¸èƒ½ä¸ºç©ºï¼Œè¯·è¾“å…¥æ•°æ®ï¼",
+                    "¹ú¼ÒÃû³Æ²»ÄÜÎª¿Õ£¬ÇëÊäÈëÊı¾İ£¡",
                     "isnull!");
             throw new ValidatorException(message);
         }else {
             if(field.length()<2){
                 FacesMessage message = new FacesMessage(
                         FacesMessage.SEVERITY_ERROR,
-                        "å›½å®¶åç§°ä¸èƒ½å°‘äº2å­—ç¬¦ï¼",
+                        "¹ú¼ÒÃû³Æ²»ÄÜÉÙÓÚ2×Ö·û£¡",
                         "tooshort!");
                 throw new ValidatorException(message);
             }
             if(field.length()>10){
                 FacesMessage message = new FacesMessage(
                         FacesMessage.SEVERITY_ERROR,
-                        "å›½å®¶åç§°ä¸èƒ½è¶…è¿‡10å­—ç¬¦ï¼",
+                        "¹ú¼ÒÃû³Æ²»ÄÜ³¬¹ı10×Ö·û£¡",
                         "toolong!");
                 throw new ValidatorException(message);
             }
@@ -38,15 +38,15 @@ public class Country implements Validator {
      /*   if(field.length() < 1) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR,
-                    "ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½1",
-                    "ï¿½Ö·ï¿½ï¿½ï¿½ï¿½È²ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½1");
+                    "???????§³??1",
+                    "??????????§³??1");
             throw new ValidatorException(message);
         }
         if(!field.matches(".+[0-9]+")) {
             FacesMessage message = new FacesMessage(
                     FacesMessage.SEVERITY_ERROR,
-                    "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",
-                    "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+                    "???????????????????",
+                    "???????????????????????");
             throw new ValidatorException(message);
         }*/
     }

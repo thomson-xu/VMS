@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:t="http://myfaces.apache.org/tomahawk">
+    <h:form id="countryList">
+        <!-- content -->
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="text-muted bootstrap-admin-box-title"><strong>国家领事馆列表：</strong></div>
+                        </div>
+                        <div class="bootstrap-admin-panel-content">
+                            <div class="row">
+                                <!-- <t:saveState value="#{country.listCountry}"></t:saveState>-->
+                                <h:outputLink value="consulateadd.xhtml?countryId=#{consulate.entity.countryEntity.id}">
+                                    <h:outputText value="添 加" styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
+                                </h:outputLink>
+                                <h:dataTable
+                                        class="table table-striped table-hover dataTables_wrapper form-inline bootstrap-admin-table-with-actions"
+                                        value="#{consulate.getListConsulateForCountry(consulate.entity.countryEntity.id)}" var="consulates" width="1000px" id="countrytable"
+                                        >
+                                    <!-- 定义第一列 -->
+                                    <h:column>
+                                        <f:facet name="header">
+                                            国旗图标
+                                        </f:facet>
+                                        <h:graphicImage
+                                                value="/resources/images/#{consulates.countryEntity.nationalFlag}"></h:graphicImage>
+                                        <!--<h:inputText value="#{countrys.nationalFlag }" size="130" />-->
+                                    </h:column>
+                                    <!-- 定义第二列 -->
+                                    <h:column>
+                                        <f:facet name="header">
+                                            领事馆名称
+                                        </f:facet>
+                                        <h:inputText value="#{consulates.consulateName}" id="name"/>
+                                        <h:outputText value="#{consulates.consulateName}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            领区
+                                        </f:facet>
+                                        <h:outputText value="#{consulates.consulateArea}"/>
+                                    </h:column>
+                                    <h:column class="actions">
+                                        <f:facet name="header">
+                                            操 作
+                                        </f:facet>
+                                        <h:outputLink value="consulateedit.xhtml?consulateId=#{consulates.id}">
+                                            <h:outputText value="编辑" styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
+                                        </h:outputLink>
+                                        <h:outputText value=" "/>
+                                        <h:commandLink action="#{consulate.delCountry()}"
+                                                       onclick="if(!confirm('你确定删除?')){return false;}">
+                                            <h:outputText value="删除"  styleClass="btn btn-danger glyphicon glyphicon-trash"/>
+                                            <f:param name="consulateId" value="#{consulates.id}"/>
+                                        </h:commandLink>
+                                    </h:column>
+                                    <!-- 生成表格底部 -->
+                                    <f:facet name="footer">
+                                        <!--   <t:dataScroller id="ds_sataion" for="countrytable" fastStep="2"
+                                                           paginatorMaxPages="6" paginator="true" styleClass="dataTables_paginate paging_bootstrap" >
+                                               <f:facet name="first">
+                                                   <h:outputText value="首页   " />
+                                               </f:facet>
+                                               <f:facet name="last">
+                                                   <h:outputText value="尾页   " />
+                                               </f:facet>
+                                               <f:facet name="previous">
+                                                   <h:outputText value="上一页   " />
+                                               </f:facet>
+                                               <f:facet name="next">
+                                                   <h:outputText value="下一页   " />
+                                               </f:facet>
+                                           </t:dataScroller>-->
+
+                                    </f:facet>
+                                </h:dataTable>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+     <!--       <div>
+                <div class="ads-in-post hide_if_width_less_800">
+                    <h:outputScript src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></h:outputScript>
+                    &lt;!&ndash; 728x90 - After2ndH4 &ndash;&gt;
+                    <h:outputScript>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </h:outputScript>
+                </div>
+            </div>
+-->
+        </div>
+    </h:form>
+</ui:composition>

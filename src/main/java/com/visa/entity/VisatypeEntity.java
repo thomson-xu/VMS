@@ -3,6 +3,8 @@ package com.visa.entity;
 import com.visa.dao.util.BaseEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Test-Lab on 2016/6/15.
@@ -20,6 +22,9 @@ public class VisatypeEntity extends BaseEntity {
     @Basic
     @Column(name = "Remark")
     private String remark;
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "visaType")
+    private List<MaterialEntity> materialEntities= new ArrayList<MaterialEntity>();
 
     @Transient
     boolean editable;
@@ -70,4 +75,11 @@ public class VisatypeEntity extends BaseEntity {
     public VisatypeEntity() {
     }
 
+    public List<MaterialEntity> getMaterialEntities() {
+        return materialEntities;
+    }
+
+    public void setMaterialEntities(List<MaterialEntity> materialEntities) {
+        this.materialEntities = materialEntities;
+    }
 }

@@ -3,6 +3,8 @@ package com.visa.entity;
 import com.visa.dao.util.BaseEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Test-Lab on 2016/6/15.
@@ -23,9 +25,14 @@ public class ConsulateEntity extends BaseEntity {
     @ManyToOne(cascade = CascadeType.ALL, optional = true)
     @JoinColumn(name="Country_Id",referencedColumnName = "Id",insertable = false,updatable = false,unique = false)
     private CountryEntity countryEntity;
+
     @Basic
     @Column(name = "Country_Id")
     private Long countryId;
+
+    @OneToMany(cascade= CascadeType.ALL,fetch=FetchType.LAZY, mappedBy = "consulate")
+    private List<MaterialEntity> materialEntityList =new ArrayList<MaterialEntity>() ;
+
 
     public long getId() {
         return id;

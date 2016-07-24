@@ -10,12 +10,43 @@ import javax.persistence.*;
 @Entity
 @Table(name = "material")
 public class MaterialEntity extends BaseEntity {
-    private long id;
-    private String document;
-    private String remark;
 
     @Id
     @Column(name = "Id")
+    private long id;
+
+/*    @Basic
+    @Column(name="Consulate_Id")
+    private long consulateId;
+
+    @Basic
+    @Column(name="Consulate_Id")
+    private int visatypeId;
+
+    @Basic
+    @Column(name="Consulate_Id")
+    private int professionId;*/
+
+    @Basic
+    @Column(name = "Document")
+    private String document;
+
+    @Basic
+    @Column(name = "Remark")
+    private String remark;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Consulate_Id", referencedColumnName = "Id",insertable = false,updatable = false)
+    private ConsulateEntity consulate ;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Visatype_Id", referencedColumnName = "Id",insertable = false,updatable = false)
+    private VisatypeEntity visaType ;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profession_Id", referencedColumnName = "Id",insertable = false,updatable = false)
+    private ProfessionEntity profession ;
+
     public long getId() {
         return id;
     }
@@ -24,8 +55,30 @@ public class MaterialEntity extends BaseEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "Document")
+  /*  public long getConsulateId() {
+        return consulateId;
+    }
+
+    public void setConsulateId(long consulatId) {
+        this.consulateId = consulateId;
+    }
+
+    public int getVisatypeId() {
+        return visatypeId;
+    }
+
+    public void setVisatypeId(int visatypeId) {
+        this.visatypeId = visatypeId;
+    }
+
+    public int getProfessionId() {
+        return professionId;
+    }
+
+    public void setProfessionId(int professionId) {
+        this.professionId = professionId;
+    }*/
+
     public String getDocument() {
         return document;
     }
@@ -34,14 +87,36 @@ public class MaterialEntity extends BaseEntity {
         this.document = document;
     }
 
-    @Basic
-    @Column(name = "Remark")
     public String getRemark() {
         return remark;
     }
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public ConsulateEntity getConsulate() {
+        return consulate;
+    }
+
+    public void setConsulate(ConsulateEntity consulate) {
+        this.consulate = consulate;
+    }
+
+    public VisatypeEntity getVisaType() {
+        return visaType;
+    }
+
+    public void setVisaType(VisatypeEntity visaType) {
+        this.visaType = visaType;
+    }
+
+    public ProfessionEntity getProfession() {
+        return profession;
+    }
+
+    public void setProfession(ProfessionEntity profession) {
+        this.profession = profession;
     }
 
     @Transient

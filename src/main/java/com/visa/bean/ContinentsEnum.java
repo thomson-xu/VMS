@@ -4,19 +4,19 @@ package com.visa.bean;
  * Created by Administrator on 2016/7/3.
  */
 public enum ContinentsEnum {
-    ASIA("äºšæ´²", 1), EUROPE("æ¬§æ´²", 2), NORTHAMERICA("åŒ—ç¾æ´²", 3), SOUTHAMERICA("å—ç¾æ´²", 4), AFRICA("éæ´²", 5), OCEANIA("å¤§æ´‹æ´²", 6), ANTARCTICA("å—ææ´²", 7);
+    ASIA("ÑÇÖŞ", 1), EUROPE("Å·ÖŞ", 2), NORTHAMERICA("±±ÃÀÖŞ", 3), SOUTHAMERICA("ÄÏÃÀÖŞ", 4), AFRICA("·ÇÖŞ", 5), OCEANIA("´óÑóÖŞ", 6), ANTARCTICA("ÄÏ¼«ÖŞ", 7);
 
-    // æˆå‘˜å˜é‡
+    // ³ÉÔ±±äÁ¿
     private String name;
     private int index;
 
-    // æ„é€ æ–¹æ³•
+    // ¹¹Ôì·½·¨
     private ContinentsEnum(String name, int index) {
         this.name = name;
         this.index = index;
     }
 
-    // æ™®é€šæ–¹æ³•
+    // ÆÕÍ¨·½·¨
     public static String getName(int index) {
         for (ContinentsEnum c : ContinentsEnum.values()) {
             if (c.getIndex() == index) {
@@ -34,7 +34,7 @@ public enum ContinentsEnum {
         }
         return 0;
     }
-    // get set æ–¹æ³•
+    // get set ·½·¨
     public String getName() {
         return name;
     }

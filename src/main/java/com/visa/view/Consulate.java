@@ -152,11 +152,11 @@ public class Consulate {
             }
         }
         if (requestParams.containsKey("countryId")){
-            if(countryEntity==null){
+
             String countryid = (String) requestParams.get("countryId");
             countryEntity = new CountryEntity();
             countryEntity=countryService.findCountryId(Long.valueOf(countryid));
-            }
+
             consulateEntity.setCountryEntity(countryEntity);
         }
         if( requestParams.containsKey("consulateId")){
