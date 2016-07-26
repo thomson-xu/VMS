@@ -18,15 +18,15 @@
                         <tr>
                             <td><h:outputLabel value="选择洲:" id="continent"/><span style="color: red;">*</span></td>
                             <td><h:selectOneMenu binding="#{material.selectContinentone}" valueChangeListener="#{material.selectContinentChange}"
-                                                 id="selcontinent" style="width: 165px" onchange="submit()">
+                                                 id="selcontinent" style="width: 165px" onchange="this.form.submit()" >
                                 <f:selectItems value="#{material.continentList}"/>
                             </h:selectOneMenu>
                             </td>
 
                             <td><h:outputLabel value="国 家:" id="labcountry"/><span style="color: red;">*</span></td>
                             <td><h:selectOneMenu binding="#{material.selectCountryone}" valueChangeListener="#{material.selectCountryChange}"
-                                                 id="selCountry" style="width: 165px" onchange="submit()">
-                                <f:selectItems value="#{material.selectCountryList}"/>
+                                                 id="selCountry" style="width: 165px" onchange="this.form.submit()" >
+                                <f:selectItems value="#{material.selectCountryList}" />
                             </h:selectOneMenu>
                             </td>
                         </tr>

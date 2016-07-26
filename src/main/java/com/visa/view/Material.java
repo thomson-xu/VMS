@@ -52,7 +52,7 @@ public class Material {
     private UISelectOne selectVisaTypeone;
     private UISelectOne selectProfessionone;
     private List<SelectItem>  selectContinentList = new ArrayList<SelectItem>();
-    private List<SelectItem> selectConsulateList = new ArrayList<SelectItem>();
+    private List<SelectItem> selectConsulateList; //= new ArrayList<SelectItem>();
     private List<SelectItem> selectCountryList = new ArrayList<SelectItem>();
 
     public Material() {
@@ -115,10 +115,17 @@ public class Material {
     public void selectContinentChange(ValueChangeEvent event) {
         selectContinentIndex = Integer.parseInt((String) selectContinentone.getValue());
         List<CountryEntity> countryList = countryService.findCountryByContinent(selectContinentIndex);
+        selectCountryList= new ArrayList<SelectItem>();
         if (null != countryList && countryList.size() > 0) {
             for (CountryEntity contry : countryList) {
                 selectCountryList.add(new SelectItem(contry.getId(), contry.getName()));
             }
+        }
+        List<ConsulateEntity> consulateList = consulateService.findConsulateByCountry(
+                Long.valueOf(getSelectCountryList().get(0).getValue().toString()));
+        selectConsulateList= new ArrayList<SelectItem>();
+        for (ConsulateEntity consulate : consulateList) {
+            selectConsulateList.add(new SelectItem(consulate.getId(), consulate.getConsulateName()));
         }
     }
 
@@ -127,6 +134,7 @@ public class Material {
     public void selectCountryChange(ValueChangeEvent event) {
         selectCountryIndex = Integer.parseInt((String) selectCountryone.getValue());
         List<ConsulateEntity> consulateList = consulateService.findConsulateByCountry(Long.valueOf(String.valueOf(selectCountryIndex)));
+        selectConsulateList= new ArrayList<SelectItem>();
         for (ConsulateEntity consulate : consulateList) {
             selectConsulateList.add(new SelectItem(consulate.getId(), consulate.getConsulateName()));
         }
@@ -135,7 +143,9 @@ public class Material {
     private int selectConsulateIndex = 0;
 
     public void selectConsulateChange(ValueChangeEvent event) {
-        selectConsulateIndex = Integer.parseInt((String) selectConsulateone.getValue());
+
+        if( selectConsulateone.getValue()!=null){
+        selectConsulateIndex = Integer.parseInt((String) selectConsulateone.getValue()); }
     }
 
     private int selectVisatypeIndex = 0;
@@ -245,6 +255,7 @@ public class Material {
     }
 
     public UISelectOne getSelectCountryone() {
+
         return selectCountryone;
     }
 
@@ -302,7 +313,7 @@ public class Material {
 
 
     public List<SelectItem> getContinentList() throws Exception {
-
+        selectContinentList.clear();
         for (int index = 1; index < 8; index++) {
             ContinentsEnum.getName(index);
             selectContinentList.add(new SelectItem(index, ContinentsEnum.getName(index)));
@@ -443,6 +454,15 @@ public class Material {
     }
 
     public List<SelectItem> getSelectCountryList() {
+        if(selectCountryList.size()==0)  {
+            List<CountryEntity> countryList = countryService.findCountryByContinent(selectContinentIndex);
+            if (null != countryList && countryList.size() > 0) {
+                for (CountryEntity contry : countryList) {
+                    selectCountryList.add(new SelectItem(contry.getId(), contry.getName()));
+                }
+            }
+
+     }
         return selectCountryList;
     }
 
@@ -451,6 +471,18 @@ public class Material {
     }
 
     public List<SelectItem> getSelectConsulateList() {
+        if(selectConsulateList==null) {
+            selectConsulateList= new ArrayList<SelectItem>();
+            if(selectConsulateList.size()==0){
+                List<ConsulateEntity> consulateList = consulateService.findConsulateByCountry(
+                        Long.valueOf(getSelectCountryList().get(0).getValue().toString()));
+                for (ConsulateEntity consulate : consulateList) {
+                    selectConsulateList.add(new SelectItem(consulate.getId(), consulate.getConsulateName()));
+                }
+            }
+        }
+
+
         return selectConsulateList;
     }
 
