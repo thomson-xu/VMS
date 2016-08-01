@@ -17,34 +17,36 @@
 
                         <tr>
                             <td><h:outputLabel value="选择洲:" id="continent"/><span style="color: red;">*</span></td>
-                            <td><h:selectOneMenu binding="#{material.selectContinentone}" valueChangeListener="#{material.selectContinentChange}"
-                                                 id="selcontinent" style="width: 165px" onchange="this.form.submit()" >
-                                <f:selectItem itemLabel="--请选择--" />
-                                <f:selectItems value="#{material.selectContinentList}"/>
+                            <td><h:selectOneMenu value="#{materialProfile.continentName}" id="selcontinent" style="width: 165px">
+                                <f:selectItem itemLabel="--请选择--"/>
+                                <f:selectItems value="#{materialProfile.selectContinentList}" var="item" itemLabel="#{item.label}"
+                                itemValue="#{item.value}"/>
+                                <f:ajax event="change" render="selCountry selConsulte" ></f:ajax>
                             </h:selectOneMenu>
                             </td>
 
                             <td><h:outputLabel value="国 家:" id="labcountry"/><span style="color: red;">*</span></td>
-                            <td><h:selectOneMenu binding="#{material.selectCountryone}" valueChangeListener="#{material.selectCountryChange}"
-                                                 id="selCountry" style="width: 165px" onchange="this.form.submit()" >
+                            <td><h:selectOneMenu value="#{materialProfile.countryName}" id="selCountry" style="width: 165px"
+                            >
                                 <f:selectItem itemLabel="--请选择--" />
-                                <f:selectItems value="#{material.selectCountryList}" />
+                                <f:selectItems value="#{materialProfile.getCountryList(materialProfile.continentName)}" var="item" itemLabel="#{item.label}"
+                                               itemValue="#{item.value}"/>
+                                <f:ajax event="change" render="selConsulte" execute="selCountry" ></f:ajax>
                             </h:selectOneMenu>
                             </td>
                         </tr>
                         <tr>
                             <td><h:outputLabel value="领 区:" id="labconsalute"/><span style="color: red;">*</span></td>
-                            <td><h:selectOneMenu binding="#{material.selectConsulateone}" valueChangeListener="#{material.selectConsulateChange}"
-                                                 id="selConsulte" style="width: 165px">
-                                <f:selectItem itemLabel="--请选择--" />
-                                <f:selectItems value="#{material.selectConsulateList}"/>
+                            <td><h:selectOneMenu value="#{materialProfile.consulateName}" id="selConsulte" style="width: 165px">
+                                <f:selectItem itemLabel="--请选择--"/>
+                                <f:selectItems value="#{materialProfile.getConsulateList(materialProfile.countryName)}"/>
                             </h:selectOneMenu>
                             </td>
 
                             <td><h:outputLabel value="签证类型:" id="visatype"/><span style="color: red;">*</span></td>
                             <td><h:selectOneMenu binding="#{material.selectVisaTypeone}" valueChangeListener="#{material.selectVisaTypeChange}"
                                                  id="selvisatype" style="width: 165px">
-                                <f:selectItem itemLabel="--请选择--" />
+                                <f:selectItem itemLabel="--请选择--"/>
                                 <f:selectItems value="#{material.visaTypeList}"/>
                             </h:selectOneMenu>
                             </td>
@@ -52,7 +54,7 @@
                             <td><h:outputLabel value="职业:" id="profession"/><span style="color: red;">*</span></td>
                             <td><h:selectOneMenu binding="#{material.selectProfessionone}" valueChangeListener="#{material.selectProfessionChange}"
                                                  id="selprofession" style="width: 165px">
-                                <f:selectItem itemLabel="--请选择--" />
+                                <f:selectItem itemLabel="--请选择--"/>
                                 <f:selectItems value="#{material.professionList}"/>
                             </h:selectOneMenu>
                             </td>
