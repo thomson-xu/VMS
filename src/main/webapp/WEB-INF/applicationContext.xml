@@ -26,8 +26,12 @@
     <jpa:repositories base-package="com.visa" repository-impl-postfix="Impl"
                       entity-manager-factory-ref="EntityManagerFactory"
                       transaction-manager-ref="transactionManager"/>
-    <bean id="mySqldataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean id="propertyConfigurer"
+            class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="/WEB-INF/jdbc.properties"/>
+    </bean>
+<bean id="mySqldataSource"
+          class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/vms"/>
         <property name="username" value="root"/>
