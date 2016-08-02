@@ -2,10 +2,7 @@ package com.visa.view;
 
 import com.visa.bean.ContinentsEnum;
 import com.visa.entity.*;
-import com.visa.service.ConsulateService;
-import com.visa.service.CountryService;
-import com.visa.service.ProfessionService;
-import com.visa.service.VisaTypeService;
+import com.visa.service.*;
 import org.springframework.context.annotation.Scope;
 
 import javax.annotation.Resource;
@@ -29,6 +26,7 @@ import java.util.Map;
 @Named
 @Scope("request")
 public class Material {
+
     @Resource
     private CountryService countryService;
 
@@ -40,6 +38,9 @@ public class Material {
 
     @Resource
     private ProfessionService professionService;
+
+    @Resource
+    private MaterialService materialService;
 
     private String result;
     private static CountryEntity countryEntity;
@@ -53,14 +54,16 @@ public class Material {
     private UISelectOne selectVisaTypeone;
     private UISelectOne selectProfessionone;
     private List<SelectItem>  selectContinentList = new ArrayList<SelectItem>();
-    private List<SelectItem> selectConsulateList;
-    private List<SelectItem> selectCountryList ;
+    private static List<SelectItem> selectConsulateList;
+    private static List<SelectItem> selectCountryList ;
     private static Map<Long, List<SelectItem>> selectConsulateMap= new HashMap<Long, List<SelectItem>>();
     private static Map<Integer, List<SelectItem>> selectCountryMap= new HashMap<Integer, List<SelectItem>>();
 
     public Material() {
         materialEntity = new MaterialEntity();
-
+        consulateEntity = new ConsulateEntity();
+        visatypeEntity = new VisatypeEntity();
+        professionEntity = new ProfessionEntity();
     }
 
 
@@ -73,40 +76,42 @@ public class Material {
     }
 
 
-    public void addConsulate(ActionEvent evt) {
-        consulateEntity.setId(consulateService.getKeyValue());
-
+    public void addMaterial(ActionEvent evt) {
+        materialEntity.setId(materialService.getKeyValue());
+        materialEntity.setConsulateId(selectConsulateIndex);
+        materialEntity.setVisatypeId(selectVisatypeIndex);
+        materialEntity.setProfessionId(selectProfessionIndex);
         try {
 
-            consulateService.addCountry(consulateEntity);
+            materialService.addMaterial(materialEntity);
 
-            result = "Create country successfully";
+            result = "Create successfully";
         } catch (Exception e) {
             e.printStackTrace();
-            result = "Create country unsuccessfully";
+            result = "Create unsuccessfully";
         }
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL, null, result);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public DataModel getListConsulate() {
-        return new ListDataModel(consulateService.findAllConsulate());
+    public DataModel getListMaterial() {
+        return new ListDataModel(materialService.findAllMaterial());
     }
 
 
     public void delCountry() {
-        consulateService.deleteConsulateById(consulateEntity.getId());
+        materialService.deleteMaterialById(consulateEntity.getId());
     }
 
     public void updateCountry() {
         try {
 
-            consulateService.updateCountry(consulateEntity);
+            materialService.updateMaterial(materialEntity);
 
-            result = "Create country successfully";
+            result = "Update successfully";
         } catch (Exception e) {
             e.printStackTrace();
-            result = "Create country unsuccessfully";
+            result = "Update unsuccessfully";
         }
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL, null, result);
         FacesContext.getCurrentInstance().addMessage(null, message);
@@ -117,22 +122,23 @@ public class Material {
 
     public void selectContinentChange(ValueChangeEvent event) {
         selectContinentIndex = Integer.parseInt((String) selectContinentone.getValue());
-
+        this.setSelectCountryList(getSelectCountryMap().get(Integer.parseInt((String) selectContinentone.getValue())));
+        this.setSelectConsulateList(null);
     }
 
     private int selectCountryIndex = 0;
 
     public void selectCountryChange(ValueChangeEvent event) {
         selectCountryIndex = Integer.parseInt((String) selectCountryone.getValue());
-
+        this.setSelectConsulateList(getSelectConsulateMap().get(Long.valueOf(selectCountryIndex)));
     }
 
     private int selectConsulateIndex = 0;
 
     public void selectConsulateChange(ValueChangeEvent event) {
-
-
-        selectConsulateIndex = Integer.parseInt((String) selectConsulateone.getValue());
+        if(event.getNewValue()!=null){
+            selectConsulateIndex = Integer.parseInt((String) selectConsulateone.getValue());
+        }
     }
 
     private int selectVisatypeIndex = 0;
@@ -168,45 +174,6 @@ public class Material {
 
         return null;
 
-    }
-
-    public ConsulateEntity getConsulateEntity() {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map requestParams = fc.getExternalContext().getRequestParameterMap();
-        if (requestParams.containsKey("Id")) {
-            String id = (String) requestParams.get("Id");
-            consulateEntity = consulateService.findConsulateId(new Long(id));
-        }
-         else {
-            consulateEntity = new ConsulateEntity();
-        }
-        return consulateEntity;
-    }
-
-    public ConsulateEntity getEntity() {
-
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map requestParams = fc.getExternalContext().getRequestParameterMap();
-        if (requestParams.containsKey("Id")) {
-            String id = (String) requestParams.get("Id");
-            consulateEntity = consulateService.findConsulateId(new Long(id));
-        } else if (requestParams.containsKey("country")) {
-
-            String param = (String) requestParams.get("country");
-            if (param.contains("CountryEntity")) {
-                String params[] = param.substring(20).split("\t");
-                params[0].substring(4, params[0].length() - 1);
-                countryEntity = new CountryEntity();
-                countryEntity.setId(Long.valueOf(params[0].substring(4, params[0].length() - 1))); //setID
-                countryEntity.setName(params[1].substring(6, params[1].length() - 1));    //setName
-                countryEntity.setInterContinental(Integer.valueOf(params[2].substring(18, params[2].length() - 1)));//setIntercontinental
-                countryEntity.setNationalFlag(params[3].substring(14, params[3].length() - 1)); //setNationalFlag
-            }
-            consulateEntity.setCountryEntity(countryEntity);
-        } else {
-            consulateEntity = new ConsulateEntity();
-        }
-        return consulateEntity;
     }
 
     public CountryEntity getCountryEntity() {
@@ -320,30 +287,6 @@ public class Material {
         }
         return selectContinentList;
     }
-/*
-    public List<SelectItem> getCountryList(int id) throws Exception {
-        List<CountryEntity> countryList = countryService.findCountryByContinent(id);
-        if (null != countryList && countryList.size() > 0) {
-            for (CountryEntity contry : countryList) {
-                selectCountryList.add(new SelectItem(contry.getId(), contry.getName()));
-            }
-        }else{
-            throw new Exception("can not find any  visa type");
-        }
-
-        return selectCountryList;
-    }*/
-
-/*    public List<SelectItem> getConsulateList(Long id) throws Exception {
-        List<SelectItem> selectConsulateList = new ArrayList<SelectItem>();
-        List<ConsulateEntity> consulateList = consulateService.findConsulateByCountry(id);
-         for (ConsulateEntity consulate : consulateList) {
-             selectConsulateList.add(new SelectItem(consulate.getId(), consulate.getConsulateName()));
-          }
-
-
-        return selectConsulateList;
-    }*/
 
     public List<SelectItem> getVisaTypeList() throws Exception {
         List<SelectItem> selectVisatypeList = new ArrayList<SelectItem>();
@@ -473,9 +416,6 @@ public class Material {
     }
 
     public List<SelectItem> getSelectCountryList() {
-
-           selectCountryList=getSelectCountryMap().get(Integer.valueOf(selectContinentIndex));
-
         return selectCountryList;
     }
 
@@ -484,7 +424,6 @@ public class Material {
     }
 
     public List<SelectItem> getSelectConsulateList() {
-        selectConsulateList = getSelectConsulateMap().get(Long.valueOf(selectCountryIndex));
         return  selectConsulateList;
     }
 

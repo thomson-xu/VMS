@@ -17,7 +17,7 @@
 
                         <tr>
                             <td><h:outputLabel value="选择洲:" id="continent"/><span style="color: red;">*</span></td>
-                            <td><h:selectOneMenu binding="#{material.selectContinentone}" valueChangeListener="#{material.selectContinentChange}"
+                            <td><h:selectOneMenu value="#{material.selectContinentone}" valueChangeListener="#{material.selectContinentChange}"
                                                  id="selcontinent" style="width: 165px" onchange="this.form.submit()" >
                                 <f:selectItem itemLabel="--请选择--" />
                                 <f:selectItems value="#{material.selectContinentList}"/>
@@ -25,7 +25,7 @@
                             </td>
 
                             <td><h:outputLabel value="国 家:" id="labcountry"/><span style="color: red;">*</span></td>
-                            <td><h:selectOneMenu binding="#{material.selectCountryone}" valueChangeListener="#{material.selectCountryChange}"
+                            <td><h:selectOneMenu value="#{material.selectCountryone}" valueChangeListener="#{material.selectCountryChange}"
                                                  id="selCountry" style="width: 165px" onchange="this.form.submit()" >
                                 <f:selectItem itemLabel="--请选择--" />
                                 <f:selectItems value="#{material.selectCountryList}" />
@@ -34,7 +34,7 @@
                         </tr>
                         <tr>
                             <td><h:outputLabel value="领 区:" id="labconsalute"/><span style="color: red;">*</span></td>
-                            <td><h:selectOneMenu binding="#{material.selectConsulateone}" valueChangeListener="#{material.selectConsulateChange}"
+                            <td><h:selectOneMenu value="#{material.selectConsulateone}" valueChangeListener="#{material.selectConsulateChange}"
                                                  id="selConsulte" style="width: 165px">
                                 <f:selectItem itemLabel="--请选择--" />
                                 <f:selectItems value="#{material.selectConsulateList}"/>
@@ -42,7 +42,7 @@
                             </td>
 
                             <td><h:outputLabel value="签证类型:" id="visatype"/><span style="color: red;">*</span></td>
-                            <td><h:selectOneMenu binding="#{material.selectVisaTypeone}" valueChangeListener="#{material.selectVisaTypeChange}"
+                            <td><h:selectOneMenu value="#{material.selectVisaTypeone}" valueChangeListener="#{material.selectVisaTypeChange}"
                                                  id="selvisatype" style="width: 165px">
                                 <f:selectItem itemLabel="--请选择--" />
                                 <f:selectItems value="#{material.visaTypeList}"/>
@@ -50,7 +50,7 @@
                             </td>
 
                             <td><h:outputLabel value="职业:" id="profession"/><span style="color: red;">*</span></td>
-                            <td><h:selectOneMenu binding="#{material.selectProfessionone}" valueChangeListener="#{material.selectProfessionChange}"
+                            <td><h:selectOneMenu value="#{material.selectProfessionone}" valueChangeListener="#{material.selectProfessionChange}"
                                                  id="selprofession" style="width: 165px">
                                 <f:selectItem itemLabel="--请选择--" />
                                 <f:selectItems value="#{material.professionList}"/>
@@ -65,14 +65,13 @@
                             </h:inputTextarea></td>
                         </tr>
                         <tr>
-                            <td> <h:outputLabel value="备注" id="labremark"/><span style="color: red;">*</span></td>
+                            <td> <h:outputLabel value="备注" id="labremark"/></td>
                             <td  colspan="5"> <h:inputTextarea value="#{material.materialEntity.remark}" id="remark" style="width: 460px;height: 200px">
-                                <f:validateLength maximum="100" minimum="4"/>
                             </h:inputTextarea></td>
                         </tr>
                         </tbody>
                     </table>
-                    <h:commandButton actionListener="#{material.addConsulate}" id="addconsulate"
+                    <h:commandButton actionListener="#{material.addMaterial}" id="addmaterial"
                                      value="添 加" styleClass="center">
                         <!--<f:ajax execute="soNumber num" render="result"/>-->
                     </h:commandButton>

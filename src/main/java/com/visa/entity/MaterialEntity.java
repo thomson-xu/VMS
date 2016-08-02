@@ -15,7 +15,7 @@ public class MaterialEntity extends BaseEntity {
     @Column(name = "Id")
     private long id;
 
-/*    @Basic
+   @Basic
     @Column(name="Consulate_Id")
     private long consulateId;
 
@@ -25,7 +25,7 @@ public class MaterialEntity extends BaseEntity {
 
     @Basic
     @Column(name="Consulate_Id")
-    private int professionId;*/
+    private int professionId;
 
     @Basic
     @Column(name = "Document")
@@ -55,7 +55,7 @@ public class MaterialEntity extends BaseEntity {
         this.id = id;
     }
 
-  /*  public long getConsulateId() {
+    public long getConsulateId() {
         return consulateId;
     }
 
@@ -77,7 +77,7 @@ public class MaterialEntity extends BaseEntity {
 
     public void setProfessionId(int professionId) {
         this.professionId = professionId;
-    }*/
+    }
 
     public String getDocument() {
         return document;
