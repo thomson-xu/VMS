@@ -23,4 +23,9 @@
         <validator-id>Uploadfile</validator-id>
         <validator-class>com.visa.validator.UploadFile</validator-class>
     </validator>
+
+
+    <lifecycle>
+        <phase-listener>com.visa.validator.LoginErrorPhaseListener</phase-listener>
+    </lifecycle>
 </faces-config>

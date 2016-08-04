@@ -20,11 +20,11 @@ public class MaterialEntity extends BaseEntity {
     private long consulateId;
 
     @Basic
-    @Column(name="Consulate_Id")
+    @Column(name="Visatype_Id")
     private int visatypeId;
 
     @Basic
-    @Column(name="Consulate_Id")
+    @Column(name="profession_Id")
     private int professionId;
 
     @Basic
@@ -59,10 +59,9 @@ public class MaterialEntity extends BaseEntity {
         return consulateId;
     }
 
-    public void setConsulateId(long consulatId) {
+    public void setConsulateId(long consulateId) {
         this.consulateId = consulateId;
     }
-
     public int getVisatypeId() {
         return visatypeId;
     }

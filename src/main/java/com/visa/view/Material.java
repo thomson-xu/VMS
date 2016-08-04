@@ -53,7 +53,7 @@ public class Material {
     private UISelectOne selectConsulateone;
     private UISelectOne selectVisaTypeone;
     private UISelectOne selectProfessionone;
-    private List<SelectItem>  selectContinentList = new ArrayList<SelectItem>();
+    private static List<SelectItem>  selectContinentList = new ArrayList<SelectItem>();
     private static List<SelectItem> selectConsulateList;
     private static List<SelectItem> selectCountryList ;
     private static Map<Long, List<SelectItem>> selectConsulateMap= new HashMap<Long, List<SelectItem>>();
@@ -61,9 +61,6 @@ public class Material {
 
     public Material() {
         materialEntity = new MaterialEntity();
-        consulateEntity = new ConsulateEntity();
-        visatypeEntity = new VisatypeEntity();
-        professionEntity = new ProfessionEntity();
     }
 
 
@@ -121,6 +118,7 @@ public class Material {
     private int selectContinentIndex = 1;
 
     public void selectContinentChange(ValueChangeEvent event) {
+        System.out.print("====================change continent=================");
         selectContinentIndex = Integer.parseInt((String) selectContinentone.getValue());
         this.setSelectCountryList(getSelectCountryMap().get(Integer.parseInt((String) selectContinentone.getValue())));
         this.setSelectConsulateList(null);

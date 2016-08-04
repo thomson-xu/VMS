@@ -77,7 +77,7 @@ public class Consulate {
         return new ListDataModel(consulateService.findConsulateByCountry(id));
     }
 
-    public void delCountry(){
+    public void delConsulate(){
         consulateService.deleteConsulateById(consulateEntity.getId());
     }
 

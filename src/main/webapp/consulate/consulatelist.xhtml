@@ -39,7 +39,6 @@
                                         <f:facet name="header">
                                             领事馆名称
                                         </f:facet>
-                                        <h:inputText value="#{consulates.consulateName}" id="name"/>
                                         <h:outputText value="#{consulates.consulateName}"/>
                                     </h:column>
                                     <h:column>
@@ -56,7 +55,7 @@
                                             <h:outputText value="编辑" styleClass="btn btn-primary glyphicon glyphicon-pencil"/>
                                         </h:outputLink>
                                         <h:outputText value=" "/>
-                                        <h:commandLink action="#{consulate.delCountry()}"
+                                        <h:commandLink action="#{consulate.delConsulate()}"
                                                        onclick="if(!confirm('你确定删除?')){return false;}">
                                             <h:outputText value="删除"  styleClass="btn btn-danger glyphicon glyphicon-trash"/>
                                             <f:param name="consulateId" value="#{consulates.id}"/>
