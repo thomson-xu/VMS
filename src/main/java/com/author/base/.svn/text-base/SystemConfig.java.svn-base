@@ -1,0 +1,117 @@
+package com.zrhis.base;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import com.zrhis.annotations.ConfigElement;
+import com.zrhis.annotations.Document;
+import com.zrhis.common.config.DateFormatter;
+import com.zrhis.common.config.ListReader;
+import com.zrhis.common.config.MapReader;
+
+@SuppressWarnings("rawtypes")
+@Document(path="config/systemConfig.xml",root = true)
+public class SystemConfig {
+	
+	@ConfigElement(tag="copyright")
+	private String copyright;
+	
+	@ConfigElement(tag="developers",type="map",reader = MapReader.class)
+	private Map developers;
+	
+	@ConfigElement(tag="post-sales",type="list",reader = ListReader.class)
+	private List postSales;
+	
+	@ConfigElement(tag="technical-support",type="list",reader = ListReader.class)
+	private List technicalSupport;
+	
+	@ConfigElement(tag="qq-group",type="map",reader = MapReader.class)
+	private Map qqGroup;
+	
+	@ConfigElement(tag="service-hotline",type="list",reader = ListReader.class)
+	private List serviceHotline;
+	
+	@ConfigElement(tag="email")
+	private String email;
+	
+	@ConfigElement(tag="customer")
+	private String customer;
+	
+	@ConfigElement(tag="key")
+	private String key;
+	
+	@ConfigElement(tag="valid-until",type="date",fomatter=DateFormatter.class)
+	private Date validUntil;
+	
+	@ConfigElement(tag="webapp",type="map",reader = MapReader.class)
+	private Map webapp;
+	
+	public String getCopyright() {
+		return copyright;
+	}
+	public void setCopyright(String copyright) {
+		this.copyright = copyright;
+	}
+	public Map getDevelopers() {
+		return developers;
+	}
+	public void setDevelopers(Map developers) {
+		this.developers = developers;
+	}
+	public List getPostSales() {
+		return postSales;
+	}
+	public void setPostSales(List postSales) {
+		this.postSales = postSales;
+	}
+	public List getTechnicalSupport() {
+		return technicalSupport;
+	}
+	public void setTechnicalSupport(List technicalSupport) {
+		this.technicalSupport = technicalSupport;
+	}
+	public Map getQqGroup() {
+		return qqGroup;
+	}
+	public void setQqGroup(Map qqGroup) {
+		this.qqGroup = qqGroup;
+	}
+	public List getServiceHotline() {
+		return serviceHotline;
+	}
+	public void setServiceHotline(List serviceHotline) {
+		this.serviceHotline = serviceHotline;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getCustomer() {
+		return customer;
+	}
+	public void setCustomer(String customer) {
+		this.customer = customer;
+	}
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
+	public Date getValidUntil() {
+		return validUntil;
+	}
+	public void setValidUntil(Date validUntil) {
+		this.validUntil = validUntil;
+	}
+	public Map getWebapp() {
+		return webapp;
+	}
+	public void setWebapp(Map webapp) {
+		this.webapp = webapp;
+	}
+
+}

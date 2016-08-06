@@ -1,0 +1,136 @@
+package com.zrhis.system.bean;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * BaseJcxm entity. @author MyEclipse Persistence Tools
+ */
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "BASE_JCXM", schema = "FYBJ")
+public class BaseJcxm implements java.io.Serializable {
+
+	// Fields
+
+	private String VId;
+	private String VMc;
+	private String VBean;
+	private String VTybm;
+	private String VJcxmid;
+	private String VUrl;
+	private String VDyjd;
+	private String VBz;
+	private Integer NSxbz;
+
+	// Constructors
+
+	/** default constructor */
+	public BaseJcxm() {
+	}
+
+	/** minimal constructor */
+	public BaseJcxm(String VId) {
+		this.VId = VId;
+	}
+
+	/** full constructor */
+	public BaseJcxm(String VId, String VMc, String VBean, String VTybm,
+			String VJcxmid, String VUrl, String VDyjd, String VBz, Integer NSxbz) {
+		this.VId = VId;
+		this.VMc = VMc;
+		this.VBean = VBean;
+		this.VTybm = VTybm;
+		this.VJcxmid = VJcxmid;
+		this.VUrl = VUrl;
+		this.VDyjd = VDyjd;
+		this.VBz = VBz;
+		this.NSxbz = NSxbz;
+	}
+
+	// Property accessors
+	@Id
+	@Column(name = "V_ID", unique = true, nullable = false, length = 20)
+	public String getVId() {
+		return this.VId;
+	}
+
+	public void setVId(String VId) {
+		this.VId = VId;
+	}
+
+	@Column(name = "V_MC", length = 60)
+	public String getVMc() {
+		return this.VMc;
+	}
+
+	public void setVMc(String VMc) {
+		this.VMc = VMc;
+	}
+
+	@Column(name = "V_BEAN", length = 100)
+	public String getVBean() {
+		return this.VBean;
+	}
+
+	public void setVBean(String VBean) {
+		this.VBean = VBean;
+	}
+
+	@Column(name = "V_TYBM", length = 100)
+	public String getVTybm() {
+		return this.VTybm;
+	}
+
+	public void setVTybm(String VTybm) {
+		this.VTybm = VTybm;
+	}
+
+	@Column(name = "V_JCXMID", length = 100)
+	public String getVJcxmid() {
+		return this.VJcxmid;
+	}
+
+	public void setVJcxmid(String VJcxmid) {
+		this.VJcxmid = VJcxmid;
+	}
+
+	@Column(name = "V_URL", length = 100)
+	public String getVUrl() {
+		return this.VUrl;
+	}
+
+	public void setVUrl(String VUrl) {
+		this.VUrl = VUrl;
+	}
+
+	@Column(name = "V_DYJD", length = 20)
+	public String getVDyjd() {
+		return this.VDyjd;
+	}
+
+	public void setVDyjd(String VDyjd) {
+		this.VDyjd = VDyjd;
+	}
+
+	@Column(name = "V_BZ", length = 20)
+	public String getVBz() {
+		return this.VBz;
+	}
+
+	public void setVBz(String VBz) {
+		this.VBz = VBz;
+	}
+
+	@Column(name = "N_SXBZ", precision = 4, scale = 0)
+	public Integer getNSxbz() {
+		return this.NSxbz;
+	}
+
+	public void setNSxbz(Integer NSxbz) {
+		this.NSxbz = NSxbz;
+	}
+
+}

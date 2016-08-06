@@ -1,0 +1,36 @@
+/**
+ * 
+ */
+package com.author.system.security;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.session.SessionAuthenticationException;
+import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
+
+/**
+ * 类功能说明：
+ * 
+ * <p>Copyright: Copyright © 2012-2013 author.com Inc.</p>
+ * <p>Company:新中软科技有限公司</p>
+ * @author 王成委
+ * @date 2014-1-19 下午3:11:50
+ * @version v1.0
+ *
+ */
+public class SessionManager implements SessionAuthenticationStrategy {
+
+	/* (non-Javadoc)
+	 * @see org.springframework.security.web.authentication.session.SessionAuthenticationStrategy#onAuthentication(org.springframework.security.core.Authentication, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	public void onAuthentication(Authentication authentication,
+			HttpServletRequest request, HttpServletResponse response)
+			throws SessionAuthenticationException {
+		// TODO Auto-generated method stub
+
+	}
+
+}

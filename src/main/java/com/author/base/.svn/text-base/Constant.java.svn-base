@@ -1,0 +1,19 @@
+/**
+ * 
+ */
+package com.zrhis.base;
+
+/**
+ * 类功能说明：
+ * 
+ * <p>Copyright: Copyright © 2012-2013 zrhis.com Inc.</p>
+ * <p>Company:新中软科技有限公司</p>
+ * @author 王成委
+ * @date 2014-1-18 下午5:17:45
+ * @version v1.0
+ *
+ */
+public class Constant {
+	public final static String SYS_CONFIG = "sysConfig";
+	public final static String SESSION_GENERATED_CAPTCHA_KEY = "code";
+}

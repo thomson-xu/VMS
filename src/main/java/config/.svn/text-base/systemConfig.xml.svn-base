@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	
+	<webapp>
+		<displayName>新中软妇幼保健管理系统</displayName>
+	</webapp>
+
+	<!-- 版权声明 -->
+	<copyright>Copyright © 2012-2013 zrhis.com Inc. All Rights Reserved</copyright>
+	
+	<!-- 开发商 -->
+	<developers>
+		<name>郑州新中软科技有限公司</name>
+		<url>http://www.zrhis.com</url>
+	</developers>
+	
+	<!-- 售后服务QQ-->
+	<post-sales>
+		<list>
+			<value>279220869</value>
+			<value>279220869</value>  
+		</list>
+	</post-sales>
+	
+	<!-- 技术支持QQ-->
+	<technical-support>
+		<list>
+			<value>1944104643</value>  
+		</list>
+	</technical-support>
+	
+	<!-- QQ群 -->
+	<qq-group>
+		<for>商丘市</for>
+		<value>330576364</value>
+		<idkey>47aa5305a1615c0c2bbf7f15f88f1f5e067be6af8a8c9e63798ae9bbe32fe846</idkey>
+	</qq-group>
+	
+	<!-- 客服电话 -->
+	<service-hotline>
+		<list>
+			<value>400-0606-855</value>
+			<value>0371-55829859</value>
+		</list>
+	</service-hotline>
+	
+	<!-- 公司邮箱 -->
+	<email>mshis@126.com</email>
+	
+	<!-- 客户名称 -->
+	<customer>商丘市卫生局</customer>
+	
+	<!-- 授权码 -->
+	<key>SDFAFE-SDFAW1-FWAEF4-45ADFE-A5548S</key>
+	
+	<!-- 截止使用日期 -->
+	<valid-until>9999-12-31</valid-until>
+	
+</config>

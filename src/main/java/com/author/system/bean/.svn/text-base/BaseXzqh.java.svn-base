@@ -1,0 +1,216 @@
+package com.zrhis.system.bean;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * BaseXzqh entity. @author MyEclipse Persistence Tools
+ */
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "BASE_XZQH", schema = "FYBJ")
+public class BaseXzqh implements java.io.Serializable {
+
+	// Fields
+
+	private String depId;
+	private String depName;
+	private String shortName;
+	private String oneId;
+	private String twoId;
+	private String threeId;
+	private String fourId;
+	private String fiveId;
+	private String cxsxId;
+	private String cxflId;
+	private Integer ilevel;
+	private String idPath;
+	private String namePath;
+	private Boolean leaf;
+	private Boolean enable;
+	private String parentId;
+
+	// Constructors
+
+	/** default constructor */
+	public BaseXzqh() {
+	}
+
+	/** minimal constructor */
+	public BaseXzqh(String depId) {
+		this.depId = depId;
+	}
+
+	/** full constructor */
+	public BaseXzqh(String depId, String depName, String shortName,
+			String oneId, String twoId, String threeId, String fourId,
+			String fiveId, String cxsxId, String cxflId, Integer ilevel,
+			String idPath, String namePath, Boolean leaf, Boolean enable,
+			String parentId) {
+		this.depId = depId;
+		this.depName = depName;
+		this.shortName = shortName;
+		this.oneId = oneId;
+		this.twoId = twoId;
+		this.threeId = threeId;
+		this.fourId = fourId;
+		this.fiveId = fiveId;
+		this.cxsxId = cxsxId;
+		this.cxflId = cxflId;
+		this.ilevel = ilevel;
+		this.idPath = idPath;
+		this.namePath = namePath;
+		this.leaf = leaf;
+		this.enable = enable;
+		this.parentId = parentId;
+	}
+
+	// Property accessors
+	@Id
+	@Column(name = "DEP_ID", unique = true, nullable = false, length = 100)
+	public String getDepId() {
+		return this.depId;
+	}
+
+	public void setDepId(String depId) {
+		this.depId = depId;
+	}
+
+	@Column(name = "DEP_NAME", length = 100)
+	public String getDepName() {
+		return this.depName;
+	}
+
+	public void setDepName(String depName) {
+		this.depName = depName;
+	}
+
+	@Column(name = "SHORT_NAME", length = 100)
+	public String getShortName() {
+		return this.shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+	@Column(name = "ONE_ID", length = 20)
+	public String getOneId() {
+		return this.oneId;
+	}
+
+	public void setOneId(String oneId) {
+		this.oneId = oneId;
+	}
+
+	@Column(name = "TWO_ID", length = 20)
+	public String getTwoId() {
+		return this.twoId;
+	}
+
+	public void setTwoId(String twoId) {
+		this.twoId = twoId;
+	}
+
+	@Column(name = "THREE_ID", length = 20)
+	public String getThreeId() {
+		return this.threeId;
+	}
+
+	public void setThreeId(String threeId) {
+		this.threeId = threeId;
+	}
+
+	@Column(name = "FOUR_ID", length = 20)
+	public String getFourId() {
+		return this.fourId;
+	}
+
+	public void setFourId(String fourId) {
+		this.fourId = fourId;
+	}
+
+	@Column(name = "FIVE_ID", length = 20)
+	public String getFiveId() {
+		return this.fiveId;
+	}
+
+	public void setFiveId(String fiveId) {
+		this.fiveId = fiveId;
+	}
+
+	@Column(name = "CXSX_ID", length = 20)
+	public String getCxsxId() {
+		return this.cxsxId;
+	}
+
+	public void setCxsxId(String cxsxId) {
+		this.cxsxId = cxsxId;
+	}
+
+	@Column(name = "CXFL_ID", length = 20)
+	public String getCxflId() {
+		return this.cxflId;
+	}
+
+	public void setCxflId(String cxflId) {
+		this.cxflId = cxflId;
+	}
+
+	@Column(name = "I_LEVEL", precision = 22, scale = 0)
+	public Integer getIlevel() {
+		return this.ilevel;
+	}
+
+	public void setIlevel(Integer ilevel) {
+		this.ilevel = ilevel;
+	}
+
+	@Column(name = "ID_PATH", length = 200)
+	public String getIdPath() {
+		return this.idPath;
+	}
+
+	public void setIdPath(String idPath) {
+		this.idPath = idPath;
+	}
+
+	@Column(name = "NAME_PATH", length = 300)
+	public String getNamePath() {
+		return this.namePath;
+	}
+
+	public void setNamePath(String namePath) {
+		this.namePath = namePath;
+	}
+
+	@Column(name = "LEAF", precision = 1, scale = 0)
+	public Boolean getLeaf() {
+		return this.leaf;
+	}
+
+	public void setLeaf(Boolean leaf) {
+		this.leaf = leaf;
+	}
+
+	@Column(name = "ENABLE", precision = 1, scale = 0)
+	public Boolean getEnable() {
+		return this.enable;
+	}
+
+	public void setEnable(Boolean enable) {
+		this.enable = enable;
+	}
+
+	@Column(name = "PARENT_ID", length = 100)
+	public String getParentId() {
+		return this.parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+
+}
