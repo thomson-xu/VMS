@@ -1,27 +1,20 @@
 package com.author.system.bean;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.visa.dao.util.BaseEntity;
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * SysAuthorities entity. @author MyEclipse Persistence Tools
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "SYS_AUTHORITIES", schema = "FYBJ")
-public class SysAuthorities implements java.io.Serializable {
+@Table(name = "SYS_AUTHORITIES")
+public class SysAuthorities extends BaseEntity implements java.io.Serializable {
 
 	// Fields
 
@@ -35,11 +28,9 @@ public class SysAuthorities implements java.io.Serializable {
 	private String moduleId;
 	private String remark;
 	@JsonIgnore
-	private Set<SysRolesAuthorities> sysRolesAuthoritieses = new HashSet<SysRolesAuthorities>(
-			0);
+	private Set<SysRolesAuthorities> sysRolesAuthoritieses = new HashSet<SysRolesAuthorities>(0);
 	@JsonIgnore
-	private Set<SysAuthoritiesResources> sysAuthoritiesResourceses = new HashSet<SysAuthoritiesResources>(
-			0);
+	private Set<SysAuthoritiesResources> sysAuthoritiesResourceses = new HashSet<SysAuthoritiesResources>(0);
 
 	// Constructors
 
@@ -180,4 +171,8 @@ public class SysAuthorities implements java.io.Serializable {
 		this.sysAuthoritiesResourceses = sysAuthoritiesResourceses;
 	}
 
+	@Override
+	public Object getPrimaryKey() {
+		return (Object) getAuthorityId();
+	}
 }

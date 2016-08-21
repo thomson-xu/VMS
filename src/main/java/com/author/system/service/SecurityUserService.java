@@ -3,78 +3,181 @@
  */
 package com.author.system.service;
 
-import com.author.base.model.Message;
+import com.author.base.MessageFactory;
 import com.author.base.model.Parameters;
+import com.author.base.session.UserSessionContext;
+import com.author.system.bean.SysRoles;
 import com.author.system.bean.SysUsers;
+import com.author.system.bean.SysUsersRoles;
+import com.author.system.dao.SysUsersDao;
+import com.author.system.dao.SysUsersRolesDao;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
-/**
- * 类功能说明：
- * 
- * <p>Copyright: Copyright © 2012-2013 author.com Inc.</p>
- * <p>Company:新中软科技有限公司</p>
- * @author 王成委
- * @date 2014-1-13 上午9:34:54
- * @version v1.0
- *
- */
-public interface SecurityUserService {
-	/**
-	 * 添加用户
-	 * @param user 用户实体
-	 * @return
-	 */
-	public Message add(SysUsers user);
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class SecurityUserService {
 	
-	/**
-	 * 更新用户,仅可以更新用户名、姓名、是否可用三个字段，其他字段不可通过这个方法更新
-	 * @param user 用户实体
-	 * @return
-	 */
-	public Message update(SysUsers user);
+	protected Log logger = LogFactory.getLog(getClass());
 	
-	/**
-	 * 修改密码
-	 * @param userId
-	 * @param password
-	 * @return
-	 */
-	public Message modifyPassword(String userId,String oldPassword,String password);
+	@Autowired
+	private SysUsersDao sysUsersDao;
 	
-	/**
-	 * 删除用户
-	 * @param userId 用户ID
-	 * @return
-	 */
-	public Message delete(String userId);
+	@Autowired
+	private SysUsersRolesDao sysUsersRolesDao;
 	
-	/**
-	 * 查询用户
-	 * @param username 用户名
-	 * @param params 参数集合
-	 * @return
-	 */
-	public Message query(String username,Parameters params);
+	@Autowired
+	private MessageFactory messageFactory;
 	
-	/**
-	 * 根据用户Id查找权限
-	 * @param userId
-	 * @return
-	 */
-	public Message findRoleByUserId(String userId);
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
-	/**
-	 * 为用户分配权限
-	 * @param usreId
-	 * @param roles
-	 * @return
+	@Autowired
+	private UserSessionContext userSessionContext;
+
+	@Autowired
+	private UserService userService;
+
+	private final String USER_EXIST = "UserDetails.AlreadyExists";
+
+	/* (non-Javadoc)
+	 * @see com.author.system.service.SecurityUserService#add(com.author.system.bean.SysUsers)
 	 */
-	public Message assignRoles(String userId,String []roles);
-	
-	/**
-	 * 根据机构ID查询用户
-	 * @param jgid
-	 * @return
+
+	public String add(SysUsers user) throws Exception {
+		String username = user.getUsername();
+		
+		boolean exist = userService.checkRepeat(username);
+		if(exist)return USER_EXIST;
+		
+		String password = user.getPassword();
+		password = this.passwordEncoder.encodePassword(password, user.getUsername());
+		user.setPassword(password);
+		user.setAccountNonExpired(true);
+		user.setAccountNonLocked(true);
+		user.setCredentialsNonExpired(true);
+		
+		this.sysUsersDao.create(user);
+		
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.author.system.service.SecurityUserService#update(com.author.system.bean.SysUsers)
 	 */
-	public Message queryByJgid(String jgid,Parameters param);
-	
+
+	public String update(SysUsers user) {
+		//this.sysUsersRepository.save(user);
+		String userId = user.getUserId();
+		SysUsers bean = this.sysUsersDao.find(SysUsers.class,userId);
+		bean.setEnabled(user.isEnabled());
+		bean.setUsername(user.getUsername());
+		bean.setName(user.getName());
+		this.sysUsersDao.update(bean);
+		String msg="用户信息更新成功";
+		return msg;
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see com.author.system.service.SecurityUserService#modifyPassword(java.lang.String, java.lang.String)
+	 */
+	public String modifyPassword(String userId,String oldPassword,String password){
+		SysUsers user = this.sysUsersDao.find(SysUsers.class,userId);
+		String encodeOld = this.passwordEncoder.encodePassword(oldPassword, user.getUsername());
+		String msg=null;
+		if(user.getPassword().equals(encodeOld)){
+			String encode = this.passwordEncoder.encodePassword(password, user.getUsername());
+			user.setPassword(encode);
+			msg="密码修改成功";
+		}else{
+
+			msg="密码输入错误";
+		}
+		return msg;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.author.system.service.SecurityUserService#delete(java.lang.String)
+	 */
+
+	public void delete(String userId) {
+		this.sysUsersDao.delete(SysUsers.class,userId);
+		return ;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.author.system.service.SecurityUserService#query(java.lang.String, com.author.base.model.Parameters)
+	 */
+	@Override
+	public Message query(String username, Parameters params) {
+		Page<SysUsers> users = null;
+		PageRequest pageable = new PageRequest(params.getSpringDataPage(), params.getLimit());
+		if(StringUtils.isEmpty(username)){
+			users = this.sysUsersDao.findAll(pageable);
+		}else{
+			username = "%"+username+"%";
+			users = this.sysUsersDao.findByUsernameLike(username, pageable);
+		}
+		return this.messageFactory.query(users);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.author.system.service.SecurityUserService#findRoleByUserId(java.lang.String)
+	 */
+	@Override
+	public Message findRoleByUserId(String userId) {
+		List<SysUsersRoles> list = this.sysUsersRolesDao.findByUserId(userId);
+		
+		String[] sysRoles = new String[list.size()];
+		
+		for(int i=0;i<list.size();i++){
+			SysUsersRoles bean = list.get(i);
+			sysRoles[i] = bean.getRoleId();
+		}
+		
+		return this.messageFactory.getObject(sysRoles);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.author.system.service.SecurityUserService#assginRoles(java.lang.String, java.lang.String[])
+	 */
+	@Override
+	public Message assignRoles(String userId, String[] roles) {
+		this.sysUsersRolesDao.deleteByUserId(userId,this.userSessionContext.getUserId());
+		
+		if(!ObjectUtils.isEmpty(roles)){
+			List<SysUsersRoles> list = new ArrayList<SysUsersRoles>();
+			for(int i=0;i<roles.length;i++){
+				String roleId = roles[i];
+				SysUsersRoles entity = new SysUsersRoles();
+				entity.setSysUsers(new SysUsers(userId));
+				entity.setSysRoles(new SysRoles(roleId));
+				entity.setCzybh(this.userSessionContext.getUserId());
+				list.add(entity);
+			}
+			this.sysUsersRolesDao.save(list);
+		}
+		
+		return this.messageFactory.save();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.author.system.service.SecurityUserService#queryByJgid(java.lang.String)
+	 */
+	@Override
+	public Message queryByJgid(String jgid,Parameters params) {
+		PageRequest pageable = new PageRequest(params.getSpringDataPage(), params.getLimit());
+		Page<SysUsers> users = this.sysUsersDao.findByVQzjgid(jgid, pageable);
+		return this.messageFactory.query(users);
+	}
+
 }

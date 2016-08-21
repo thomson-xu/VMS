@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.author.base.controller.BaseController;
-import com.author.base.model.Message;
 import com.author.base.model.Parameters;
 import com.author.base.session.UserSessionContext;
 import com.author.system.bean.SysUsers;
-import com.author.system.service.SecurityUserService;
 
 /**
  * 类功能说明：

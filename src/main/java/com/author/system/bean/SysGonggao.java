@@ -1,20 +1,17 @@
 package com.author.system.bean;
 
+import com.visa.dao.util.BaseEntity;
+
+import javax.persistence.*;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * SysGonggao entity. @author MyEclipse Persistence Tools
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "SYS_GONGGAO", schema = "FYBJ")
-public class SysGonggao implements java.io.Serializable {
+@Table(name = "SYS_GONGGAO")
+public class SysGonggao  extends BaseEntity implements java.io.Serializable {
 
 	// Fields
 
@@ -149,4 +146,8 @@ public class SysGonggao implements java.io.Serializable {
 		this.dtCreate = dtCreate;
 	}
 
+	@Override
+	public Object getPrimaryKey() {
+		return (Object)getVId();
+	}
 }

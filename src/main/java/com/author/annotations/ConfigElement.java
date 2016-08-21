@@ -1,14 +1,16 @@
 package com.author.annotations;
 
+import com.author.base.common.config.DefaultFormatter;
+import com.author.base.common.config.DefaultReader;
+import com.author.base.common.config.Formatter;
+import com.author.base.common.config.Reader;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.author.common.config.DefaultFormatter;
-import com.author.common.config.DefaultReader;
-import com.author.common.config.Formatter;
-import com.author.common.config.Reader;
+
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

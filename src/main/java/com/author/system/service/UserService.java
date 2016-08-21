@@ -3,68 +3,101 @@
  */
 package com.author.system.service;
 
-import com.author.base.model.Message;
+import com.author.base.common.web.MD5Encoder;
 import com.author.system.bean.SysUser;
+import com.author.system.dao.SysUsersDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-/**
- * 类功能说明：用户管理
- * 
- * <p>Copyright: Copyright © 2012-2013 author.com Inc.</p>
- * <p>Company:新中软科技有限公司</p>
- * @author 王成委
- * @date 2013-12-13 下午1:34:20
- * @version v1.0
- *
- */
-public interface UserService {
+
+@Service
+public class UserService {
 	
-	/**
-	 * 添加用户、在添加时判断用户是否已存在
-	 * @param user
-	 * @return
-	 */
-	public Message add(SysUser user) throws Exception;
+	@Autowired
+	private SysUsersDao baseDao;
 	
-	/**
-	 * 删除用户
-	 * @param user
-	 * @return
+	/* (non-Javadoc)
+	 * @see com.author.system.service.UserService#add(com.author.system.bean.SysUser)
 	 */
-	public Message delete(SysUser user) throws Exception;
-	
-	/**
-	 * 根据Id删除用户
-	 * @param userId
-	 * @return
+	@Transactional(readOnly=false,rollbackFor=Exception.class)
+	public synchronized String add(SysUser user) throws Exception {
+		String username = user.getVZcmc();
+		boolean repeat = this.checkRepeat(username);
+		
+		System.out.println("检查用户是否重复，结果："+repeat);
+		String message=null;
+		if(repeat){
+			message="用户已经存在";
+		}else{
+			user.setVDlkl(MD5Encoder.encoder(user.getVDlkl()));
+			this.baseDao.create(user);
+
+		}
+		
+		return message;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.author.system.service.UserService#remove(com.author.system.bean.SysUser)
 	 */
-	public Message delete(String userId) throws Exception;
-	
-	/**
-	 * 更新用户
-	 * @param user
-	 * @return
+
+	@Transactional(readOnly=false,rollbackFor=Exception.class)
+	public void delete(SysUser user) {
+		// TODO Auto-generated method stub
+		return ;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.author.system.service.UserService#remove(java.lang.String)
 	 */
-	public Message update(SysUser user) throws Exception;
-	
-	/**
-	 * 重置用户密码
-	 * @param user
-	 * @return
+
+	@Transactional(readOnly=false,rollbackFor=Exception.class)
+	public String delete(String userId) throws Exception {
+		this.baseDao.delete(SysUser.class, userId);
+		String message = "删除成功";
+		return message;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.author.system.service.UserService#update(com.author.system.bean.SysUser)
 	 */
-	public Message resetPassword(SysUser user) throws Exception;
-	
-	/**
-	 * 根据用户Id重置用户密码
-	 * @param userId
-	 * @return
+
+	@Transactional(readOnly=false,rollbackFor=Exception.class)
+	public void update(SysUser user) {
+		// TODO Auto-generated method stub
+		return ;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.author.system.service.UserService#resetPassword(com.author.system.bean.SysUser)
 	 */
-	public Message resetPassword(String userId) throws Exception;
-	
-	/**
-	 * 根据用户名检查重复
-	 * @param username
-	 * @return
-	 * @throws Exception
+
+	@Transactional(readOnly=false,rollbackFor=Exception.class)
+	public void resetPassword(SysUser user) {
+		// TODO Auto-generated method stub
+		return ;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.author.system.service.UserService#resetPassword(java.lang.String)
 	 */
-	public boolean checkRepeat(String username) throws Exception;
+
+	@Transactional(readOnly=false,rollbackFor=Exception.class)
+	public void resetPassword(String userId) {
+		// TODO Auto-generated method stub
+		return ;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.author.system.service.UserService#checkReport(java.lang.String)
+	 */
+
+	@Transactional(readOnly=false,rollbackFor=Exception.class)
+	public boolean checkRepeat(String username) throws Exception {
+		String[] params=null;
+		params[0]=username;
+		return  baseDao.isExistedByWhere(SysUser.class, "o.username=?",params);
+	}
+
 }

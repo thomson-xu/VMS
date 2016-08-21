@@ -12,15 +12,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * ��װ������ɾ�Ĳ����
- *
- * @author
- * @date
- * @version 2.0
- * @since 2.0 ����TŲ������������,��������ʱ����Ҫָ������.
- */
-@SuppressWarnings("unchecked")
 public abstract class BaseJpaDao implements DAO {
 
     private SQLBuilder sqlBuilder = new SQLBuilder();

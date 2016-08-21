@@ -3,13 +3,9 @@
  */
 package com.author.system.security;
 
-import java.io.IOException;
-import java.util.Date;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.author.base.exception.InitializationException;
+import com.author.system.bean.SysUsers;
+import com.author.system.dao.SysUsersRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -23,9 +19,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import com.author.base.exception.InitializationException;
-import com.author.system.bean.SysUsers;
-import com.author.system.repository.SysUsersRepository;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Date;
 
 /**
  * 类功能说明：在登录成功后把用户的登录时间及登录IP记录到数据库
@@ -48,7 +46,7 @@ public class SimpleLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	
 	@Autowired
-	private SysUsersRepository sysUsersRepository;
+	private SysUsersDao sysUsersDao;
 	
 	/* (non-Javadoc)
 	 * @see org.springframework.security.web.authentication.AuthenticationSuccessHandler#onAuthenticationSuccess(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.springframework.security.core.Authentication)
@@ -79,7 +77,7 @@ public class SimpleLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 			Date date = new Date();
 			user.setLastLogin(date);
 			user.setLoginIp(ip);
-			this.sysUsersRepository.saveAndFlush(user);
+			this.sysUsersDao.saveAndFlush(user);
 		} catch (DataAccessException e) {
 			if(logger.isWarnEnabled()){
 				logger.info("无法更新用户登录信息至数据库");

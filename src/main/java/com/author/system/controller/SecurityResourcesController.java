@@ -16,12 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.author.base.model.Message;
 import com.author.base.model.Parameters;
 import com.author.system.bean.SysResources;
 import com.author.system.security.MethodSecurityMetadataSource;
 import com.author.system.security.URLSecurityMetadataSource;
-import com.author.system.service.SecurityResourcesService;
 
 /**
  * 类功能说明：资源控制器

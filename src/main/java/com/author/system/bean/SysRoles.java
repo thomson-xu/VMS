@@ -1,27 +1,20 @@
 package com.author.system.bean;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.visa.dao.util.BaseEntity;
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * SysRoles entity. @author MyEclipse Persistence Tools
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "SYS_ROLES", schema = "FYBJ")
-public class SysRoles implements java.io.Serializable {
+@Table(name = "SYS_ROLES")
+public class SysRoles extends BaseEntity implements java.io.Serializable {
 
 	// Fields
 
@@ -163,4 +156,8 @@ public class SysRoles implements java.io.Serializable {
 		this.sysRolesAuthoritieses = sysRolesAuthoritieses;
 	}
 
+	@Override
+	public Object getPrimaryKey() {
+		return (Object) getRoleId();
+	}
 }

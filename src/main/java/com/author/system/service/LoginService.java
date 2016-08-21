@@ -1,35 +1,86 @@
 package com.author.system.service;
 
-import com.author.base.model.Message;
 import com.author.system.bean.SysUser;
+import com.author.system.dao.SysUsersDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-public interface LoginService {
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class LoginService{
 	
-	public SysUser doLogin(String VUsername) throws Exception;
+	@Autowired
+	private SysUsersDao sysUsersDao;
 	
-	/**
-	 * 根据操作员编号初始化密码
-	 * @param userId
-	 * @param password
-	 * @return
+	public String doLogin(String username,String passWord) throws Exception{
+		Map<String, Object> params = new HashMap<String,Object>();
+		String sql="";
+		params.put("username", username);
+		javax.persistence.Query query = sysUsersDao.getEntityManager().createQuery(sql);
+
+		if(list != null){
+			if(list.size()>0){
+				SysUser entity = list.get(0);
+				return null;
+			}
+		}
+		return null;
+	}
+	
+	@Transactional
+	public String initPassword(String userId, String password) {
+		//boolean flag = wsjdUserDao.initPassword(userId, password);
+		boolean flag = true;
+		try {
+			SysUser user = (SysUser) sysUsersDao.get(SysUser.class, userId);
+			user.setVDlkl(password);
+		} catch (Exception e) {
+			e.printStackTrace();
+			flag = false;
+		}
+		
+		String message = flag == false ? "Initnazation failed" : "set up successfully，notice user please";
+
+		return message;
+	}
+	
+	@Transactional
+	public Message updatePassword(String userId, String oldPassword,
+			String newPassword) {
+		Message msg = new Message();
+		//Integer flag = wsjdUserDao.updatePassword(userId, oldPassword, newPassword);
+		boolean flag = true;
+		try {
+			SysUser user = (SysUser) baseDao.get(SysUser.class, userId);
+			user.setVDlkl(newPassword);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			flag = false;
+		}
+		//String message = flag ? "密码错误或是信息不存在" : "修改成功";
+		//msg.setMessage(message);
+		msg.setSuccess(true);
+		msg.setFlag(flag);
+		return msg;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.author.system.service.LoginService#updateLoginTime(com.author.system.bean.SysUser)
 	 */
-	public Message initPassword(String userId, String password);
-	
-	/**
-	 * 根据操作员编号修改密码
-	 * @param userId
-	 * @param oldPassword
-	 * @param newPassword
-	 * @return
-	 */
-	public Message updatePassword(String userId, String oldPassword,String newPassword);
-	
-	/**
-	 * 更新用户登录时间
-	 * @param entity
-	 * @return
-	 * @throws Exception
-	 */
-	public SysUser updateLoginTime(SysUser entity) throws Exception;
-	
+	@Override
+	@Transactional
+	public SysUser updateLoginTime(SysUser entity) throws Exception {
+		// TODO Auto-generated method stub
+		entity.setDtZhdl(new Timestamp(System.currentTimeMillis()));
+		this.baseDao.update(entity);
+		return entity;
+	}
+
 }

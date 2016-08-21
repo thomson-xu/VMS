@@ -6,9 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.author.base.model.Message;
-import com.author.system.service.SecurityResourceAuthorityService;
-
 /**
  * 类功能说明：
  * 

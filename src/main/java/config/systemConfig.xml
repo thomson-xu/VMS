@@ -2,37 +2,37 @@
 <config>
 	
 	<webapp>
-		<displayName>新中软妇幼保健管理系统</displayName>
+		<displayName>旅游分销管理系统</displayName>
 	</webapp>
 
 	<!-- 版权声明 -->
-	<copyright>Copyright © 2012-2013 zrhis.com Inc. All Rights Reserved</copyright>
+	<copyright>Copyright © 2012-2016 visashopping.com Inc. All Rights Reserved</copyright>
 	
 	<!-- 开发商 -->
 	<developers>
-		<name>郑州新中软科技有限公司</name>
-		<url>http://www.zrhis.com</url>
+		<name>新科科技有限公司</name>
+		<url>http://www.newInfo.com</url>
 	</developers>
 	
 	<!-- 售后服务QQ-->
 	<post-sales>
 		<list>
-			<value>279220869</value>
-			<value>279220869</value>  
+			<value>57949508</value>
+			<value>57949508</value>
 		</list>
 	</post-sales>
 	
 	<!-- 技术支持QQ-->
 	<technical-support>
 		<list>
-			<value>1944104643</value>  
+			<value>57949508</value>
 		</list>
 	</technical-support>
 	
 	<!-- QQ群 -->
 	<qq-group>
-		<for>商丘市</for>
-		<value>330576364</value>
+		<for>苏州市</for>
+		<value>57949508</value>
 		<idkey>47aa5305a1615c0c2bbf7f15f88f1f5e067be6af8a8c9e63798ae9bbe32fe846</idkey>
 	</qq-group>
 	
@@ -40,15 +40,15 @@
 	<service-hotline>
 		<list>
 			<value>400-0606-855</value>
-			<value>0371-55829859</value>
+			<value>0512-55829859</value>
 		</list>
 	</service-hotline>
 	
 	<!-- 公司邮箱 -->
-	<email>mshis@126.com</email>
+	<email>newinfo@163.com</email>
 	
 	<!-- 客户名称 -->
-	<customer>商丘市卫生局</customer>
+	<customer>lv</customer>
 	
 	<!-- 授权码 -->
 	<key>SDFAFE-SDFAW1-FWAEF4-45ADFE-A5548S</key>

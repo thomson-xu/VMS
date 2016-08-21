@@ -3,13 +3,8 @@
  */
 package com.author.system.security;
 
-import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.author.base.common.util.MessageManager;
+import com.author.base.common.web.controller.ControllerTools;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.access.AccessDeniedException;
@@ -17,11 +12,12 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 
-import sun.org.mozilla.javascript.internal.serialize.ScriptableOutputStream;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
-import com.author.base.model.Message;
-import com.author.common.utils.MessageManager;
-import com.author.common.web.controller.ControllerTools;
 
 /**
  * 类功能说明：
@@ -47,11 +43,12 @@ public class RequestAccessDeniedHandler implements AccessDeniedHandler {
 
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException)
             throws IOException, ServletException {
-    	logger.info("没有权限访问："+request.getRequestURI());
-        if(ControllerTools.isAjaxRequest(request)){
+    	//logger.info("no author access ："+request.getRequestURI());
+        if(ControllerTools.isAjaxRequest(request)) {
         	Message msg = MessageManager.exception(accessDeniedException);
         	ControllerTools.print(response, msg);
-        }else if (!response.isCommitted()) {
+        }
+        else if(!response.isCommitted()) {
             if (errorPage != null) {
                 // Put exception into request scope (perhaps of use to a view)
                 request.setAttribute(WebAttributes.ACCESS_DENIED_403, accessDeniedException);

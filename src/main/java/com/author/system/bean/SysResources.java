@@ -1,33 +1,23 @@
 package com.author.system.bean;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.author.annotations.QueryBuilder;
 import com.author.annotations.QueryIgnore;
 import com.author.base.enums.QueryType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.visa.dao.util.BaseEntity;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * SysResources entity. @author MyEclipse Persistence Tools
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "SYS_RESOURCES", schema = "FYBJ")
-public class SysResources implements java.io.Serializable {
+@Table(name = "SYS_RESOURCES")
+public class SysResources  extends BaseEntity implements java.io.Serializable {
 
 	// Fields
 
@@ -189,4 +179,8 @@ public class SysResources implements java.io.Serializable {
 		this.sysAuthoritiesResourceses = sysAuthoritiesResourceses;
 	}
 
+	@Override
+	public Object getPrimaryKey() {
+		return (Object)getResourceId();
+	}
 }

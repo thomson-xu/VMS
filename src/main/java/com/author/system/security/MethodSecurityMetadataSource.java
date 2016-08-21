@@ -3,15 +3,7 @@
  */
 package com.author.system.security;
 
-import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.author.system.dao.SysResourceRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -20,7 +12,8 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.access.method.AbstractMethodSecurityMetadataSource;
 
-import com.author.system.repository.SysResourceRepository;
+import java.lang.reflect.Method;
+import java.util.*;
 
 /**
  * 类功能说明：通过数据库管理方法
@@ -45,7 +38,7 @@ public class MethodSecurityMetadataSource extends
 	private Map<MethodKey, Collection<ConfigAttribute>> requestMap;
 	
 	@Autowired
-	private SysResourceRepository sysResourceRepository;
+	private SysResourceDao sysResourceDao;
 	
 	/**
 	 * 根据方法获取到访问方法所需要的权限
@@ -97,7 +90,7 @@ public class MethodSecurityMetadataSource extends
 	 */
 	private Map<String,String> loadMehod(){
 		Map<String,String> resMap = new LinkedHashMap<String, String>();
-		List<Map<String,String>> list = this.sysResourceRepository.getMethodResourceMapping();
+		List<Map<String,String>> list = this.sysResourceDao.getMethodResourceMapping();
 		
 		for(Map<String,String> map : list){
 			String resourcePath = map.get(RES_KEY);

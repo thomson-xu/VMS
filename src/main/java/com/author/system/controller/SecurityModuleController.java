@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.author.base.model.Message;
 import com.author.base.session.UserSessionContext;
 import com.author.common.web.controller.ControllerTools;
 import com.author.system.bean.SysModules;
-import com.author.system.service.SecurityModuleService;
 
 /**
  * 类功能说明：添加模块、修改模块、删除模块、模块查询

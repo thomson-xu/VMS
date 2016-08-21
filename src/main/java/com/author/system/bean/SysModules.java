@@ -1,21 +1,14 @@
 package com.author.system.bean;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.visa.dao.util.BaseEntity;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * SysModules entity. @author MyEclipse Persistence Tools
@@ -24,8 +17,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @DynamicUpdate
 @DynamicInsert
-@Table(name = "SYS_MODULES", schema = "FYBJ")
-public class SysModules implements java.io.Serializable {
+@Table(name = "SYS_MODULES")
+public class SysModules extends BaseEntity implements java.io.Serializable {
 
 	// Fields
 
@@ -222,4 +215,8 @@ public class SysModules implements java.io.Serializable {
 		this.sysRolesMoudleses = sysRolesMoudleses;
 	}
 
+	@Override
+	public Object getPrimaryKey() {
+		return (Object)getModuleId();
+	}
 }

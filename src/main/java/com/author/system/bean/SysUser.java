@@ -1,29 +1,23 @@
 package com.author.system.bean;
 
-import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.visa.dao.util.BaseEntity;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * SysUser entity. @author MyEclipse Persistence Tools
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "SYS_USER", schema = "FYBJ")
+@Table(name = "SYS_USER")
 @DynamicUpdate(value=true)
 @DynamicInsert(value=true)
-public class SysUser implements java.io.Serializable {
+public class SysUser extends BaseEntity implements java.io.Serializable {
 
 	// Fields
 
@@ -240,5 +234,9 @@ public class SysUser implements java.io.Serializable {
 		VYhsf = vYhsf;
 	}
 
-	
+
+	@Override
+	public Object getPrimaryKey() {
+		return (Object)this.getVJgid();
+	}
 }

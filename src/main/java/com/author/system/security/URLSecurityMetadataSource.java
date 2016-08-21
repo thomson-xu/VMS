@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.author.system.security;
 
 import java.util.ArrayList;
@@ -26,14 +23,12 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.security.web.util.AntPathRequestMatcher;
 import org.springframework.security.web.util.RequestMatcher;
 
-import com.author.system.repository.SysResourceRepository;
-
 /**
  * 类功能说明：通过数据库来管理资源，通过数据获取到资源权限列表
  * 
  * <p>Copyright: Copyright © 2012-2013 author.com Inc.</p>
- * <p>Company:新中软科技有限公司</p>
- * @author 王成委
+ * <p>Company:</p>
+ * @author
  * @date 2014-1-17 上午11:42:27
  * @version v1.0
  *
@@ -54,7 +49,7 @@ public class URLSecurityMetadataSource implements
 	private Map<RequestMatcher, Collection<ConfigAttribute>> requestMap;
 	
 	@Autowired
-	private SysResourceRepository sysResourceRepository;
+	private SysResourceDao sysResourceDao;
 	
 	/* (non-Javadoc)
 	 * @see org.springframework.security.access.SecurityMetadataSource#getAttributes(java.lang.Object)
@@ -72,7 +67,7 @@ public class URLSecurityMetadataSource implements
             	break;
             }
         }
-        logger.info("URL资源："+request.getRequestURI()+ " -> " + attrs);
+        logger.info("URL source:"+request.getRequestURI()+ " " + attrs);
         return attrs;
 	}
 
@@ -101,7 +96,7 @@ public class URLSecurityMetadataSource implements
 	private Map<String,String> loadResuorce(){
 		Map<String,String> map = new LinkedHashMap<String,String>();
 		
-		List<Map<String,String>> list = this.sysResourceRepository.getURLResourceMapping();
+		List<Map<String,String>> list = this.sysResourceDao.getURLResourceMapping();
 		Iterator<Map<String,String>> it = list.iterator();
 		while(it.hasNext()){
 			Map<String,String> rs = it.next();

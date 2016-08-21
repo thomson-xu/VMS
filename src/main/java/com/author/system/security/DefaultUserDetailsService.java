@@ -3,9 +3,7 @@
  */
 package com.author.system.security;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
+import com.author.system.bean.SysUsers;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +14,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.author.system.bean.SysUsers;
-import com.author.system.repository.SysUsersRepository;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * 类功能说明：根据用户名获取用户信息及权限信息
- * 
- * <p>Copyright: Copyright © 2012-2013 author.com Inc.</p>
- * <p>Company:新中软科技有限公司</p>
- * @author 王成委
- * @date 2014-1-16 上午10:23:38
- * @version v1.0
+ *
  *
  */
 public class DefaultUserDetailsService implements UserDetailsService {
@@ -34,7 +27,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 	protected final Log logger = LogFactory.getLog(getClass());
 	
 	@Autowired
-	private SysUsersRepository sysUsersRepository;
+	private SysUsersDao sysUsersDao;
 	
 	@Autowired
 	private MessageSource messageSource;
@@ -54,12 +47,12 @@ public class DefaultUserDetailsService implements UserDetailsService {
 			user = (SysUsers) this.userCache.getUserFromCache(username);
 		}
 		if(user == null){
-			user = this.sysUsersRepository.getByUsername(username);
+			user = this.sysUsersDao.getByUsername(username);
 			if(user == null)
 				throw new UsernameNotFoundException(this.messageSource.getMessage(
 						"UserDetailsService.userNotFount", new Object[]{username}, null));
 			//得到用户的权限
-			auths = this.sysUsersRepository.loadUserAuthorities( username );
+			auths = this.sysUsersDao.loadUserAuthorities( username );
 			
 			user.setAuthorities(auths);
 		}

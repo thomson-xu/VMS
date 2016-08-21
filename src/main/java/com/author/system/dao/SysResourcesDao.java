@@ -3,32 +3,59 @@
  */
 package com.author.system.dao;
 
-import com.author.base.model.ResultModel;
 import com.author.system.bean.SysResources;
+import com.visa.dao.util.BaseJpaDao;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Repository;
 
-/**
- * 类功能说明：资源管理
- * 
- * <p>Copyright: Copyright © 2012-2013 author.com Inc.</p>
- * <p>Company:新中软科技有限公司</p>
- * @author 王成委
- * @date 2013-12-30 上午11:55:03
- * @version v1.0
- *
- */
+@Repository
+public class SysResourcesDao extends BaseJpaDao {
+	
+	protected Log logger = LogFactory.getLog(getClass());
 
-public interface SysResourcesDao {
+	/* (non-Javadoc)
+	 * @see com.author.system.dao.SysResourcesDao#findById(java.lang.String)
+	 */
+
+	public SysResources findById(String resourceId) throws Exception {
+		
+		return getEntityManager().find(SysResources.class, resourceId);
+	}
 	
-	public SysResources findById(String resourceId) throws Exception;
-	
-	public SysResources add(SysResources resource) throws Exception;
-	
-	public SysResources update(SysResources resource) throws Exception;
-	
-	public void delete(SysResources resource) throws Exception;
-	
-	public void delete(String resourceId) throws Exception;
-	
-	public ResultModel query(SysResources resource) throws Exception;
+	/* (non-Javadoc)
+	 * @see com.author.system.dao.SysResourcesDao#add(com.author.system.bean.SysResources)
+	 */
+
+	public SysResources add(SysResources resource) throws Exception {
+		getEntityManager().persist(resource);
+		return resource;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.author.system.dao.SysResourcesDao#update(com.author.system.bean.SysResources)
+	 */
+
+	public SysResources update(SysResources resource) throws Exception {
+		getEntityManager().merge(resource);
+		return resource;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.author.system.dao.SysResourcesDao#delete(com.author.system.bean.SysResources)
+	 */
+
+	public void delete(SysResources resource) throws Exception {
+		getEntityManager().remove(resource);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.author.system.dao.SysResourcesDao#delete(java.lang.String)
+	 */
+
+	public void delete(String resourceId) throws Exception {
+		getEntityManager().remove(this.findById(resourceId));
+	}
+
 
 }

@@ -3,25 +3,17 @@
  */
 package com.author.system.controller;
 
-import java.util.Map;
+import com.author.base.controller.BaseController;
+import com.author.base.model.Parameters;
+import com.author.system.bean.SysRoles;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.author.base.controller.BaseController;
-import com.author.base.model.Message;
-import com.author.base.model.Parameters;
-import com.author.system.bean.SysRoles;
-import com.author.system.service.SecurityRoleService;
+import java.util.Map;
 
 /**
  * 类功能说明：权限管理
@@ -108,7 +100,7 @@ public class SecurityRoleController extends BaseController{
 		DebugUtil.printArray(add);
 		DebugUtil.printArray(remove);*/
 		if(add == null && remove == null){
-			return new Message(true,"没有提交任何修改，无需保存");
+			return new Message(true,"");
 		}
 		
 		Message message = this.sysRoleService.saveRoleModules(roleId, add, remove);

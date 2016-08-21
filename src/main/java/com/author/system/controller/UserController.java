@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.author.annotations.AuthorityCollection;
 import com.author.base.AuthorityType;
 import com.author.base.controller.BaseController;
-import com.author.base.model.Message;
 import com.author.common.web.controller.ControllerTools;
 import com.author.system.bean.SysUser;
-import com.author.system.service.UserService;
 
 /**
  * 类功能说明：用户管理

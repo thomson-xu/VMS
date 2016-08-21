@@ -11,11 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.author.base.controller.BaseController;
-import com.author.base.model.Message;
 import com.author.base.session.UserSessionContext;
 import com.author.common.web.controller.ControllerTools;
-import com.author.system.service.SecurityModuleService;
-import com.author.system.service.SecurityRoleService;
 
 /**
  * 类功能说明：

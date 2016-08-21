@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.author.base.controller.BaseController;
-import com.author.base.model.Message;
 import com.author.base.model.Parameters;
 import com.author.system.bean.SysAuthorities;
-import com.author.system.service.SecurityAuthorityService;
 
 /**
  * 类功能说明：权限管理控制器
