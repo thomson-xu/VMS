@@ -1,9 +1,9 @@
 package com.author.system.service;
 
 import com.author.system.bean.SysUser;
+import com.author.system.bean.SysUsers;
 import com.author.system.dao.SysUsersDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,16 +18,17 @@ public class LoginService{
 	@Autowired
 	private SysUsersDao sysUsersDao;
 	
-	public String doLogin(String username,String passWord) throws Exception{
+	public SysUsers doLogin(String username,String password) throws Exception{
 		Map<String, Object> params = new HashMap<String,Object>();
-		String sql="";
+		String sql="Select u from SysUsers u where u.username=:username and u.password=:password";
 		params.put("username", username);
+		params.put("password", password);
 		javax.persistence.Query query = sysUsersDao.getEntityManager().createQuery(sql);
-
+		List<SysUsers> list= query.getResultList();
 		if(list != null){
 			if(list.size()>0){
-				SysUser entity = list.get(0);
-				return null;
+				SysUsers user = list.get(0);
+				return user;
 			}
 		}
 		return null;
@@ -38,8 +39,8 @@ public class LoginService{
 		//boolean flag = wsjdUserDao.initPassword(userId, password);
 		boolean flag = true;
 		try {
-			SysUser user = (SysUser) sysUsersDao.get(SysUser.class, userId);
-			user.setVDlkl(password);
+			SysUsers user = (SysUsers) sysUsersDao.find(SysUsers.class, userId);
+			user.setPassword(password);
 		} catch (Exception e) {
 			e.printStackTrace();
 			flag = false;
@@ -51,35 +52,33 @@ public class LoginService{
 	}
 	
 	@Transactional
-	public Message updatePassword(String userId, String oldPassword,
+	public SysUsers updatePassword(String userId, String oldPassword,
 			String newPassword) {
-		Message msg = new Message();
+
 		//Integer flag = wsjdUserDao.updatePassword(userId, oldPassword, newPassword);
-		boolean flag = true;
+		//boolean flag = true;
 		try {
-			SysUser user = (SysUser) baseDao.get(SysUser.class, userId);
-			user.setVDlkl(newPassword);
+			SysUsers user = (SysUsers) sysUsersDao.find(SysUsers.class, userId);
+			user.setPassword(newPassword);
+			return user;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			flag = false;
 		}
 		//String message = flag ? "密码错误或是信息不存在" : "修改成功";
 		//msg.setMessage(message);
-		msg.setSuccess(true);
-		msg.setFlag(flag);
-		return msg;
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see com.author.system.service.LoginService#updateLoginTime(com.author.system.bean.SysUser)
 	 */
-	@Override
+
 	@Transactional
-	public SysUser updateLoginTime(SysUser entity) throws Exception {
+	public SysUsers updateLoginTime(SysUsers entity) throws Exception {
 		// TODO Auto-generated method stub
-		entity.setDtZhdl(new Timestamp(System.currentTimeMillis()));
-		this.baseDao.update(entity);
+		entity.setLastLogin(new Timestamp(System.currentTimeMillis()));
+		this.sysUsersDao.update(entity);
 		return entity;
 	}
 

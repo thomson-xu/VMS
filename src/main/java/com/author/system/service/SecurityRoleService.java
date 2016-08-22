@@ -22,16 +22,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 类功能说明：角色管理业务层
- * 
- * <p>Copyright: Copyright © 2012-2013 author.com Inc.</p>
- * <p>Company:新中软科技有限公司</p>
- * @author 王成委
- * @date 2014-1-2 下午5:06:53
- * @version v1.0
- *
- */
 @Service
 public class SecurityRoleService {
 	
@@ -54,40 +44,34 @@ public class SecurityRoleService {
 	 * (non-Javadoc)
 	 * @see com.author.system.service.SysRoleService#add(com.author.system.bean.SysRoles)
 	 */
-	@Override
-	public Message add(SysRoles entity) {
+	public SysRoles add(SysRoles entity) {
 		entity.setUserId(this.userSessionContext.getUserId());
-		this.sysRoleDao.save(entity);
-		Message msg = this.messageFactory.save(entity);
-		return msg;
+		this.sysRoleDao.create(entity);
+		return entity;
 	}
 
-	@Override
-	public Message update(SysRoles entity) {
+	public SysRoles update(SysRoles entity) {
 		entity.setUserId(this.userSessionContext.getUserId());
-		this.sysRoleDao.save(entity);
-		Message msg = this.messageFactory.update(entity);
-		return msg;
+		this.sysRoleDao.update(entity);
+		return entity;
 	}
 
-	@Override
-	public Message delete(SysRoles entity) {
-		this.sysRoleDao.delete(entity);
-		Message msg = this.messageFactory.delete();
-		return msg;
+
+	public SysRoles delete(SysRoles entity) {
+		this.sysRoleDao.delete(SysRoles.class,entity.getRoleId());
+		return entity;
 	}
 
-	@Override
-	public Message delete(String roleId) {
-		this.sysRoleDao.delete(roleId);
-		Message msg = this.messageFactory.delete();
-		return msg;
+
+	public String delete(String roleId) {
+		this.sysRoleDao.delete(SysRoles.class,roleId);
+		return "delete SysRoles";
 	}
 	
 	/*
 	 * @see com.author.system.service.SysRoleService#queryByPage(com.author.base.model.Parameters)
 	 */
-	@Override
+	/*@Override
 	public Message queryByPage(Parameters params) {
 		PageRequest pageable = new PageRequest(params.getSpringDataPage(), params.getLimit());
 		Page<SysRoles> page = this.sysRoleDao.findAll(pageable);
@@ -95,66 +79,61 @@ public class SecurityRoleService {
 		Message msg = new Message(totalCount.intValue(),page.getContent());
 		return msg;
 	}
-	
+	*/
 	/*
 	 * @see com.author.system.service.SysRoleService#queryAllEnabled(Parameters)
 	 */
-	@Override
+	/*@Override
 	public Message queryAllEnabled(Parameters params){
 		PageRequest pageable = new PageRequest(params.getSpringDataPage(), params.getLimit());
 		Page<SysRoles> page = this.sysRoleDao.findAllEnabeld(pageable);
 		Long totalCount = page.getTotalElements();
 		Message msg = new Message(totalCount.intValue(),page.getContent());
 		return msg;
-	}
+	}*/
 	
-	public Message findByRoleNameLikeAndEnableed(String roleName,Parameters params) throws Exception{
+	public Page<SysRoles> findByRoleNameLikeAndEnableed(String roleName,Parameters params) throws Exception{
 		PageRequest pageable = new PageRequest(params.getSpringDataPage(), params.getLimit());
 		Page<SysRoles> page = null;
 		if(roleName == null){
 			page = this.sysRoleDao.findAllEnabeld(pageable);
 		}else{
-			roleName = "%"+ServletUtils.transcoding(roleName)+"%";
+			roleName = "%"+roleName+"%";
 			page = this.sysRoleDao.findByRoleNameLikeAndEnabled(roleName, pageable);
 		}
 		//Message msg = new Message(totalCount.intValue(),page.getContent());
-		Message msg = this.messageFactory.query(page);
-		return msg;
+		return page;
 	}
 	/*
 	 * @see com.author.system.service.SysRoleService#getById(String)
 	 */
-	@Override
-	public Message getById(String roleId) {
-		SysRoles entity = this.sysRoleDao.findOne(roleId);
-		Message msg = new Message();
-		msg.setData(entity);
-		msg.setSuccess(true);
-		return msg;
+
+	public SysRoles getById(String roleId) {
+		SysRoles entity = this.sysRoleDao.find(SysRoles.class,roleId);
+		return entity;
 	}
 
 	/* 
 	 * @see com.author.system.service.SysRoleService#enabled(boolean)
 	 */
-	@Override
-	public Message enabled(String roleId,boolean enable) {
-		SysRoles entity = this.sysRoleDao.findOne(roleId);
+
+	public SysRoles enabled(String roleId,boolean enable) {
+		SysRoles entity = this.sysRoleDao.find(SysRoles.class,roleId);
 		entity.setEnable(enable);
-		return null;
+		return entity;
 	}
 	/*
 	 * @see com.author.system.service.SysRoleService#getModulesByRoleId(java.lang.String)
 	 */
-	@Override
-	public Message getModulesByRoleId(String roleId){
+
+	public String[] getModulesByRoleId(String roleId){
 		List<SysRolesModules> list = this.sysRolesModulesDao.findByRoleId(roleId);
 		String[] moduleIds = new String[list.size()];
 		for(int i=0;i<list.size();i++){
 			SysRolesModules bean = list.get(i);
 			moduleIds[i] = bean.getModuleId();
 		}
-		Message msg = new Message(moduleIds);
-		return msg;
+		return moduleIds;
 	}
 
 	/* (non-Javadoc)
@@ -180,7 +159,7 @@ public class SecurityRoleService {
 				bean.setSysModules(new SysModules(moduleId));
 				list.add(bean);
 			}
-			this.sysRolesModulesDao.save(list);
+			this.sysRolesModulesDao.c(list);
 		}
 		
 		return this.messageFactory.save();
