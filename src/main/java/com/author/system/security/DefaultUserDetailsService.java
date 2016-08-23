@@ -4,6 +4,7 @@
 package com.author.system.security;
 
 import com.author.system.bean.SysUsers;
+import com.author.system.service.SecurityUserService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 	protected final Log logger = LogFactory.getLog(getClass());
 	
 	@Autowired
-	private SysUsersDao sysUsersDao;
+	private SecurityUserService securityUserService;
 	
 	@Autowired
 	private MessageSource messageSource;
@@ -47,7 +48,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 			user = (SysUsers) this.userCache.getUserFromCache(username);
 		}
 		if(user == null){
-			user = this.sysUsersDao.getByUsername(username);
+			user = this.securityUserService.findRolesByUserId(username);
 			if(user == null)
 				throw new UsernameNotFoundException(this.messageSource.getMessage(
 						"UserDetailsService.userNotFount", new Object[]{username}, null));

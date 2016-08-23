@@ -40,16 +40,16 @@ public class SecurityResourceAuthorityService{
 	 * @see com.author.system.service.SecurityResourceAuthorityService#queryByResource(com.author.system.bean.SysResources)
 	 */
 
-	public Message queryByResource(SysResources resource) {
+	public List<SysAuthoritiesResources> queryByResource(SysResources resource) {
 		List<SysAuthoritiesResources> list = this.sysResourceAuthorityDao.findBySysResources(resource);
-		return new Message(list);
+		return list;
 	}
 
 	/* (non-Javadoc)
 	 * @see com.author.system.service.SecurityResourceAuthorityService#addBatch(java.lang.String, java.lang.String[])
 	 */
-	@Override
-	public Message addBatch(String resourceId, String[] sysAuthorities) {
+
+	public String addBatch(String resourceId, String[] sysAuthorities) {
 		this.deleteByResourceId(resourceId);
 		
 		if(!ObjectUtils.isEmpty(sysAuthorities)){
@@ -64,15 +64,15 @@ public class SecurityResourceAuthorityService{
 				bean.setSysAuthorities(auth);
 				list.add(bean);
 			}
-			this.sysResourceAuthorityDao.save(list);
+			this.sysResourceAuthorityDao.saveAll(list);
 		}
 	
-		return new Message(true,"权限分配成功");
+		return "权限分配成功";
 	}
 	
-	public Message deleteByResourceId(String resourceId){
+	public String deleteByResourceId(String resourceId){
 		this.sysResourceAuthorityDao.deleteByResourceId(resourceId);
-		return new Message(true,"已删除此资源对应的所有权限!");
+		return "已删除此资源对应的所有权限!";
 	}
 
 }

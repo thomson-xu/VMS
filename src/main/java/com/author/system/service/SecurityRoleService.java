@@ -3,8 +3,6 @@ package com.author.system.service;
 import com.author.base.MessageFactory;
 import com.author.base.model.Parameters;
 import com.author.base.session.UserSessionContext;
-import com.author.common.utils.ArrayUtils;
-import com.author.common.web.ServletUtils;
 import com.author.system.bean.*;
 import com.author.system.dao.SysRoleDao;
 import com.author.system.dao.SysRolesAuthoritiesDao;
@@ -12,8 +10,6 @@ import com.author.system.dao.SysRolesModulesDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -127,10 +123,10 @@ public class SecurityRoleService {
 	 */
 
 	public String[] getModulesByRoleId(String roleId){
-		List<SysRolesModules> list = this.sysRolesModulesDao.findByRoleId(roleId);
+		List<SysModules> list = this.sysRolesModulesDao.getModulesByRoleId(roleId);
 		String[] moduleIds = new String[list.size()];
 		for(int i=0;i<list.size();i++){
-			SysRolesModules bean = list.get(i);
+			SysModules bean = list.get(i);
 			moduleIds[i] = bean.getModuleId();
 		}
 		return moduleIds;
@@ -139,11 +135,14 @@ public class SecurityRoleService {
 	/* (non-Javadoc)
 	 * @see com.author.system.service.SecurityRoleService#saveRoleModules(java.lang.String, java.lang.String[], java.lang.String)
 	 */
-	@Override
-	public Message saveRoleModules(String roleId, String[] adds, String[] removes) {
+
+	public void saveRoleModules(String roleId, String[] adds, String[] removes) {
 		//批量删除已撤销的模块
 		if(!ObjectUtils.isEmpty(removes)){
-			Collection<String> modules = ArrayUtils.toList(removes);
+			Collection<String> modules =null;
+			  for(int i=0; i<removes.length ; i++){
+				      modules.add(removes[i]);
+			  }
 			this.sysRolesModulesDao.deleteByRoleIdAndModuleId(roleId, modules);
 		}
 		
@@ -159,13 +158,12 @@ public class SecurityRoleService {
 				bean.setSysModules(new SysModules(moduleId));
 				list.add(bean);
 			}
-			this.sysRolesModulesDao.c(list);
+			this.sysRolesModulesDao.saveAll(list);
 		}
-		
-		return this.messageFactory.save();
+
 	}
 	
-	public Message saveRoleAuthorities(String roleId,String[] sysAuthorities){
+	public String saveRoleAuthorities(String roleId,String[] sysAuthorities){
 		this.sysRolesAuthoritiesDao.deleteByRoleId(roleId);
 		
 		List<SysRolesAuthorities> list = new ArrayList<SysRolesAuthorities>();
@@ -180,32 +178,33 @@ public class SecurityRoleService {
 				bean.setSysAuthorities(new SysAuthorities(authorityId));
 				list.add(bean);
 			}
-			this.sysRolesAuthoritiesDao.save(list);
+			this.sysRolesAuthoritiesDao.saveAll(list);
 		}
 		
-		return this.messageFactory.save();
+		return "seccessfull";
 	}
 	
-	public Message getLeafModulesByRoleId(String roleId){
+	public List<SysModules> getLeafModulesByRoleId(String roleId){
 		
 		List<SysModules> list = this.sysRolesModulesDao.getModulesByRoleId(roleId);
 		
-		return this.messageFactory.query(list);
+		return list;
 	}
 	
 	/*
 	 * @see com.author.system.service.SecurityRoleService#getAuthorityByRoleId(java.lang.String)
 	 */
-	public Message getAuthorityByRoleId(String roleId){
+	public List<SysAuthorities> getAuthorityByRoleId(String roleId){
 		
 		List<SysAuthorities> list = this.sysRolesAuthoritiesDao.getAssignationAuthority(roleId);
 		
-		return this.messageFactory.query(list);
+		return list;
 	}
 	
-	public Message queryByRoleId(String roleId){
-		
-		List<SysRolesAuthorities> list = this.sysRolesAuthoritiesDao.findByRoleId(roleId);
+	public String[]  queryByRoleId(String roleId){
+		 String [] params=null;
+		params[0]= roleId;
+		List<SysRolesAuthorities> list = this.sysRolesAuthoritiesDao.queryByWhere(SysRolesAuthorities.class,"o.roleId=:roleId",params);
 		
 		String[] idPools = new String[list.size()];
 		
@@ -215,14 +214,14 @@ public class SecurityRoleService {
 			idPools[index] = bean.getAuthorityId();
 			index++;
 		}
-		
-		return this.messageFactory.getObject(idPools);
+		return  idPools;
+
 	}
 
 	/* (non-Javadoc)
 	 * @see com.author.system.service.SecurityRoleService#findByRoleNameLike(java.lang.String, com.author.base.model.Parameters)
 	 */
-	@Override
+	/*@Override
 	public Message findByRoleNameLike(String roleName, Parameters params) throws Exception {
 		Order order = new Order("issys");
 		Sort sort = new Sort(order);
@@ -237,48 +236,47 @@ public class SecurityRoleService {
 		}
 		Message msg = this.messageFactory.query(page);
 		return msg;
-	}
+	}*/
 
 	/* (non-Javadoc)
 	 * @see com.author.system.service.SecurityRoleService#queryAllEnabled()
 	 */
-	@Override
-	public Message queryAllEnabled() {
+
+	public List<SysRoles> queryAllEnabled() {
 		List<SysRoles> list = this.sysRoleDao.findAllEnabeld(true);
-		Message msg = new Message(list);
-		return msg;
+
+		return list;
 	}
 
 	/* (non-Javadoc)
 	 * @see com.author.system.service.SecurityRoleService#findByUserId(java.lang.String)
 	 */
-	@Override
-	public Message findByUserId(String userId) throws Exception {
+
+	public List<SysRoles>  findByUserId(String userId) throws Exception {
 		List<SysRoles> list = this.sysRoleDao.findByUserId(userId);
-		return this.messageFactory.query(list);
+		return list;
 	}
 	
-	@Override
-	public Message findByUserId(boolean enable,String userId){
+
+	public List<SysRoles> findByUserId(boolean enable,String userId){
 		List<SysRoles> list = this.sysRoleDao.findByUserId(enable,userId);
-		return this.messageFactory.query(list);
+		return list;
 	}
 
 	/* (non-Javadoc)
 	 * @see com.author.system.service.SecurityRoleService#findByIssys()
 	 */
-	@Override
-	public Message findByIssys() {
+
+	public List<SysAuthorities> findByIssys() {
 		List<SysAuthorities> list = this.sysRolesAuthoritiesDao.findByIssys(false);
-		return this.messageFactory.query(list);
+		return (list);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.author.system.service.SecurityRoleService#saveModuleAndAuthority(java.lang.String, java.util.Map, java.lang.String[])
 	 */
-	@Override
-	@SuppressWarnings("unchecked")
-	public Message saveModuleAndAuthority(String roleId, Map<?, ?> sysModules,
+
+	public String saveModuleAndAuthority(String roleId, Map<?, ?> sysModules,
 			String[] sysAuthorities) {
 		//String[] adds = ;
 		//this.saveRoleModules(roleId, adds, removes);
@@ -290,10 +288,10 @@ public class SecurityRoleService {
 		String[] removes = new String[removeList.size()];
 		removeList.toArray(removes);
 		
-		this.saveRoleModules(roleId, adds, removes);
+		//this.saveRoleModules(roleId, adds, removes);
 		this.saveRoleAuthorities(roleId, sysAuthorities);
 		
-		return this.messageFactory.save();
+		return "0";
 	}
 
 }

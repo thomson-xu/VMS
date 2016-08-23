@@ -3,8 +3,9 @@
  */
 package com.author.system.service;
 
-import com.author.base.common.web.MD5Encoder;
+import com.author.base.common.web.MD5Util;
 import com.author.system.bean.SysUser;
+import com.author.system.bean.SysUsers;
 import com.author.system.dao.SysUsersDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,8 @@ public class UserService {
 	 * @see com.author.system.service.UserService#add(com.author.system.bean.SysUser)
 	 */
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public synchronized String add(SysUser user) throws Exception {
-		String username = user.getVZcmc();
+	public synchronized String add(SysUsers user) throws Exception {
+		String username = user.getUsername();
 		boolean repeat = this.checkRepeat(username);
 		
 		System.out.println("检查用户是否重复，结果："+repeat);
@@ -30,7 +31,7 @@ public class UserService {
 		if(repeat){
 			message="用户已经存在";
 		}else{
-			user.setVDlkl(MD5Encoder.encoder(user.getVDlkl()));
+			user.setPassword(MD5Util.getEncryptedPwd(user.getPassword()));
 			this.baseDao.create(user);
 
 		}

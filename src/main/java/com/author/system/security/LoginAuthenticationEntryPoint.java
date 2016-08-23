@@ -45,12 +45,10 @@ public class LoginAuthenticationEntryPoint extends
 		}
 	}
 	
-	private void transformAjaxRequest(HttpServletRequest request,
+	private String transformAjaxRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException{
-		Message msg = new Message();
-		msg.setIsSessionOut(true);
-		msg.setMessage("Session timeout，please login again");
-		ControllerTools.print(response, msg);
+		return "Session timeout，please login again";
+
 	}
 	
 }

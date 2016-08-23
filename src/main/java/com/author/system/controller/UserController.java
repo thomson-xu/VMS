@@ -3,33 +3,17 @@
  */
 package com.author.system.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.author.annotations.AuthorityCollection;
 import com.author.base.AuthorityType;
 import com.author.base.controller.BaseController;
-import com.author.common.web.controller.ControllerTools;
-import com.author.system.bean.SysUser;
+import com.author.system.bean.SysUsers;
+import com.author.system.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-/**
- * 类功能说明：用户管理
- * 
- * <p>Copyright: Copyright © 2012-2013 author.com Inc.</p>
- * <p>Company:新中软科技有限公司</p>
- * @author 王成委
- * @date 2013-12-11 下午5:10:31
- * @version v1.0
- *
- */
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/user")
@@ -43,9 +27,8 @@ public class UserController extends BaseController{
 	@AuthorityCollection(AuthorityType.SYS_USER_ADD)
 	@RequestMapping("/add")
 	public Message save(HttpServletRequest request,HttpServletResponse response) throws Exception{
-		SysUser user = (SysUser) ControllerTools.resolvePayloadEX(request);
+		SysUsers user = (SysUsers) ControllerTools.resolvePayloadEX(request);
 		Message msg = this.userService.add(user);
-		msg.setData(user);
 		return msg;
 	}
 	

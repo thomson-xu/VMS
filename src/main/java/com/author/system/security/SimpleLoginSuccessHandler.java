@@ -27,12 +27,6 @@ import java.util.Date;
 
 /**
  * 类功能说明：在登录成功后把用户的登录时间及登录IP记录到数据库
- * 
- * <p>Copyright: Copyright © 2012-2013 author.com Inc.</p>
- * <p>Company:新中软科技有限公司</p>
- * @author 王成委
- * @date 2014-1-17 下午4:26:06
- * @version v1.0
  *
  */
 public class SimpleLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler implements InitializingBean{

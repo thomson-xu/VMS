@@ -1,10 +1,8 @@
-/**
- * 
- */
+
 package com.author.system.service;
 
 import com.author.base.MessageFactory;
-import com.author.base.model.Parameters;
+
 import com.author.base.session.UserSessionContext;
 import com.author.system.bean.SysRoles;
 import com.author.system.bean.SysUsers;
@@ -14,12 +12,9 @@ import com.author.system.dao.SysUsersRolesDao;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,8 +112,8 @@ public class SecurityUserService {
 	/* (non-Javadoc)
 	 * @see com.author.system.service.SecurityUserService#query(java.lang.String, com.author.base.model.Parameters)
 	 */
-	@Override
-	public Message query(String username, Parameters params) {
+
+/*	public Message query(String username, Parameters params) {
 		Page<SysUsers> users = null;
 		PageRequest pageable = new PageRequest(params.getSpringDataPage(), params.getLimit());
 		if(StringUtils.isEmpty(username)){
@@ -128,30 +123,25 @@ public class SecurityUserService {
 			users = this.sysUsersDao.findByUsernameLike(username, pageable);
 		}
 		return this.messageFactory.query(users);
-	}
+	}*/
 
 	/* (non-Javadoc)
 	 * @see com.author.system.service.SecurityUserService#findRoleByUserId(java.lang.String)
 	 */
-	@Override
-	public Message findRoleByUserId(String userId) {
-		List<SysUsersRoles> list = this.sysUsersRolesDao.findByUserId(userId);
+
+	public List<SysUsersRoles> findRolesByUserId(String userId) {
+		List<SysUsersRoles> list = this.sysUsersRolesDao.findRoleByUserId(userId);
 		
-		String[] sysRoles = new String[list.size()];
+
 		
-		for(int i=0;i<list.size();i++){
-			SysUsersRoles bean = list.get(i);
-			sysRoles[i] = bean.getRoleId();
-		}
-		
-		return this.messageFactory.getObject(sysRoles);
+		return list;
 	}
 
 	/* (non-Javadoc)
 	 * @see com.author.system.service.SecurityUserService#assginRoles(java.lang.String, java.lang.String[])
 	 */
-	@Override
-	public Message assignRoles(String userId, String[] roles) {
+
+	public String assignRoles(String userId, String[] roles) {
 		this.sysUsersRolesDao.deleteByUserId(userId,this.userSessionContext.getUserId());
 		
 		if(!ObjectUtils.isEmpty(roles)){
@@ -164,20 +154,20 @@ public class SecurityUserService {
 				entity.setCzybh(this.userSessionContext.getUserId());
 				list.add(entity);
 			}
-			this.sysUsersRolesDao.save(list);
+			this.sysUsersRolesDao.saveAll(list);
 		}
 		
-		return this.messageFactory.save();
+		return "successful";
 	}
 
 	/* (non-Javadoc)
 	 * @see com.author.system.service.SecurityUserService#queryByJgid(java.lang.String)
 	 */
-	@Override
+/*	@Override
 	public Message queryByJgid(String jgid,Parameters params) {
 		PageRequest pageable = new PageRequest(params.getSpringDataPage(), params.getLimit());
 		Page<SysUsers> users = this.sysUsersDao.findByVQzjgid(jgid, pageable);
 		return this.messageFactory.query(users);
-	}
+	}*/
 
 }

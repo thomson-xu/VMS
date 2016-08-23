@@ -25,12 +25,7 @@ import org.springframework.security.web.util.RequestMatcher;
 
 /**
  * 类功能说明：通过数据库来管理资源，通过数据获取到资源权限列表
- * 
- * <p>Copyright: Copyright © 2012-2013 author.com Inc.</p>
- * <p>Company:</p>
- * @author
- * @date 2014-1-17 上午11:42:27
- * @version v1.0
+ *
  *
  */
 public class URLSecurityMetadataSource implements

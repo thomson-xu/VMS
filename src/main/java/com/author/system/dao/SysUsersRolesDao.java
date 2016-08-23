@@ -1,14 +1,15 @@
 
 package com.author.system.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
+import com.author.system.bean.SysRoles;
+import com.author.system.bean.SysUsersRoles;
 import com.visa.dao.util.BaseJpaDao;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.Query;
+import java.util.List;
 
 @Repository
 public class SysUsersRolesDao extends BaseJpaDao {
@@ -34,5 +35,11 @@ public class SysUsersRolesDao extends BaseJpaDao {
 		int deleted = query.executeUpdate();
 		
 		logger.info("共删除了"+deleted+"行（用户权限表）");
+	}
+	public List<SysUsersRoles> findRoleByUserId(String userId){
+		String sql = "SELECT x.* from SysUsersRoles x where x.userId = ?1";
+		Query query = getEntityManager().createQuery(sql);
+		query.setParameter(1, userId);
+		return query.getResultList();
 	}
 }

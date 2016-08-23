@@ -1,6 +1,5 @@
 package com.author.system.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.visa.dao.util.BaseEntity;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -20,9 +19,7 @@ public class SysUsersRoles extends BaseEntity implements java.io.Serializable {
 	private String userId;
 	private String roleId;
 	private String czybh;
-	@JsonIgnore
 	private SysUsers sysUsers;
-	@JsonIgnore
 	private SysRoles sysRoles;
 
 	// Constructors
