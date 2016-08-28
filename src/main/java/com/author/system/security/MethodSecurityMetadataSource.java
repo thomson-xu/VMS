@@ -3,7 +3,7 @@
  */
 package com.author.system.security;
 
-import com.author.system.dao.SysResourceRepository;
+import com.author.system.dao.SysResourceDao;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -17,13 +17,6 @@ import java.util.*;
 
 /**
  * 类功能说明：通过数据库管理方法
- * 
- * <p>Copyright: Copyright © 2012-2013 author.com Inc.</p>
- * <p>Company:新中软科技有限公司</p>
- * @author 王成委
- * @date 2014-1-18 上午11:46:47
- * @version v1.0
- *
  */
 public class MethodSecurityMetadataSource extends
 		AbstractMethodSecurityMetadataSource implements InitializingBean{

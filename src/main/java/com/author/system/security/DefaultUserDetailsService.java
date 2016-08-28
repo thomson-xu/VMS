@@ -4,6 +4,7 @@
 package com.author.system.security;
 
 import com.author.system.bean.SysUsers;
+import com.author.system.bean.SysUsersRoles;
 import com.author.system.service.SecurityUserService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 类功能说明：根据用户名获取用户信息及权限信息
@@ -48,14 +50,17 @@ public class DefaultUserDetailsService implements UserDetailsService {
 			user = (SysUsers) this.userCache.getUserFromCache(username);
 		}
 		if(user == null){
-			user = this.securityUserService.findRolesByUserId(username);
+			List<SysUsersRoles> sysUsersRolesList= this.securityUserService.findRolesByUserName(username);
+			if(sysUsersRolesList.size()!=0){
+			user = sysUsersRolesList.get(0).getSysUsers();
 			if(user == null)
 				throw new UsernameNotFoundException(this.messageSource.getMessage(
 						"UserDetailsService.userNotFount", new Object[]{username}, null));
 			//得到用户的权限
-			auths = this.sysUsersDao.loadUserAuthorities( username );
+			auths = this.securityUserService.loadUserAuthorities( username );
 			
 			user.setAuthorities(auths);
+			}
 		}
 		
 		logger.info("*********************"+username+"***********************");

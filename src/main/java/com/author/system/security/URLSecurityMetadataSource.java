@@ -1,17 +1,6 @@
 package com.author.system.security;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.author.system.dao.SysResourceDao;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -22,6 +11,9 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.util.AntPathRequestMatcher;
 import org.springframework.security.web.util.RequestMatcher;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 /**
  * 类功能说明：通过数据库来管理资源，通过数据获取到资源权限列表
@@ -45,7 +37,7 @@ public class URLSecurityMetadataSource implements
 	
 	@Autowired
 	private SysResourceDao sysResourceDao;
-	
+
 	/* (non-Javadoc)
 	 * @see org.springframework.security.access.SecurityMetadataSource#getAttributes(java.lang.Object)
 	 */

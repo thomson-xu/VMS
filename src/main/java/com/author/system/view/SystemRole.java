@@ -1,7 +1,8 @@
-package com.author.system.controller;
+package com.author.system.view;
 
-import java.util.Map;
-
+import com.author.base.controller.BaseController;
+import com.author.base.session.UserSessionContext;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -9,10 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.author.base.controller.BaseController;
-import com.author.base.session.UserSessionContext;
-import com.author.common.web.controller.ControllerTools;
+import java.util.Map;
 
 /**
  * 类功能说明：
@@ -26,7 +24,7 @@ import com.author.common.web.controller.ControllerTools;
  */
 @Controller
 @RequestMapping("system/role")
-public class SystemRoleController extends BaseController{
+public class SystemRole extends BaseController{
 	
 	@Autowired
 	private SecurityModuleService securityModuleService;

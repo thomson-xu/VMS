@@ -1,6 +1,5 @@
 package com.author.system.service;
 
-import com.author.base.MessageFactory;
 import com.author.base.model.Parameters;
 import com.author.base.session.UserSessionContext;
 import com.author.system.bean.*;
@@ -29,9 +28,7 @@ public class SecurityRoleService {
 	
 	@Autowired
 	private SysRolesAuthoritiesDao sysRolesAuthoritiesDao;
-	
-	@Autowired
-	private MessageFactory messageFactory;
+
 	
 	@Autowired
 	private UserSessionContext userSessionContext;

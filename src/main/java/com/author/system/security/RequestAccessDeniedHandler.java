@@ -3,7 +3,6 @@
  */
 package com.author.system.security;
 
-import com.author.base.common.util.MessageManager;
 import com.author.base.common.web.controller.ControllerTools;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,8 +36,7 @@ public class RequestAccessDeniedHandler implements AccessDeniedHandler {
             throws IOException, ServletException {
     	//logger.info("no author access ："+request.getRequestURI());
         if(ControllerTools.isAjaxRequest(request)) {
-        	Message msg = MessageManager.exception(accessDeniedException);
-        	ControllerTools.print(response, msg);
+        	ControllerTools.print(response, accessDeniedException.toString());
         }
         else if(!response.isCommitted()) {
             if (errorPage != null) {

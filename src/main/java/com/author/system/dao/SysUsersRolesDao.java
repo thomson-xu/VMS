@@ -42,4 +42,10 @@ public class SysUsersRolesDao extends BaseJpaDao {
 		query.setParameter(1, userId);
 		return query.getResultList();
 	}
+	public List<SysUsersRoles> findRoleByUserName(String username){
+		String sql = "SELECT x.* from SysUsersRoles x where x.SysUsers.userName = ?1";
+		Query query = getEntityManager().createQuery(sql);
+		query.setParameter(1, username);
+		return query.getResultList();
+	}
 }

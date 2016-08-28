@@ -5,7 +5,7 @@ package com.author.system.security;
 
 import com.author.base.exception.InitializationException;
 import com.author.system.bean.SysUsers;
-import com.author.system.dao.SysUsersRepository;
+import com.author.system.dao.SysUsersDao;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -71,7 +71,7 @@ public class SimpleLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 			Date date = new Date();
 			user.setLastLogin(date);
 			user.setLoginIp(ip);
-			this.sysUsersDao.saveAndFlush(user);
+			this.sysUsersDao.update(user);
 		} catch (DataAccessException e) {
 			if(logger.isWarnEnabled()){
 				logger.info("无法更新用户登录信息至数据库");

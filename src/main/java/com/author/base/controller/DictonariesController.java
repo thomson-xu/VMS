@@ -4,7 +4,6 @@ package com.author.base.controller;
  * Created by Administrator on 2016/8/8.
  */
 
-import com.author.base.common.debug.DebugUtil;
 import com.author.base.common.web.DictonariesUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,41 +22,40 @@ public class DictonariesController {
 
     @ResponseBody
     @RequestMapping({"/getbyname/{name}"})
-    public Message getByName(HttpServletRequest request, HttpServletResponse response, @PathVariable("name") String name) throws Exception {
+    public List getByName(HttpServletRequest request, HttpServletResponse response, @PathVariable("name") String name) throws Exception {
         List list = DictonariesUtils.getByName(name);
-        Message msg = new Message(list);
-        return msg;
+        
+        return list;
     }
 
     @ResponseBody
     @RequestMapping({"/getbyid/{id}"})
-    public Message getById(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String id) throws Exception {
+    public List getById(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String id) throws Exception {
         List list = DictonariesUtils.getById(id);
-        Message msg = new Message(list);
-        return msg;
+       
+        return list;
     }
 
     @ResponseBody
     @RequestMapping({"/getspbyid/{id}"})
-    public Message getSpecifiedById(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String id) throws Exception {
+    public List getSpecifiedById(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String id) throws Exception {
         List list = DictonariesUtils.getSpecifiedById(id);
-        DebugUtil.println(id);
-        Message msg = new Message(list);
-        return msg;
+        
+        return list;
     }
 
     @ResponseBody
     @RequestMapping({"/getspbyname/{name}"})
-    public Message getSpecifiedByName(HttpServletRequest request, HttpServletResponse response, @PathVariable("name") String name) throws Exception {
+    public List getSpecifiedByName(HttpServletRequest request, HttpServletResponse response, @PathVariable("name") String name) throws Exception {
         List list = DictonariesUtils.getSpecifiedByName(name);
-        Message msg = new Message(list);
-        return msg;
+       
+        return list;
     }
 
     @ResponseBody
     @RequestMapping({"/getsp"})
-    public Message getSpecified(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Message msg = null;
+    public List getSpecified(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        List msg = null;
         String value = request.getParameter("id");
         if(value != null && !"".equals(value)) {
             msg = this.getSpecifiedById(request, response, value);
@@ -71,19 +69,17 @@ public class DictonariesController {
 
     @ResponseBody
     @RequestMapping({"/getall"})
-    public Message getAll() throws Exception {
+    public List getAll() throws Exception {
         List all = DictonariesUtils.getAll();
-        Message msg = new Message(all);
-        return msg;
+
+        return all;
     }
 
     @ResponseBody
     @RequestMapping({"/refresh"})
-    public Message refresh() throws Exception {
+    public List refresh() throws Exception {
         DictonariesUtils.refresh();
-        Message msg = new Message();
-        msg.setSuccess(Boolean.valueOf(true));
-        msg.setMessage("字典数据已刷新！");
-        return msg;
+
+        return list;
     }
 }

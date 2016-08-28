@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
-public class UserService {
+public class SysUserService {
 	
 	@Autowired
 	private SysUsersDao baseDao;

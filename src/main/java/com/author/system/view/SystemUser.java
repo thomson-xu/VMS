@@ -1,37 +1,32 @@
 /**
  * 
  */
-package com.zrhis.system.controller;
+package com.author.system.view;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.author.base.controller.BaseController;
+import com.author.base.model.Parameters;
+import com.author.system.bean.SysUsers;
+import com.author.system.service.SecurityUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zrhis.base.controller.BaseController;
-import com.zrhis.base.model.Message;
-import com.zrhis.base.model.Parameters;
-import com.zrhis.system.bean.SysUsers;
-import com.zrhis.system.service.SecurityUserService;
+import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 类功能说明：用户管理----机构管理员
- * 
- * <p>Copyright: Copyright © 2012-2013 zrhis.com Inc.</p>
- * <p>Company:新中软科技有限公司</p>
- * @author 王成委
- * @date 2014-1-23 下午1:31:18
- * @version v1.0
+ *
  *
  */
-@Controller
-@RequestMapping("/system/user")
-public class SystemUserController extends BaseController{
+@Named
+@Scope("request")
+public class SystemUser extends BaseController{
 
 	@Autowired
 	private SecurityUserService securityUserService;

@@ -1,37 +1,29 @@
 /**
  * 
  */
-package com.author.system.controller;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+package com.author.system.view;
 
 import com.author.base.controller.BaseController;
 import com.author.base.model.Parameters;
 import com.author.base.session.UserSessionContext;
 import com.author.system.bean.SysUsers;
+import com.author.system.service.SecurityUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.*;
+
+import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 类功能说明：
- * 
- * <p>Copyright: Copyright © 2012-2013 author.com Inc.</p>
- * <p>Company:新中软科技有限公司</p>
- * @author 王成委
- * @date 2014-1-13 上午9:49:46
- * @version v1.0
+ *
  *
  */
-@Controller
-@RequestMapping("/security/user")
-public class SecurityUserController extends BaseController{
+@Named
+@Scope("request")
+public class SecurityUser extends BaseController{
 	
 	@Autowired
 	private SecurityUserService securityUserService;

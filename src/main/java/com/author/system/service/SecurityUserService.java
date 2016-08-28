@@ -1,8 +1,6 @@
 
 package com.author.system.service;
 
-import com.author.base.MessageFactory;
-
 import com.author.base.session.UserSessionContext;
 import com.author.system.bean.SysRoles;
 import com.author.system.bean.SysUsers;
@@ -13,10 +11,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -31,16 +31,13 @@ public class SecurityUserService {
 	private SysUsersRolesDao sysUsersRolesDao;
 	
 	@Autowired
-	private MessageFactory messageFactory;
-	
-	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private UserSessionContext userSessionContext;
 
 	@Autowired
-	private UserService userService;
+	private SysUserService sysUserService;
 
 	private final String USER_EXIST = "UserDetails.AlreadyExists";
 
@@ -51,7 +48,7 @@ public class SecurityUserService {
 	public String add(SysUsers user) throws Exception {
 		String username = user.getUsername();
 		
-		boolean exist = userService.checkRepeat(username);
+		boolean exist = sysUserService.checkRepeat(username);
 		if(exist)return USER_EXIST;
 		
 		String password = user.getPassword();
@@ -137,6 +134,14 @@ public class SecurityUserService {
 		return list;
 	}
 
+	public List<SysUsersRoles> findRolesByUserName(String username) {
+		List<SysUsersRoles> list = this.sysUsersRolesDao.findRoleByUserName(username);
+
+
+
+		return list;
+	}
+
 	/* (non-Javadoc)
 	 * @see com.author.system.service.SecurityUserService#assginRoles(java.lang.String, java.lang.String[])
 	 */
@@ -170,4 +175,7 @@ public class SecurityUserService {
 		return this.messageFactory.query(users);
 	}*/
 
+	public Collection<GrantedAuthority> loadUserAuthorities(String username){
+		return sysUsersDao.loadUserAuthorities(username);
+	}
 }

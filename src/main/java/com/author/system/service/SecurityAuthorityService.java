@@ -3,7 +3,6 @@
  */
 package com.author.system.service;
 
-import com.author.base.MessageFactory;
 import com.author.base.model.Parameters;
 import com.author.system.bean.SysAuthorities;
 import com.author.system.dao.SysAuthorityDao;
@@ -30,9 +29,7 @@ public class SecurityAuthorityService  {
 	
 	@Autowired
 	private MessageSource messageSource;
-	
-	@Autowired
-	private MessageFactory messageFactory;
+
 
 	/* (non-Javadoc)
 	 * @see com.author.system.service.SecurityAuthorityService#add(com.author.system.bean.SysAuthorities)

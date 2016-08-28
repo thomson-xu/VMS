@@ -1,29 +1,25 @@
-package com.zrhis.system.controller;
+package com.author.system.view;
 
+import com.author.base.common.web.GenerateImageCode;
+import com.author.base.controller.BaseController;
+import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zrhis.base.controller.BaseController;
-import com.zrhis.common.web.GenerateImageCode;
+@Named
+@Scope("request")
+public class Login extends BaseController{
 
-@Controller
-public class LoginController extends BaseController{
-	
-	@RequestMapping(value="/usersession",method=RequestMethod.GET)
-	@ResponseBody
 	public UserDetails getUserSession(HttpServletRequest request,HttpServletResponse response){
 		UserDetails user = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return user;
 	}
-	
-	@RequestMapping("/getCode")
+
 	public void getCode(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		//禁止缓存

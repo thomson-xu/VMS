@@ -1,35 +1,26 @@
-package com.author.system.controller;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+package com.author.system.view;
 
 import com.author.base.session.UserSessionContext;
 import com.author.common.web.controller.ControllerTools;
 import com.author.system.bean.SysModules;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 类功能说明：添加模块、修改模块、删除模块、模块查询
- * 
- * <p>Copyright: Copyright © 2012-2013 author.com Inc.</p>
- * <p>Company:新中软科技有限公司</p>
- * @author 王成委
- * @date 2013-12-26 上午10:19:03
- * @version v1.0
  *
  */
-@Controller
-@RequestMapping("/security/module")
-public class SecurityModuleController {
+@Named
+@Scope("request")
+public class SecurityModule {
 	protected Log logger = LogFactory.getLog(getClass());
 	
 	@Autowired
