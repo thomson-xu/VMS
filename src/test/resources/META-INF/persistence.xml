@@ -3,13 +3,13 @@
 
     <persistence-unit name="DBPersistenceUnit">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.visa.entity.ConsulateEntity</class>
-        <class>com.visa.entity.CountryEntity</class>
-        <class>com.visa.entity.MaterialEntity</class>
-        <class>com.visa.entity.ProfessionEntity</class>
-        <class>com.visa.entity.VisaorderEntity</class>
-        <class>com.visa.entity.VisaproductEntity</class>
-        <class>com.visa.entity.VisatypeEntity</class>
+        <class>com.tms.visa.entity.ConsulateEntity</class>
+        <class>com.tms.visa.entity.CountryEntity</class>
+        <class>com.tms.visa.entity.MaterialEntity</class>
+        <class>com.tms.visa.entity.ProfessionEntity</class>
+        <class>com.tms.visa.entity.VisaorderEntity</class>
+        <class>com.tms.visa.entity.VisaproductEntity</class>
+        <class>com.tms.visa.entity.VisatypeEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/VMS"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

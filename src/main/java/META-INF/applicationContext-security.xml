@@ -63,15 +63,36 @@
 		<property name="passwordEncoder" ref="passwordEncode" />
 		<property name="saltSource" ref="saltSource" />
 	</bean>
-	
-	
+
+	<http auto-config="true" >
+		<intercept-url pattern="/" access="permitAll" />
+		<intercept-url pattern="/home" access="permitAll" />
+		<intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
+		<intercept-url pattern="/dba**" access="hasRole('ADMIN') and hasRole('DBA')" />
+		<form-login  login-page="/login"
+					 username-parameter="ssoId"
+					 password-parameter="password"
+					 authentication-failure-url="/Access_Denied" />
+		<csrf/>
+	</http>
+
+	<authentication-manager >
+		<authentication-provider user-service-ref="customUserDetailsService">
+			<password-encoder ref="bcryptEncoder"/>
+		</authentication-provider>
+	</authentication-manager>
+
+	<beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+
+	<beans:bean id="customUserDetailsService" class="com.websystique.springsecurity.service.CustomUserDetailsService" />
+
 	<!-- 配置密码加密类 -->
 	<bean id="passwordEncode" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
 	<bean id="saltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource">
 		<property name="userPropertyToUse" value="username"/>
 	</bean>
 	
-	<bean id="userDetailService" class="com.author.system.security.DefaultUserDetailsService" />
+	<bean id="userDetailService" class="com.tms.author.security.DefaultUserDetailsService" />
 	
 	<!-- 启用用户的缓存功能 -->
 	<bean id="userCache"
@@ -109,7 +130,7 @@
 	<bean id="authenticatedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter" />
 	
 	<!-- 自定义权限不足处理程序 -->
-	<bean id="accessDeniedHandler" class="com.author.system.security.RequestAccessDeniedHandler">
+	<bean id="accessDeniedHandler" class="com.tms.author.security.RequestAccessDeniedHandler">
 		<property name="errorPage" value="/WEB-INF/error/403.jsp"></property>
 	</bean>
 	
@@ -120,7 +141,7 @@
 	</bean>
 	
 	<bean id="securityMetadataSource"
-		class="com.author.system.security.URLSecurityMetadataSource"/>
+		class="com.tms.author.security.URLSecurityMetadataSource"/>
 	
 	<bean id="methodSecurityInterceptor" 
 		class="org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor">
@@ -130,7 +151,7 @@
 	</bean>
 	
 	<bean id="methodSecurityMetadataSource"
-		class="com.author.system.security.MethodSecurityMetadataSource" />
+		class="com.tms.author.security.MethodSecurityMetadataSource" />
 	
 	<aop:config>
 		<aop:pointcut id="sevicePointcut"
@@ -138,7 +159,7 @@
 		<aop:advisor advice-ref="methodSecurityInterceptor" pointcut-ref="sevicePointcut" order="1"/>
 	</aop:config>
 	
-	<bean id="captchaAuthenticaionFilter" class="com.author.system.security.CaptchaAuthenticationFilter">
+	<bean id="captchaAuthenticaionFilter" class="com.tms.author.security.CaptchaAuthenticationFilter">
 		<property name="authenticationManager" ref="authenticationManager" />
 		<property name="authenticationFailureHandler" ref="authenticationFailureHandler" />
 		<property name="authenticationSuccessHandler" ref="authenticationSuccessHandler" />
@@ -146,7 +167,7 @@
 		<property name="sessionAuthenticationStrategy" ref="concurrentSessionControlStrategy" />
 	</bean>
 	
-	<bean id="authenticationSuccessHandler" class="com.author.system.security.SavedRequestLoginSuccessHandler">
+	<bean id="authenticationSuccessHandler" class="com.tms.author.security.SavedRequestLoginSuccessHandler">
 		<property name="defaultTargetUrl" value="/index.jsp" />
 		<property name="forwardToDestination" value="true" />
 		<property name="alwaysUseDefaultTargetUrl" value="true" />
@@ -159,7 +180,7 @@
 		<property name="loginFormUrl" value="/login.jsp" />
 	</bean>
 	
-	<bean id="loginAuthenticationEntryPoint" class="com.author.system.security.LoginAuthenticationEntryPoint">
+	<bean id="loginAuthenticationEntryPoint" class="com.tms.author.security.LoginAuthenticationEntryPoint">
 		<property name="loginFormUrl" value="/login.jsp"></property>
 	</bean>
 	

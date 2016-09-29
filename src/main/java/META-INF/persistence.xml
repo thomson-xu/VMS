@@ -8,15 +8,15 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
 		
-		<class>com.author.system.bean.SysResources</class>
-		<class>com.author.system.bean.SysRolesAuthorities</class>
-		<class>com.author.system.bean.SysAuthoritiesResources</class>
-		<class>com.author.system.bean.SysAuthorities</class>
-		<class>com.author.system.bean.SysUsers</class>
-		<class>com.author.system.bean.SysUsersRoles</class>
-		<class>com.author.system.bean.SysRoles</class>
-		<class>com.author.system.bean.SysModules</class>
-		<class>com.author.system.bean.SysRolesModules</class>
+		<class>com.tms.author.bean.SysResources</class>
+		<class>com.tms.author.bean.SysRolesAuthorities</class>
+		<class>com.tms.author.bean.SysAuthoritiesResources</class>
+		<class>com.tms.author.bean.SysAuthorities</class>
+		<class>com.tms.author.bean.SysUsers</class>
+		<class>com.tms.author.bean.SysUsersRoles</class>
+		<class>com.tms.author.bean.SysRoles</class>
+		<class>com.tms.author.bean.SysModules</class>
+		<class>com.tms.author.bean.SysRolesModules</class>
 		<properties>
 			<property name="hibernate.archive.autodetection" value="class"/>
 			<property name="hibernate.show_sql" value="true"/>

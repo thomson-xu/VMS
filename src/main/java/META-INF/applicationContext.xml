@@ -60,6 +60,18 @@
             <bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
         </property>
     </bean-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="find*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="getAll*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="*" propagation="REQUIRED" />
+            <tx:method name="*" propagation="REQUIRED" />
+        </tx:attributes>
+    </tx:advice>
+    <aop:config proxy-target-class="true">
+        <aop:pointcut expression="execution(* com.visa.dao..*.*(..))" id="daopoint"/>
+        <aop:advisor pointcut-ref="daopoint" advice-ref="txAdvice"/>
+    </aop:config>
 
     <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="generateDdl" value="false"/>

@@ -33,7 +33,7 @@
                             </bean>  
                         </property>
                         <property name="propertyNamingStrategy">
-                        	<bean class="com.author.base.converter.CustomsPropertyNamingStrategry" />
+                        	<bean class="com.tms.author.base.converter.CustomsPropertyNamingStrategry" />
                         </property>
                     </bean>
                 </property>

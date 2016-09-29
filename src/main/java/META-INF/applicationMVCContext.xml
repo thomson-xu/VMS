@@ -118,5 +118,5 @@
 	
 	<aop:aspectj-autoproxy />
 	
-	<bean id="userSessionContext" class="com.author.base.session.SecurityUserSessionContext" />
+	<bean id="userSessionContext" class="com.tms.author.base.session.SecurityUserSessionContext" />
 </beans>

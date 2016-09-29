@@ -17,15 +17,25 @@
     </application>
     <validator>
         <validator-id>CountryName</validator-id>
-        <validator-class>com.visa.validator.Country</validator-class>
+        <validator-class>com.tms.visa.validator.Country</validator-class>
     </validator>
     <validator>
         <validator-id>Uploadfile</validator-id>
-        <validator-class>com.visa.validator.UploadFile</validator-class>
+        <validator-class>com.tms.visa.validator.UploadFile</validator-class>
     </validator>
+    <!-- JSF and Spring 整合 -->
+    <application>
+        <el-resolver>
+            org.springframework.web.jsf.el.SpringBeanFacesELResolver
+        </el-resolver>
+    </application>
 
+    <!-- JSF登录异常处理 -->
 
     <lifecycle>
-        <phase-listener>com.visa.validator.LoginErrorPhaseListener</phase-listener>
+        <phase-listener>com.tms.visa.validator.LoginErrorPhaseListener</phase-listener>
     </lifecycle>
+
+
+
 </faces-config>

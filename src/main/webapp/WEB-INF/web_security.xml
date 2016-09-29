@@ -64,7 +64,7 @@
 	<!-- 读取网站初始化参数配置 -->
 	<servlet>
 		<servlet-name>webApplicationInit</servlet-name>
-		<servlet-class>com.author.base.WebApplicationInitServlet</servlet-class>
+		<servlet-class>com.tms.author.base.WebApplicationInitServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
