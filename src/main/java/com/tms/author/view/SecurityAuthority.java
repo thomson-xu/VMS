@@ -17,7 +17,7 @@ import javax.inject.Named;
  */
 @Named
 @Scope("request")
-public class SecurityAuthority extends BaseController {
+public class SecurityAuthority {
 	
 	@Autowired
 	private SecurityAuthorityService securityAuthorityService;

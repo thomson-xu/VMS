@@ -3,7 +3,6 @@ package com.tms.author.bean;
 import com.tms.base.annotations.QueryBuilder;
 import com.tms.base.annotations.QueryIgnore;
 import com.tms.base.enums.QueryType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tms.base.dao.util.BaseEntity;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,7 +21,6 @@ public class SysResources  extends BaseEntity implements java.io.Serializable {
 	// Fields
 
 	private String resourceId;
-	@JsonIgnore
 	private SysModules sysModules;
 	private String moduleId;
 	private String resourceType;
@@ -36,7 +34,6 @@ public class SysResources  extends BaseEntity implements java.io.Serializable {
 	private Boolean issys;
 	private String httpMethod;
 	@QueryIgnore
-	@JsonIgnore
 	private Set<SysAuthoritiesResources> sysAuthoritiesResourceses = new HashSet<SysAuthoritiesResources>(
 			0);
 

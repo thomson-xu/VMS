@@ -1,6 +1,5 @@
 package com.tms.author.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tms.base.dao.util.BaseEntity;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -25,12 +24,11 @@ public class SysRoles extends BaseEntity implements java.io.Serializable {
 	private Boolean issys;
 	private String userId;
 	private String moduleId;
-	@JsonIgnore
+
 	private Set<SysRolesModules> sysRolesMoudleses = new HashSet<SysRolesModules>(
 			0);
-	@JsonIgnore
 	private Set<SysUsersRoles> sysUsersRoleses = new HashSet<SysUsersRoles>(0);
-	@JsonIgnore
+
 	private Set<SysRolesAuthorities> sysRolesAuthoritieses = new HashSet<SysRolesAuthorities>(
 			0);
 

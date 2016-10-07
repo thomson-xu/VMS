@@ -1,6 +1,6 @@
 package com.tms.base.session;
 
-import com.tms.author.bean.SysUsers;
+import com.tms.author.bean.SysUser;
 
 /**
  * Created by Administrator on 2016/8/8.
@@ -8,11 +8,9 @@ import com.tms.author.bean.SysUsers;
 
 
 public interface UserSessionContext {
-    SysUsers getUser();
+    SysUser getUser();
 
     String getUserId();
 
     String getUsername();
-
-    String getVQzjgid();
 }

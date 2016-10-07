@@ -4,7 +4,7 @@
 package com.tms.author.view;
 
 import com.tms.base.session.UserSessionContext;
-import com.tms.author.bean.SysUsers;
+import com.tms.author.bean.SysUser;
 import com.tms.author.service.SecurityUserService;
 import com.tms.base.model.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class SecurityUser {
 	@ResponseBody
 	@RequestMapping("/add")
 	public void add(HttpServletRequest request,HttpServletResponse response,
-			@ModelAttribute SysUsers user){
+			@ModelAttribute com.tms.author.bean.SysUser user){
 
 		try {
 			this.securityUserService.add(user);
@@ -59,7 +59,7 @@ public class SecurityUser {
 	@ResponseBody
 	@RequestMapping("/update")
 	public void   update(HttpServletRequest request,HttpServletResponse response,
-			@ModelAttribute SysUsers user){
+			@ModelAttribute SysUser user){
 		
 		 this.securityUserService.update(user);
 	}
@@ -105,7 +105,7 @@ public class SecurityUser {
 	public void query(HttpServletRequest request,HttpServletResponse response,
 			String username,@ModelAttribute Parameters params){
 		
-		 this.securityUserService.query(username, params);
+		// this.securityUserService.query(username, params);
 	}
 	
 	/**
@@ -116,11 +116,11 @@ public class SecurityUser {
 	 */
 	@ResponseBody
 	@RequestMapping("/findroleby/userid")
-	public Message findRoleByUserId(String userId)throws Exception{
+	public void findRoleByUserId(String userId)throws Exception{
 		if(userId == null)
 			throw new NullPointerException("用户Id不能为空");
 		
-		return this.securityUserService.findRoleByUserId(userId);
+		 this.securityUserService.findRolesByUserId(userId);
 	}
 	
 	/**
@@ -131,20 +131,24 @@ public class SecurityUser {
 	 */
 	@ResponseBody
 	@RequestMapping("/assignroles")
-	public Message assignRoles(String userId,String[] sysRoles){
+	public void assignRoles(String userId,String[] sysRoles){
 		if(userId == null)
 			throw new NullPointerException("用户Id不能为空");
 		
-		return this.securityUserService.assignRoles(userId, sysRoles);
+		 this.securityUserService.assignRoles(userId, sysRoles);
 	}
 	
 	@ResponseBody
 	@RequestMapping("/updatePassword")
-	public Message updatePassword(HttpServletRequest request,
+	public void updatePassword(HttpServletRequest request,
 			HttpServletResponse response, 
 			@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword){
-		
-		return this.securityUserService.modifyPassword(this.userSessionContext.getUserId(), oldPassword,newPassword);
+
+		try {
+			this.securityUserService.modifyPassword(this.userSessionContext.getUserId(), oldPassword,newPassword);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

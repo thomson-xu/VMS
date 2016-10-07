@@ -1,204 +1,141 @@
 package com.tms.author.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tms.base.dao.util.BaseEntity;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-/**
- * SysUser entity. @author MyEclipse Persistence Tools
- */
-@SuppressWarnings("serial")
 @Entity
-@Table(name = "SYS_USER")
-@DynamicUpdate(value=true)
-@DynamicInsert(value=true)
-public class SysUser extends BaseEntity implements java.io.Serializable {
-
-	// Fields
-
-	private String CCzybh;
+@DynamicUpdate(true)
+@DynamicInsert(true)
+@Table(name = "SYS_USERS")
+public class SysUser extends BaseEntity implements UserDetails, Serializable {
+	private static final long serialVersionUID = -6498309642739707784L;
+	private String userId;
+	private String username;
+	private String name;
+	private String password;
+	private Date dtCreate;
+	private Date lastLogin;
+	private Date deadline;
+	private String loginIp;
 	private String depId;
 	private String depName;
-	private String VJgid;
-	private String VJgmc;
-	private String VZcmc;
-	private String VDlkl;
-	private String VYhsf;
-	private Integer ICsh;
-	private Integer NCjyh;
-	private Integer NZt;
-	private Date dtZhdl;
-	private Date dtJzsj;
-	private String CCzymc;
-	private Date dtCreate;
-	private String VCreator;
-	private String VBz;
+	private boolean enabled;
+	private boolean accountNonExpired;
+	private boolean accountNonLocked;
+	private boolean credentialsNonExpired;
 
-	// Constructors
+	private Set<SysUsersRoles> sysUsersRoleses = new HashSet(0);
+	private Collection<GrantedAuthority> authorities;
 
-	/** default constructor */
 	public SysUser() {
 	}
 
-	/** minimal constructor */
-	public SysUser(String CCzybh) {
-		this.CCzybh = CCzybh;
+	public SysUser(String userId) {
+		this.userId = userId;
 	}
 
-	/** full constructor */
-	public SysUser(String CCzybh, String depId, String depName, String VJgid,
-			String VJgmc, String VZcmc, String VDlkl, Integer ICsh,
-			Integer NCjyh, Integer NZt, Date dtZhdl, Date dtJzsj,
-			String CCzymc, Date dtCreate, String VCreator, String VBz) {
-		this.CCzybh = CCzybh;
-		this.depId = depId;
-		this.depName = depName;
-		this.VJgid = VJgid;
-		this.VJgmc = VJgmc;
-		this.VZcmc = VZcmc;
-		this.VDlkl = VDlkl;
-		this.ICsh = ICsh;
-		this.NCjyh = NCjyh;
-		this.NZt = NZt;
-		this.dtZhdl = dtZhdl;
-		this.dtJzsj = dtJzsj;
-		this.CCzymc = CCzymc;
+	public SysUser(String userId, String username, String password) {
+		this.userId = userId;
+		this.username = username;
+		this.password = password;
+	}
+
+	public SysUser(String userId, String username, String name, String password, Date dtCreate, Date lastLogin, Date deadline, String loginIp, String depId, String depName, boolean enabled, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, Set<SysUsersRoles> sysUsersRoleses) {
+		this.userId = userId;
+		this.username = username;
+		this.name = name;
+		this.password = password;
 		this.dtCreate = dtCreate;
-		this.VCreator = VCreator;
-		this.VBz = VBz;
-	}
-
-	// Property accessors
-	@Id
-	@GenericGenerator(name = "uuid", strategy = "uuid")
-	@GeneratedValue(generator = "uuid")
-	@Column(name = "C_CZYBH", unique = true, nullable = false, length = 100)
-	public String getCCzybh() {
-		return this.CCzybh;
-	}
-
-	public void setCCzybh(String CCzybh) {
-		this.CCzybh = CCzybh;
-	}
-
-	@Column(name = "DEP_ID", length = 100)
-	public String getDepId() {
-		return this.depId;
-	}
-
-	public void setDepId(String depId) {
+		this.lastLogin = lastLogin;
+		this.deadline = deadline;
+		this.loginIp = loginIp;
 		this.depId = depId;
-	}
-
-	@Column(name = "DEP_NAME", length = 100)
-	public String getDepName() {
-		return this.depName;
-	}
-
-	public void setDepName(String depName) {
 		this.depName = depName;
+		this.enabled = enabled;
+		this.accountNonExpired = accountNonExpired;
+		this.accountNonLocked = accountNonLocked;
+		this.credentialsNonExpired = credentialsNonExpired;
+		this.sysUsersRoleses = sysUsersRoleses;
 	}
 
-	@Column(name = "V_JGID", length = 100)
-	public String getVJgid() {
-		return this.VJgid;
+	@Id
+	@GenericGenerator(
+			name = "uuid",
+			strategy = "uuid"
+	)
+	@GeneratedValue(
+			generator = "uuid"
+	)
+	@Column(
+			name = "USER_ID",
+			unique = true,
+			nullable = false,
+			length = 100
+	)
+	public String getUserId() {
+		return this.userId;
 	}
 
-	public void setVJgid(String VJgid) {
-		this.VJgid = VJgid;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	@Column(name = "V_JGMC", length = 100)
-	public String getVJgmc() {
-		return this.VJgmc;
+	@Column(
+			name = "USERNAME",
+			nullable = false,
+			length = 100
+	)
+	public String getUsername() {
+		return this.username;
 	}
 
-	public void setVJgmc(String VJgmc) {
-		this.VJgmc = VJgmc;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	@Column(name = "V_ZCMC", length = 40)
-	public String getVZcmc() {
-		return this.VZcmc;
+	@Column(
+			name = "NAME",
+			length = 100
+	)
+	public String getName() {
+		return this.name;
 	}
 
-	public void setVZcmc(String VZcmc) {
-		this.VZcmc = VZcmc;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	@Column(name = "V_DLKL", length = 100)
-	@JsonIgnore
-	public String getVDlkl() {
-		return this.VDlkl;
+	@Column(
+			name = "PASSWORD",
+			nullable = false,
+			length = 100
+	)
+	public String getPassword() {
+		return this.password;
 	}
 
-	public void setVDlkl(String VDlkl) {
-		this.VDlkl = VDlkl;
-	}
-
-	@Column(name = "I_CSH", precision = 22, scale = 0)
-	public Integer getICsh() {
-		return this.ICsh;
-	}
-
-	public void setICsh(Integer ICsh) {
-		this.ICsh = ICsh;
-	}
-
-	@Column(name = "N_CJYH", precision = 22, scale = 0)
-	public Integer getNCjyh() {
-		return this.NCjyh;
-	}
-
-	public void setNCjyh(Integer NCjyh) {
-		this.NCjyh = NCjyh;
-	}
-
-	@Column(name = "N_ZT", precision = 22, scale = 0)
-	public Integer getNZt() {
-		return this.NZt;
-	}
-
-	public void setNZt(Integer NZt) {
-		this.NZt = NZt;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DT_ZHDL", length = 7)
-	public Date getDtZhdl() {
-		return this.dtZhdl;
-	}
-
-	public void setDtZhdl(Date dtZhdl) {
-		this.dtZhdl = dtZhdl;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DT_JZSJ", length = 7)
-	public Date getDtJzsj() {
-		return this.dtJzsj;
-	}
-
-	public void setDtJzsj(Date dtJzsj) {
-		this.dtJzsj = dtJzsj;
-	}
-
-	@Column(name = "C_CZYMC", length = 40)
-	public String getCCzymc() {
-		return this.CCzymc;
-	}
-
-	public void setCCzymc(String CCzymc) {
-		this.CCzymc = CCzymc;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DT_CREATE", length = 7,insertable=false,updatable=false)
+	@Column(
+			name = "DT_CREATE",
+			length = 7,
+			insertable = false,
+			updatable = false
+	)
 	public Date getDtCreate() {
 		return this.dtCreate;
 	}
@@ -207,36 +144,150 @@ public class SysUser extends BaseEntity implements java.io.Serializable {
 		this.dtCreate = dtCreate;
 	}
 
-	@Column(name = "V_CREATOR", length = 100)
-	public String getVCreator() {
-		return this.VCreator;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(
+			name = "LAST_LOGIN",
+			length = 7
+	)
+	public Date getLastLogin() {
+		return this.lastLogin;
 	}
 
-	public void setVCreator(String VCreator) {
-		this.VCreator = VCreator;
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
 	}
 
-	@Column(name = "V_BZ", length = 100)
-	public String getVBz() {
-		return this.VBz;
+	@Temporal(TemporalType.DATE)
+	@Column(
+			name = "DEADLINE",
+			length = 7
+	)
+	public Date getDeadline() {
+		return this.deadline;
 	}
 
-	public void setVBz(String VBz) {
-		this.VBz = VBz;
-	}
-	
-	@Column(name = "V_YHSF", length = 20)
-	public String getVYhsf() {
-		return VYhsf;
+	public void setDeadline(Date deadline) {
+		this.deadline = deadline;
 	}
 
-	public void setVYhsf(String vYhsf) {
-		VYhsf = vYhsf;
+	@Column(
+			name = "LOGIN_IP",
+			length = 100
+	)
+	public String getLoginIp() {
+		return this.loginIp;
 	}
 
+	public void setLoginIp(String loginIp) {
+		this.loginIp = loginIp;
+	}
+
+	@Column(
+			name = "DEP_ID",
+			length = 100
+	)
+	public String getDepId() {
+		return this.depId;
+	}
+
+	public void setDepId(String depId) {
+		this.depId = depId;
+	}
+
+	@Column(
+			name = "DEP_NAME",
+			length = 100
+	)
+	public String getDepName() {
+		return this.depName;
+	}
+
+	public void setDepName(String depName) {
+		this.depName = depName;
+	}
+
+
+	@Column(
+			name = "ENABLED",
+			precision = 22,
+			scale = 0
+	)
+	public boolean isEnabled() {
+		return this.enabled;
+	}
+
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+
+	@Column(
+			name = "ACCOUNT_NON_EXPIRED",
+			precision = 22,
+			scale = 0
+	)
+	public boolean isAccountNonExpired() {
+		return this.accountNonExpired;
+	}
+
+
+	public void setAccountNonExpired(boolean accountNonExpired) {
+		this.accountNonExpired = accountNonExpired;
+	}
+
+	@Column(
+			name = "ACCOUNT_NON_LOCKED",
+			precision = 22,
+			scale = 0
+	)
+	public boolean isAccountNonLocked() {
+		return this.accountNonLocked;
+	}
+
+	public void setAccountNonLocked(boolean accountNonLocked) {
+		this.accountNonLocked = accountNonLocked;
+	}
+
+
+	@Column(
+			name = "CREDENTIALS_NON_EXPIRED",
+			precision = 22,
+			scale = 0
+	)
+	public boolean isCredentialsNonExpired() {
+		return this.credentialsNonExpired;
+	}
+
+
+	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+		this.credentialsNonExpired = credentialsNonExpired;
+	}
+
+	@OneToMany(
+			cascade = {CascadeType.ALL},
+			fetch = FetchType.LAZY,
+			mappedBy = "sysUsersRoles"
+	)
+	public Set<SysUsersRoles> getSysUsersRoleses() {
+		return this.sysUsersRoleses;
+	}
+
+	public void setSysUsersRoleses(Set<SysUsersRoles> sysUsersRoleses) {
+		this.sysUsersRoleses = sysUsersRoleses;
+	}
+
+	@Transient
+	public Collection<GrantedAuthority> getAuthorities() {
+		return this.authorities;
+	}
+
+	public void setAuthorities(Collection<GrantedAuthority> authorities) {
+		this.authorities = authorities;
+	}
 
 	@Override
 	public Object getPrimaryKey() {
-		return (Object)this.getVJgid();
+		return (Object)getUserId();
 	}
 }

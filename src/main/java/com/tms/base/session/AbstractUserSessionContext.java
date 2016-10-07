@@ -1,6 +1,6 @@
 package com.tms.base.session;
 
-import com.tms.author.bean.SysUsers;
+import com.tms.author.bean.SysUser;
 
 /**
  * Created by Administrator on 2016/8/8.
@@ -19,9 +19,5 @@ public abstract class AbstractUserSessionContext implements UserSessionContext {
         return this.getUser().getUsername();
     }
 
-    public String getVQzjgid() {
-        return this.getUser().getVQzjgid();
-    }
-
-    public abstract SysUsers getUser();
+    public abstract SysUser getUser();
 }

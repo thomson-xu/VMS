@@ -3,8 +3,8 @@
  */
 package com.tms.author.security;
 
-import com.tms.author.base.exception.InitializationException;
-import com.tms.author.bean.SysUsers;
+import com.tms.base.exception.InitializationException;
+import com.tms.author.bean.SysUser;
 import com.tms.author.dao.SysUsersDao;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -65,7 +65,7 @@ public class SimpleLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 	
 	@Transactional(readOnly=false,propagation= Propagation.REQUIRED,rollbackFor={Exception.class})
 	public void saveLoginInfo(HttpServletRequest request,Authentication authentication){
-		SysUsers user = (SysUsers)authentication.getPrincipal();
+		SysUser user = (SysUser)authentication.getPrincipal();
 		try {
 			String ip = this.getIpAddress(request);
 			Date date = new Date();

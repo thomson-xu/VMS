@@ -11,6 +11,16 @@
         <class>com.tms.visa.entity.VisaorderEntity</class>
         <class>com.tms.visa.entity.VisaproductEntity</class>
         <class>com.tms.visa.entity.VisatypeEntity</class>
+
+        <class>com.tms.author.bean.SysResources</class>
+        <class>com.tms.author.bean.SysRolesAuthorities</class>
+        <class>com.tms.author.bean.SysAuthoritiesResources</class>
+        <class>com.tms.author.bean.SysAuthorities</class>
+        <class>com.tms.author.bean.SysUser</class>
+        <class>com.tms.author.bean.SysUsersRoles</class>
+        <class>com.tms.author.bean.SysRoles</class>
+        <class>com.tms.author.bean.SysModules</class>
+        <class>com.tms.author.bean.SysRolesModules</class>
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.show_sql" value="true"/>

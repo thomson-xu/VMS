@@ -1,6 +1,5 @@
 package com.tms.author.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tms.base.dao.util.BaseEntity;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -35,9 +34,8 @@ public class SysModules extends BaseEntity implements java.io.Serializable {
 	private Boolean enable;
 	private Boolean issys;
 	private Integer priority;
-	@JsonIgnore
+
 	private Set<SysResources> sysResourceses = new HashSet<SysResources>(0);
-	@JsonIgnore
 	private Set<SysRolesModules> sysRolesMoudleses = new HashSet<SysRolesModules>(
 			0);
 

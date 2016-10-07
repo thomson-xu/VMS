@@ -3,7 +3,7 @@
  */
 package com.tms.author.security;
 
-import com.tms.author.bean.SysUsers;
+import com.tms.author.bean.SysUser;
 import com.tms.author.bean.SysUsersRoles;
 import com.tms.author.service.SecurityUserService;
 import org.apache.commons.logging.Log;
@@ -45,14 +45,14 @@ public class DefaultUserDetailsService implements UserDetailsService {
 			throws UsernameNotFoundException {
 		
 		Collection<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
-		SysUsers user = null;
+		SysUser user = null;
 		if(this.useCache){
-			user = (SysUsers) this.userCache.getUserFromCache(username);
+			user = (SysUser) this.userCache.getUserFromCache(username);
 		}
 		if(user == null){
 			List<SysUsersRoles> sysUsersRolesList= this.securityUserService.findRolesByUserName(username);
 			if(sysUsersRolesList.size()!=0){
-			user = sysUsersRolesList.get(0).getSysUsers();
+			user = sysUsersRolesList.get(0).getSysUser();
 			if(user == null)
 				throw new UsernameNotFoundException(this.messageSource.getMessage(
 						"UserDetailsService.userNotFount", new Object[]{username}, null));

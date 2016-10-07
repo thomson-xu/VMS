@@ -3,7 +3,7 @@
  */
 package com.tms.author.view;
 
-import com.tms.author.base.model.Parameters;
+import com.tms.base.model.Parameters;
 import com.tms.author.bean.SysRoles;
 import com.tms.author.bean.SysAuthorities;
 import com.tms.author.bean.SysModules;
@@ -65,7 +65,7 @@ public class SecurityRole{
 
 	public void queryAllEnabled() throws Exception{
 		
-		sysRoleService.queryAllEnabled();
+		//sysRoleService.queryAllEnabled();
 	}
 
 	public void saveRoleModules(HttpServletRequest request,String roleId,

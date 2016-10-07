@@ -1,6 +1,6 @@
 package com.tms.author.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.tms.base.dao.util.BaseEntity;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -27,9 +27,7 @@ public class SysAuthorities extends BaseEntity implements java.io.Serializable {
 	private Boolean issys;
 	private String moduleId;
 	private String remark;
-	@JsonIgnore
 	private Set<SysRolesAuthorities> sysRolesAuthoritieses = new HashSet<SysRolesAuthorities>(0);
-	@JsonIgnore
 	private Set<SysAuthoritiesResources> sysAuthoritiesResourceses = new HashSet<SysAuthoritiesResources>(0);
 
 	// Constructors

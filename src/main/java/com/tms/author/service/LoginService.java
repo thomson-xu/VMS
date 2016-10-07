@@ -1,6 +1,6 @@
 package com.tms.author.service;
 
-import com.tms.author.bean.SysUsers;
+import com.tms.author.bean.SysUser;
 import com.tms.author.dao.SysUsersDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,16 +17,16 @@ public class LoginService{
 	@Autowired
 	private SysUsersDao sysUsersDao;
 	
-	public SysUsers doLogin(String username, String password) throws Exception{
+	public SysUser doLogin(String username, String password) throws Exception{
 		Map<String, Object> params = new HashMap<String,Object>();
 		String sql="Select u from SysUsers u where u.username=:username and u.password=:password";
 		params.put("username", username);
 		params.put("password", password);
 		javax.persistence.Query query = sysUsersDao.getEntityManager().createQuery(sql);
-		List<SysUsers> list= query.getResultList();
+		List<SysUser> list= query.getResultList();
 		if(list != null){
 			if(list.size()>0){
-				SysUsers user = list.get(0);
+				SysUser user = list.get(0);
 				return user;
 			}
 		}
@@ -38,7 +38,7 @@ public class LoginService{
 		//boolean flag = wsjdUserDao.initPassword(userId, password);
 		boolean flag = true;
 		try {
-			SysUsers user = (SysUsers) sysUsersDao.find(SysUsers.class, userId);
+			SysUser user = (SysUser) sysUsersDao.find(SysUser.class, userId);
 			user.setPassword(password);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,13 +51,13 @@ public class LoginService{
 	}
 	
 	@Transactional
-	public SysUsers updatePassword(String userId, String oldPassword,
-			String newPassword) {
+	public SysUser updatePassword(String userId, String oldPassword,
+								  String newPassword) {
 
 		//Integer flag = wsjdUserDao.updatePassword(userId, oldPassword, newPassword);
 		//boolean flag = true;
 		try {
-			SysUsers user = (SysUsers) sysUsersDao.find(SysUsers.class, userId);
+			SysUser user = (SysUser) sysUsersDao.find(SysUser.class, userId);
 			user.setPassword(newPassword);
 			return user;
 		} catch (Exception e) {
@@ -74,7 +74,7 @@ public class LoginService{
 	 */
 
 	@Transactional
-	public SysUsers updateLoginTime(SysUsers entity) throws Exception {
+	public SysUser updateLoginTime(SysUser entity) throws Exception {
 		// TODO Auto-generated method stub
 		entity.setLastLogin(new Timestamp(System.currentTimeMillis()));
 		this.sysUsersDao.update(entity);

@@ -18,8 +18,7 @@ public class SysUsersRoles extends BaseEntity implements java.io.Serializable {
 	private String id;
 	private String userId;
 	private String roleId;
-	private String czybh;
-	private SysUsers sysUsers;
+	private SysUser sysUser;
 	private SysRoles sysRoles;
 
 	// Constructors
@@ -29,9 +28,9 @@ public class SysUsersRoles extends BaseEntity implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public SysUsersRoles(String id, SysUsers sysUsers, SysRoles sysRoles) {
+	public SysUsersRoles(String id, SysUser sysUser, SysRoles sysRoles) {
 		this.id = id;
-		this.sysUsers = sysUsers;
+		this.sysUser = sysUser;
 		this.sysRoles = sysRoles;
 	}
 
@@ -65,23 +64,15 @@ public class SysUsersRoles extends BaseEntity implements java.io.Serializable {
 	public void setRoleId(String roleId) {
 		this.roleId = roleId;
 	}
-	@Column(name = "CZYBH")
-	public String getCzybh() {
-		return czybh;
-	}
-
-	public void setCzybh(String czybh) {
-		this.czybh = czybh;
-	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID", nullable = false)
-	public SysUsers getSysUsers() {
-		return this.sysUsers;
+	public SysUser getSysUser() {
+		return this.sysUser;
 	}
 
-	public void setSysUsers(SysUsers sysUsers) {
-		this.sysUsers = sysUsers;
+	public void setSysUser(SysUser sysUser) {
+		this.sysUser = sysUser;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

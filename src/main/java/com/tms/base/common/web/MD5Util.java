@@ -1,4 +1,4 @@
-package com.tms.author.base.common.web;
+package com.tms.base.common.web;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

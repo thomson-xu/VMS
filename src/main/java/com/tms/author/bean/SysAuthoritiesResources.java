@@ -1,6 +1,6 @@
 package com.tms.author.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.tms.base.dao.util.BaseEntity;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -19,9 +19,7 @@ public class SysAuthoritiesResources extends BaseEntity implements java.io.Seria
 	private String id;
 	private String authorityId;
 	private String resourceId;
-	@JsonIgnore
 	private SysAuthorities sysAuthorities;
-	@JsonIgnore
 	private SysResources sysResources;
 
 	// Constructors

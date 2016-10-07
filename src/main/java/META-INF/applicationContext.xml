@@ -7,8 +7,14 @@
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
-    <context:component-scan base-package="com.visa"/>
+    <context:component-scan base-package="com.tms"/>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <context:annotation-config />
+    <context:component-scan base-package="com.tms.author">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <context:property-placeholder location="classpath:META-INF/hibernate.properties"/>
      <!--整合mysqljpa-->
     <bean id="EntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="mySqldataSource"/>
@@ -17,25 +23,27 @@
         <property name="persistenceUnitName" value="DBPersistenceUnit"/>
         <property name="packagesToScan">
             <array>
-                <value>com.visa</value>
+                <value>com.tms</value>
             </array>
         </property>
         <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
     </bean>
 
-    <jpa:repositories base-package="com.visa" repository-impl-postfix="Impl"
+    <jpa:repositories base-package="com.tms" repository-impl-postfix="Impl"
                       entity-manager-factory-ref="EntityManagerFactory"
                       transaction-manager-ref="transactionManager"/>
     <bean id="propertyConfigurer"
             class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="/WEB-INF/jdbc.properties"/>
     </bean>
-<bean id="mySqldataSource"
-          class="org.apache.commons.dbcp.BasicDataSource">
+<!--<bean id="mySqldataSource"
+          class="org.apache.commons.dbcp.BasicDataSource">-->
+    <bean id="mySqldataSource"
+          class="com.tms.base.dao.util.FixedBasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/vms"/>
         <property name="username" value="root"/>
-        <property name="password" value=""/>
+        <property name="password" value="${jdbc.password}"/>
     </bean>
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="EntityManagerFactory"/>
@@ -69,15 +77,25 @@
         </tx:attributes>
     </tx:advice>
     <aop:config proxy-target-class="true">
-        <aop:pointcut expression="execution(* com.visa.dao..*.*(..))" id="daopoint"/>
+        <aop:pointcut expression="execution(* com.tms.*.*(..))" id="daopoint"/>
         <aop:advisor pointcut-ref="daopoint" advice-ref="txAdvice"/>
     </aop:config>
 
     <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-        <property name="generateDdl" value="false"/>
+      <!--  <property name="generateDdl" value="false"/>
         <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect"/>
         <property name="showSql" value="true"/>
-        <property name="database" value="MYSQL"/>
+        <property name="database" value="MYSQL"/>-->
     </bean>
 
+    <aop:config>
+        <aop:pointcut expression="execution(* com.tms.*.service.*.*(..))" id="txPointcut"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+    </aop:config>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <aop:aspectj-autoproxy />
+
+    <bean id="userSessionContext" class="com.tms.base.session.SecurityUserSessionContext" />
 </beans>

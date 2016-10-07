@@ -3,7 +3,6 @@
  */
 package com.tms.author.service;
 
-import com.tms.author.base.model.Parameters;
 import com.tms.author.dao.SysAuthorityDao;
 import com.tms.author.dao.SysRolesAuthoritiesDao;
 import com.tms.author.bean.SysAuthorities;
@@ -79,7 +78,7 @@ public class SecurityAuthorityService  {
 	 * @see SecurityAuthorityService#query()
 	 */
 
-	public void query(Parameters params) throws Exception {
+	public void query() throws Exception {
 		/*ResultModel rm = this.baseDao.queryByJPQL(SysAuthorities.class, null, params.getStart(), params.getLimit());
 		Message msg = new Message(rm.getTotalCount(), rm.getList());
 		return msg;

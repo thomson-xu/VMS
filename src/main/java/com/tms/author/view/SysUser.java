@@ -1,7 +1,5 @@
 package com.tms.author.view;
 
-import com.tms.author.base.common.web.GenerateImageCode;
-import com.tms.author.bean.SysUsers;
 import com.tms.author.service.SysUserService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,12 +44,12 @@ public class SysUser {
         response.setContentType("image/jpeg");
 
         //返回验证码
-        GenerateImageCode.generateRandomCode(request, response);
+        //GenerateImageCode.generateRandomCode(request, response);
     }
 
-    public SysUsers login(String username, String password){
+    public com.tms.author.bean.SysUser login(String username, String password){
 
-
+             return null;
     }
     //添加用户
 

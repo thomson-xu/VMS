@@ -40,4 +40,11 @@ public class SysModulesDao extends BaseJpaDao {
 		List<SysModules> list = query.getResultList();
 		return list;
 	}
+
+	public SysModules addModules(SysModules sysModules){
+		create(sysModules);
+		 return  sysModules;
+	}
+
+
 }

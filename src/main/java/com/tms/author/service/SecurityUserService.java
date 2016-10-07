@@ -1,16 +1,15 @@
 
 package com.tms.author.service;
 
-import com.tms.base.session.UserSessionContext;
 import com.tms.author.bean.SysRoles;
-import com.tms.author.bean.SysUsers;
+import com.tms.author.bean.SysUser;
 import com.tms.author.bean.SysUsersRoles;
-import com.tms.author.dao.SysUsersRolesDao;
 import com.tms.author.dao.SysUsersDao;
+import com.tms.author.dao.SysUsersRolesDao;
+import com.tms.base.common.web.MD5Util;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -29,12 +28,6 @@ public class SecurityUserService {
 	
 	@Autowired
 	private SysUsersRolesDao sysUsersRolesDao;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
-	@Autowired
-	private UserSessionContext userSessionContext;
 
 	@Autowired
 	private SysUserService sysUserService;
@@ -42,17 +35,16 @@ public class SecurityUserService {
 	private final String USER_EXIST = "UserDetails.AlreadyExists";
 
 	/* (non-Javadoc)
-	 * @see SecurityUserService#add(SysUsers)
+	 * @see SecurityUserService#add(SysUser)
 	 */
 
-	public String add(SysUsers user) throws Exception {
+	public String add(SysUser user) throws Exception {
 		String username = user.getUsername();
 		
 		boolean exist = sysUserService.checkRepeat(username);
 		if(exist)return USER_EXIST;
 		
-		String password = user.getPassword();
-		password = this.passwordEncoder.encodePassword(password, user.getUsername());
+		String password = MD5Util.getEncryptedPwd(user.getPassword()) ;
 		user.setPassword(password);
 		user.setAccountNonExpired(true);
 		user.setAccountNonLocked(true);
@@ -64,13 +56,13 @@ public class SecurityUserService {
 	}
 
 	/* (non-Javadoc)
-	 * @see SecurityUserService#update(SysUsers)
+	 * @see SecurityUserService#update(SysUser)
 	 */
 
-	public String update(SysUsers user) {
+	public String update(SysUser user) {
 		//this.sysUsersRepository.save(user);
 		String userId = user.getUserId();
-		SysUsers bean = this.sysUsersDao.find(SysUsers.class,userId);
+		SysUser bean = this.sysUsersDao.find(SysUser.class,userId);
 		bean.setEnabled(user.isEnabled());
 		bean.setUsername(user.getUsername());
 		bean.setName(user.getName());
@@ -82,12 +74,12 @@ public class SecurityUserService {
 	 * (non-Javadoc)
 	 * @see SecurityUserService#modifyPassword(java.lang.String, java.lang.String)
 	 */
-	public String modifyPassword(String userId,String oldPassword,String password){
-		SysUsers user = this.sysUsersDao.find(SysUsers.class,userId);
-		String encodeOld = this.passwordEncoder.encodePassword(oldPassword, user.getUsername());
+	public String modifyPassword(String userId,String oldPassword,String password)throws Exception{
+		SysUser user = this.sysUsersDao.find(SysUser.class,userId);
+		String encodeOld = MD5Util.getEncryptedPwd(oldPassword) ;
 		String msg=null;
 		if(user.getPassword().equals(encodeOld)){
-			String encode = this.passwordEncoder.encodePassword(password, user.getUsername());
+			String encode =  MD5Util.getEncryptedPwd(password);
 			user.setPassword(encode);
 			msg="密码修改成功";
 		}else{
@@ -102,7 +94,7 @@ public class SecurityUserService {
 	 */
 
 	public void delete(String userId) {
-		this.sysUsersDao.delete(SysUsers.class,userId);
+		this.sysUsersDao.delete(SysUser.class,userId);
 		return ;
 	}
 
@@ -111,7 +103,7 @@ public class SecurityUserService {
 	 */
 
 /*	public Message query(String username, Parameters params) {
-		Page<SysUsers> users = null;
+		Page<SysUser> users = null;
 		PageRequest pageable = new PageRequest(params.getSpringDataPage(), params.getLimit());
 		if(StringUtils.isEmpty(username)){
 			users = this.sysUsersDao.findAll(pageable);
@@ -147,16 +139,15 @@ public class SecurityUserService {
 	 */
 
 	public String assignRoles(String userId, String[] roles) {
-		this.sysUsersRolesDao.deleteByUserId(userId,this.userSessionContext.getUserId());
+		this.sysUsersRolesDao.deleteByUserId(userId);
 		
 		if(!ObjectUtils.isEmpty(roles)){
 			List<SysUsersRoles> list = new ArrayList<SysUsersRoles>();
 			for(int i=0;i<roles.length;i++){
 				String roleId = roles[i];
 				SysUsersRoles entity = new SysUsersRoles();
-				entity.setSysUsers(new SysUsers(userId));
+				entity.setSysUser(new SysUser(userId));
 				entity.setSysRoles(new SysRoles(roleId));
-				entity.setCzybh(this.userSessionContext.getUserId());
 				list.add(entity);
 			}
 			this.sysUsersRolesDao.saveAll(list);
@@ -171,7 +162,7 @@ public class SecurityUserService {
 /*	@Override
 	public Message queryByJgid(String jgid,Parameters params) {
 		PageRequest pageable = new PageRequest(params.getSpringDataPage(), params.getLimit());
-		Page<SysUsers> users = this.sysUsersDao.findByVQzjgid(jgid, pageable);
+		Page<SysUser> users = this.sysUsersDao.findByVQzjgid(jgid, pageable);
 		return this.messageFactory.query(users);
 	}*/
 

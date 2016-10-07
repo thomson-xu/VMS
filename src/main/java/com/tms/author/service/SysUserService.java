@@ -3,8 +3,7 @@
  */
 package com.tms.author.service;
 
-import com.tms.author.base.common.web.MD5Util;
-import com.tms.author.bean.SysUsers;
+import com.tms.base.common.web.MD5Util;
 import com.tms.author.bean.SysUser;
 import com.tms.author.dao.SysUsersDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class SysUserService {
 	 * @see com.author.system.service.UserService#add(SysUser)
 	 */
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public synchronized String add(SysUsers user) throws Exception {
+	public synchronized String add(SysUser user) throws Exception {
 		String username = user.getUsername();
 		boolean repeat = this.checkRepeat(username);
 		
@@ -39,6 +38,9 @@ public class SysUserService {
 		return message;
 	}
 
+	public SysUser findBySso(String ssoId){
+		return  null;
+	}
 	/* (non-Javadoc)
 	 * @see com.author.system.service.UserService#remove(SysUser)
 	 */

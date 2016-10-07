@@ -1,6 +1,5 @@
 package com.tms.author.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tms.base.dao.util.BaseEntity;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -19,9 +18,7 @@ public class SysRolesAuthorities extends BaseEntity implements java.io.Serializa
 	private String id;
 	private String authorityId;
 	private String roleId;
-	@JsonIgnore
 	private SysAuthorities sysAuthorities;
-	@JsonIgnore
 	private SysRoles sysRoles;
 
 	// Constructors

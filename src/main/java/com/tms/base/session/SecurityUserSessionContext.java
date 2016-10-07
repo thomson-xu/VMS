@@ -5,15 +5,15 @@ package com.tms.base.session;
  */
 
 
-import com.tms.author.bean.SysUsers;
+import com.tms.author.bean.SysUser;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class SecurityUserSessionContext extends AbstractUserSessionContext {
     public SecurityUserSessionContext() {
     }
 
-    public SysUsers getUser() {
-        SysUsers user = (SysUsers)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public SysUser getUser() {
+        SysUser user = (SysUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user;
     }
 }

@@ -30,39 +30,39 @@ import javax.persistence.Transient;
 
 
 /**
- * 瀹炰綋bean宸ュ叿绫�<br>
- * <b> 娉ㄦ剰锛氭宸ュ叿绫诲彧鑳藉簲鐢ㄤ笌BaseEntityBean鍙婂叾瀛愮被锛� </b><br>
- * 瀹炵幇鍔熻兘锛� <li>瀹炰綋bean杞崲涓簊tring <li>瀹炰綋bean姣旇緝 <li>寰楀埌瀹炰綋bean鍝堝笇鍊� <li>娣卞厠闅嗗疄浣揵ean
+ * 瀹炰綋bean宸ュ叿绫?<br>
+ * <b> 娉ㄦ剰锛氭宸ュ叿绫诲彧鑳藉簲鐢ㄤ笌BaseEntityBean鍙婂叾瀛愮被锛? </b><br>
+ * 瀹炵幇鍔熻兘锛? <li>瀹炰綋bean杞崲涓簊tring <li>瀹炰綋bean姣旇緝 <li>寰楀埌瀹炰綋bean鍝堝笇鍊? <li>娣卞厠闅嗗疄浣揵ean
  *
- * @author 瀹嬮粠鏅�
+ * @author 瀹嬮粠鏅?
  *
  */
 @SuppressWarnings("unchecked")
 public class EOUtility {
 
-    // /** 褰撳墠bean涓墍鏈夌殑瀛楁(鍖呮嫭姝ょ被浠ュ強鐖剁被涓殑鍏湁鍜岄潪鍏湁瀛楁) <get鏂规硶鍚�,瀛楁> **/
+    // /** 褰撳墠bean涓墍鏈夌殑瀛楁(鍖呮嫭姝ょ被浠ュ強鐖剁被涓殑鍏湁鍜岄潪鍏湁瀛楁) <get鏂规硶鍚?,瀛楁> **/
     // private HashMap<String,Field> hm_Field;
 
-    /** 褰撳墠bean绫讳互鍙婄埗绫讳腑鍏湁鐨刧et鏂规硶 <瀛楁鍚�,get鏂规硶> **/
+    /** 褰撳墠bean绫讳互鍙婄埗绫讳腑鍏湁鐨刧et鏂规硶 <瀛楁鍚?,get鏂规硶> **/
     private HashMap<String, Method> hm_Geters;
 
-    /** 褰撳墠bean绫讳互鍙婄埗绫讳腑鍏湁鐨剆et鏂规硶 <瀛楁鍚�,get鏂规硶> **/
+    /** 褰撳墠bean绫讳互鍙婄埗绫讳腑鍏湁鐨剆et鏂规硶 <瀛楁鍚?,get鏂规硶> **/
     private HashMap<String, Method> hm_Seters;
 
-    /** 褰撳墠bean绫讳互鍙婄埗绫讳腑寤惰繜鍔犺浇瀛楁鐨刧et鏂规硶 <瀛楁鍚�,get鏂规硶> **/
+    /** 褰撳墠bean绫讳互鍙婄埗绫讳腑寤惰繜鍔犺浇瀛楁鐨刧et鏂规硶 <瀛楁鍚?,get鏂规硶> **/
     private HashMap<String, Method> hm_LazyGeters;
-    /** 褰撳墠bean绫讳互鍙婄埗绫讳腑寤惰繜鍔犺浇瀛楁鐨刧et鏂规硶 <瀛楁鍚�,set鏂规硶> **/
+    /** 褰撳墠bean绫讳互鍙婄埗绫讳腑寤惰繜鍔犺浇瀛楁鐨刧et鏂规硶 <瀛楁鍚?,set鏂规硶> **/
     private HashMap<String, Method> hm_LazySeters;
 
-    /** 搴旂敤鏈伐鍏风被鐨勫疄浣撳璞� **/
+    /** 搴旂敤鏈伐鍏风被鐨勫疄浣撳璞? **/
     private BaseEntity bean;
 
-    /** 搴旂敤鏈伐鍏风被鐨勫疄浣撳璞＄被鍨� **/
+    /** 搴旂敤鏈伐鍏风被鐨勫疄浣撳璞＄被鍨? **/
     private Class<? extends BaseEntity> clazz;
 
     private String beanDispName;
 
-    /** 瀛樺偍瀛楁瀵瑰簲涓枃鍚� **/
+    /** 瀛樺偍瀛楁瀵瑰簲涓枃鍚? **/
     private HashMap<String, String> hm_DispNames;
 
     public EOUtility(BaseEntity bean) {
@@ -70,7 +70,7 @@ public class EOUtility {
     }
 
     private void init(BaseEntity bean) {
-        // 褰撳墠bean涓庢柊浼犲叆鐨刡ean鏄悓涓�涓猙ean鏃朵笉蹇呰繘琛屽垵濮嬪寲
+        // 褰撳墠bean涓庢柊浼犲叆鐨刡ean鏄悓涓?涓猙ean鏃朵笉蹇呰繘琛屽垵濮嬪寲
         if (this.bean == bean)
             return;
 
@@ -83,12 +83,12 @@ public class EOUtility {
     }
 
     private void buildGetterANDSetters(Class beanclass) {
-        // 寰楀埌褰撳墠绫诲瓧娈靛悕绉�
+        // 寰楀埌褰撳墠绫诲瓧娈靛悕绉?
         Field[] fields = beanclass.getDeclaredFields();
         String fieldname = null;
         // 鎷兼帴瀛楁瀵瑰簲鐨勬柟娉曞悕
         for (Field field : fields) {
-            // 涓�瀵瑰瀛楁涓嶈鍙傚姞toString锛宧ashcode鍜宔quals鏂规硶锛屼笉闇�瑕佸姞杞斤紝涓�鏃﹀姞杞藉弽鑰屼細寮曡捣鏁版嵁绾ц仈鏇存柊鏃跺嚭閿欙紒锛�
+            // 涓?瀵瑰瀛楁涓嶈鍙傚姞toString锛宧ashcode鍜宔quals鏂规硶锛屼笉闇?瑕佸姞杞斤紝涓?鏃﹀姞杞藉弽鑰屼細寮曡捣鏁版嵁绾ц仈鏇存柊鏃跺嚭閿欙紒锛?
             if (isLazyField(field.getAnnotations())) {
                 continue;
             }
@@ -102,7 +102,7 @@ public class EOUtility {
                     if(t==null){
                         if (reader != null
                                 && !(isLazyField(reader.getAnnotations()))){
-                            hm_Geters.put(fieldname, reader);// 闈炲欢杩�
+                            hm_Geters.put(fieldname, reader);// 闈炲欢杩?
                             if (writer != null)
                                 hm_Seters.put(fieldname, writer);
                         }else{
@@ -114,7 +114,7 @@ public class EOUtility {
                 }
             }
         }
-        // 褰撳墠绫讳笉鏄� BaseEntityBean鏃讹紝閫掑綊璋冪敤
+        // 褰撳墠绫讳笉鏄? BaseEntityBean鏃讹紝閫掑綊璋冪敤
         if (!beanclass.equals(BaseEntity.class)) {
             buildGetterANDSetters((Class<? extends BaseEntity>) beanclass
                     .getSuperclass());
@@ -122,7 +122,7 @@ public class EOUtility {
     }
 
     /**
-     * 寰楀埌EO瑕佹樉绀虹殑涓枃鍚�
+     * 寰楀埌EO瑕佹樉绀虹殑涓枃鍚?
      * @author slx
      * @date 2010-7-2 涓嬪崍05:22:44
      * @modifyNote
@@ -141,7 +141,7 @@ public class EOUtility {
     }
 
     /**
-     * 寰楀埌瀛楁鏄剧ず鐨勫悕绉�
+     * 寰楀埌瀛楁鏄剧ず鐨勫悕绉?
      * @author slx
      * @date 2010-7-2 涓嬪崍05:23:03
      * @modifyNote
@@ -184,7 +184,7 @@ public class EOUtility {
      * 鏍规嵁娉ㄨВ鍒ゆ柇鏄惁鏄欢杩熷姞杞界殑瀛楁
      */
     public static boolean isLazyField(Annotation[] annotations) {
-        // 婊¤冻寰幆鍐呬换浣曚竴涓潯浠跺垯涓哄欢杩熷姞杞藉瓧娈�
+        // 婊¤冻寰幆鍐呬换浣曚竴涓潯浠跺垯涓哄欢杩熷姞杞藉瓧娈?
         for (Annotation annotation : annotations) {
             if (annotation instanceof OneToOne) {
                 if (FetchType.LAZY.equals(((OneToOne) annotation).fetch())) {
@@ -196,7 +196,7 @@ public class EOUtility {
                     return true;
                 }
             }
-            // OneToMany 榛樿涓哄欢杩熷姞杞�,濡傛灉娌℃湁鏍囨敞绔嬪嵆鍔犺浇鍒欓兘鏄欢杩熷姞杞�
+            // OneToMany 榛樿涓哄欢杩熷姞杞?,濡傛灉娌℃湁鏍囨敞绔嬪嵆鍔犺浇鍒欓兘鏄欢杩熷姞杞?
             if (annotation instanceof OneToMany) {
                 if (!FetchType.EAGER.equals(((OneToMany) annotation).fetch())) {
                     return true;
@@ -209,7 +209,7 @@ public class EOUtility {
                 }
             }
 
-            // Lob瀛楁鍐呭搴炲ぇ,涓嶇鏄笉鏄欢杩熷姞杞�,鍏ㄩ儴涓嶈繘琛屽鐞�
+            // Lob瀛楁鍐呭搴炲ぇ,涓嶇鏄笉鏄欢杩熷姞杞?,鍏ㄩ儴涓嶈繘琛屽鐞?
             if (annotation instanceof Lob) {
                 return true;
             }
@@ -257,15 +257,15 @@ public class EOUtility {
     }
 
     /**
-     * 璁剧疆鎸囧畾灞炴�х殑鍊�
+     * 璁剧疆鎸囧畾灞炴?х殑鍊?
      *
      * @author slx
      * @date 2009-7-17 涓婂崍08:51:28
      * @modifyNote
      * @param attName
-     *            灞炴�у悕
+     *            灞炴?у悕
      * @param value
-     *            鍊�
+     *            鍊?
      */
     public void setAttributeValue(String attName, Object value) {
         try {
@@ -277,14 +277,14 @@ public class EOUtility {
     }
 
     /**
-     * 寰楀埌鎸囧畾灞炴�х殑鍊�
+     * 寰楀埌鎸囧畾灞炴?х殑鍊?
      *
      * @author slx
      * @date 2009-7-17 涓婂崍08:51:12
      * @modifyNote
      * @param attName
-     *            灞炴�у悕
-     * @return 鍊�
+     *            灞炴?у悕
+     * @return 鍊?
      */
     public Object getAttributeValue(String attName) {
         Object o = null;
@@ -299,7 +299,7 @@ public class EOUtility {
     }
 
     /**
-     * 寰楀埌琛ㄥ悕绉�
+     * 寰楀埌琛ㄥ悕绉?
      *
      * @author slx
      * @date 2009-7-17 涓婂崍08:50:56
@@ -334,7 +334,7 @@ public class EOUtility {
     private String[] fieldNames;
 
     /**
-     * 寰楀埌瀹炰綋涓墍鏈夋寔涔呭寲瀛楁鍚�
+     * 寰楀埌瀹炰綋涓墍鏈夋寔涔呭寲瀛楁鍚?
      *
      * @author slx
      * @date 2009-7-17 涓婂崍08:53:21
@@ -351,10 +351,10 @@ public class EOUtility {
     }
 
     /**
-     * 灏嗕竴涓璞tring鍖� <br>
-     * 鏍煎紡濡備笅锛� <br>
+     * 灏嗕竴涓璞tring鍖? <br>
+     * 鏍煎紡濡備笅锛? <br>
      * TABLE_NAME::琛ㄥ悕 <br>
-     * 瀛楁鍚�::瀛楁鍊� 瀛楁鍚�::瀛楁鍊�
+     * 瀛楁鍚?::瀛楁鍊? 瀛楁鍚?::瀛楁鍊?
      *
      * @param bean
      * @return
@@ -386,16 +386,16 @@ public class EOUtility {
     }
 
     /**
-     * 鍒ゆ柇褰撳墠bean鏄惁涓庡弬鏁板璞＄浉鍚�
+     * 鍒ゆ柇褰撳墠bean鏄惁涓庡弬鏁板璞＄浉鍚?
      *
      * @param obj
      * @return
      */
     public boolean equalsBean(Object obj) {
-        if (obj == null)// 瀵硅薄涓虹┖涓嶆瘮杈�
+        if (obj == null)// 瀵硅薄涓虹┖涓嶆瘮杈?
             return false;
 
-        // 涓嶆槸BaseEntity锛屼笉蹇呮瘮杈�
+        // 涓嶆槸BaseEntity锛屼笉蹇呮瘮杈?
         if (!(obj instanceof BaseEntity)) {
             return false;
         }
@@ -418,14 +418,14 @@ public class EOUtility {
     }
 
     /**
-     * 姣旇緝褰撳墠瀵硅薄涓庡彟涓�涓璞＄殑宸埆锛屽苟杩斿洖鍊间笉鍚岀殑瀛楁鐨勫悕绉般��
+     * 姣旇緝褰撳墠瀵硅薄涓庡彟涓?涓璞＄殑宸埆锛屽苟杩斿洖鍊间笉鍚岀殑瀛楁鐨勫悕绉般??
      *
      * @author slx
      * @date 2009-7-17 涓婂崍09:34:39
      * @modifyNote
      * @param antherBean
-     *            灏嗚姣旇緝鐨勫璞�
-     * @return 鍊间笉鍚岀殑瀛楁鍚�
+     *            灏嗚姣旇緝鐨勫璞?
+     * @return 鍊间笉鍚岀殑瀛楁鍚?
      */
     public List<String> getDifferentField(BaseEntity anotherBean) {
         // 绫诲瀷涓嶅悓涓嶅繀杩涜姣旇緝
@@ -445,13 +445,13 @@ public class EOUtility {
     }
 
     /**
-     * 姣旇緝涓や釜瀵硅薄锛屾寚瀹氱殑瀛楁鍊兼槸鍚︾浉鍚�
+     * 姣旇緝涓や釜瀵硅薄锛屾寚瀹氱殑瀛楁鍊兼槸鍚︾浉鍚?
      *
      * @author slx
      * @date 2009-7-17 涓婂崍09:51:58
      * @modifyNote
      * @param fieldName
-     *            闇�瑕佹瘮杈冪殑瀛楁
+     *            闇?瑕佹瘮杈冪殑瀛楁
      * @param obj1
      *            瀵硅薄1
      * @param obj2
@@ -491,11 +491,11 @@ public class EOUtility {
     }
 
     /**
-     * 杩斿洖璇ュ璞＄殑鍝堝笇鐮佸��
+     * 杩斿洖璇ュ璞＄殑鍝堝笇鐮佸??
      */
     public int hashCodeBean() {
 
-        // 鐢熸垚绠�鍗曠殑浣嶈繍绠梙ash鏁ｅ垪鐮�
+        // 鐢熸垚绠?鍗曠殑浣嶈繍绠梙ash鏁ｅ垪鐮?
         String key = bean.toString();
         int prime = key.hashCode();
         int hash = prime;
@@ -518,14 +518,14 @@ public class EOUtility {
     }
 
     /**
-     * 鍙栧緱涓�涓灇涓惧�间笂鐨勬弿杩版敞瑙�.
+     * 鍙栧緱涓?涓灇涓惧?间笂鐨勬弿杩版敞瑙?.
      *
      * @author slx
      * @date 2009-9-3 涓婂崍09:13:53
      * @modifyNote yongtree 2010-1-17淇敼
      * @param emumValue
-     *            鏋氫妇鍊�
-     * @return 濡傛灉浼犲叆鐨勪笉鏄灇涓惧�硷紝鍒欒繑鍥炵┖涓�,鎴栬�呮灇涓炬病鏈夋爣娉ㄦ敞瑙�,鍒欒繑鍥炴灇涓総oString.
+     *            鏋氫妇鍊?
+     * @return 濡傛灉浼犲叆鐨勪笉鏄灇涓惧?硷紝鍒欒繑鍥炵┖涓?,鎴栬?呮灇涓炬病鏈夋爣娉ㄦ敞瑙?,鍒欒繑鍥炴灇涓総oString.
      */
     public static String getEnumDescription(Object emumValue) {
         String desValue = "";
@@ -557,10 +557,10 @@ public class EOUtility {
     }
 
     /**
-     * 鍔犺浇鎵�鏈夊欢杩熷姞杞界殑瀛楁.
+     * 鍔犺浇鎵?鏈夊欢杩熷姞杞界殑瀛楁.
      *
      * @author slx
-     * @date 2010骞�4鏈�1鏃�17:09:44
+     * @date 2010骞?4鏈?1鏃?17:09:44
      */
     void loadLazyField(){
         Iterator<Method> i_mds = hm_LazyGeters.values().iterator();

@@ -3,9 +3,9 @@
  */
 package com.tms.author.view;
 
-import com.tms.author.bean.SysUsers;
+import com.tms.author.bean.SysUser;
 import com.tms.author.service.SecurityUserService;
-import com.tms.author.base.model.Parameters;
+import com.tms.base.model.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Named
 @Scope("request")
-public class SystemUser extends BaseController {
+public class SystemUser {
 
 	@Autowired
 	private SecurityUserService securityUserService;
@@ -37,10 +37,13 @@ public class SystemUser extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/add")
-	public Message add(HttpServletRequest request,HttpServletResponse response,
-			@ModelAttribute SysUsers user){
-		
-		return this.securityUserService.add(user);
+	public void add(HttpServletRequest request,HttpServletResponse response,
+			@ModelAttribute SysUser user){
+		 try{
+		this.securityUserService.add(user); }
+		 catch (Exception e){
+
+		 }
 	}
 	
 	/**
@@ -52,10 +55,10 @@ public class SystemUser extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/update")
-	public Message update(HttpServletRequest request,HttpServletResponse response,
-			@ModelAttribute SysUsers user){
+	public void update(HttpServletRequest request,HttpServletResponse response,
+			@ModelAttribute com.tms.author.bean.SysUser user){
 		
-		return this.securityUserService.update(user);
+		this.securityUserService.update(user);
 	}
 	/**
 	 * 删除用户
@@ -66,10 +69,9 @@ public class SystemUser extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/delete")
-	public Message delete(HttpServletRequest request,HttpServletResponse response,
+	public void delete(HttpServletRequest request,HttpServletResponse response,
 			String userId){
-		
-		return this.securityUserService.delete(userId);
+		 this.securityUserService.delete(userId);
 	}
 	
 	/**
@@ -81,9 +83,9 @@ public class SystemUser extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/delete/{id}")
-	public Message delete(@PathVariable("id")String id){
+	public void delete(@PathVariable("id")String id){
 		
-		return this.securityUserService.delete(id);
+		this.securityUserService.delete(id);
 	}
 	
 	/**
@@ -94,11 +96,11 @@ public class SystemUser extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/assignroles")
-	public Message assignRoles(String userId,String[] sysRoles){
+	public void assignRoles(String userId,String[] sysRoles){
 		if(userId == null)
 			throw new NullPointerException("用户Id不能为空");
 		
-		return this.securityUserService.assignRoles(userId, sysRoles);
+		this.securityUserService.assignRoles(userId, sysRoles);
 	}
 	/**
 	 * 
@@ -108,8 +110,8 @@ public class SystemUser extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/query")
-	public Message queryByJgid(String VQzjgid,@ModelAttribute Parameters param){
-		return this.securityUserService.queryByJgid(VQzjgid, param);
+	public void queryByJgid(String VQzjgid,@ModelAttribute Parameters param){
+		// this.securityUserService.queryByJgid(VQzjgid, param);
 	}
 	
 	

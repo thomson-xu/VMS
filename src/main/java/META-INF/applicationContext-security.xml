@@ -41,7 +41,7 @@
 		
 		<sec:remember-me 
 			authentication-success-handler-ref="authenticationSuccessHandler"
-			data-source-ref="dataSource"
+			data-source-ref="mySqldataSource"
 			user-service-ref="userDetailService"
 		/>
 			
@@ -59,12 +59,11 @@
 		<property name="hideUserNotFoundExceptions" value="false" />
 		<property name="userDetailsService" ref="userDetailService" />
 		<property name="userCache" ref="userCache" />
-		<property name="messageSource" ref="messageSource" />
 		<property name="passwordEncoder" ref="passwordEncode" />
 		<property name="saltSource" ref="saltSource" />
 	</bean>
 
-	<http auto-config="true" >
+	<!--<http auto-config="true" >
 		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/home" access="permitAll" />
 		<intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
@@ -84,7 +83,7 @@
 
 	<beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
-	<beans:bean id="customUserDetailsService" class="com.websystique.springsecurity.service.CustomUserDetailsService" />
+	<beans:bean id="customUserDetailsService" class="com.websystique.springsecurity.service.CustomUserDetailsService" />-->
 
 	<!-- 配置密码加密类 -->
 	<bean id="passwordEncode" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
@@ -109,10 +108,7 @@
 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" />
 
 	<!-- spring自带的与权限有关的数据读写Jdbc模板 -->
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-	
+
 	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
 		<constructor-arg name="decisionVoters">
 			<list>
@@ -120,7 +116,6 @@
 				<ref bean="authenticatedVoter"/>
 			</list>
 		</constructor-arg>
-		<property name="messageSource" ref="messageSource"></property>
 	</bean>
 	
 	<bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
