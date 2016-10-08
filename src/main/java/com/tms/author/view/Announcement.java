@@ -3,7 +3,7 @@
  */
 package com.tms.author.view;
 
-import com.sun.deploy.services.DefaultService;
+
 import org.springframework.context.annotation.Scope;
 
 import javax.inject.Named;
@@ -13,7 +13,7 @@ import javax.inject.Named;
 @Scope("request")
 public class Announcement {
 	
-	private DefaultService defaultService;
+	//private DefaultService defaultService;
 
 
 }

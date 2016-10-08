@@ -1,4 +1,4 @@
-package com.tms.author.base.common.web;
+package com.tms.base.common.web;
 
 /**
  * Created by Administrator on 2016/8/9.

@@ -2,6 +2,7 @@ group 'visa'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+compileJava {options.encoding = "UTF-8"}
 apply plugin: 'war'
 apply plugin : 'jetty'
 sourceCompatibility = 1.5
@@ -22,7 +23,14 @@ repositories {
        // url "http://repository.primefaces.org"
     }
 }
-
+sourceSets {
+    main {
+        resources {
+            java.srcDirs = ['src/main/java']
+            resources.srcDirs = ['src/main/resources']
+        }
+    }
+}
 
 dependencies {
     compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
@@ -68,7 +76,7 @@ dependencies {
     compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: '4.1.1.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '1.4.0.RELEASE'
     testCompile group: 'junit', name: 'junit', version: '4.11'
-
+    compile group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.2.2.21'
 // https://mvnrepository.com/artifact/net.sf.json-lib/json-lib
   //  compile group: 'net.sf.json-lib', name: 'json-lib', version: '2.4'
 

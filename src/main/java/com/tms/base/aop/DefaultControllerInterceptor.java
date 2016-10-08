@@ -1,8 +1,11 @@
-package com.tms.author.base.aop;
+/*
+package com.tms.base.aop;
 
+*/
 /**
  * Created by Administrator on 2016/8/8.
- */
+ *//*
+
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -16,7 +19,7 @@ public class DefaultControllerInterceptor {
     public DefaultControllerInterceptor() {
     }
 
-    @Pointcut("execution(* com.author.system.controller.DefaultController.*(..))")
+    @Pointcut("execution(* com.tms.*(..))")
     public void findService() {
     }
 
@@ -29,3 +32,4 @@ public class DefaultControllerInterceptor {
     }
 }
 
+*/

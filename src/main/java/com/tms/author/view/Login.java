@@ -1,6 +1,6 @@
 package com.tms.author.view;
 
-import com.tms.author.base.common.web.GenerateImageCode;
+import com.tms.base.common.web.GenerateImageCode;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

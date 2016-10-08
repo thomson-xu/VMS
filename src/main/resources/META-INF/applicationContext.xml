@@ -14,11 +14,11 @@
     <context:component-scan base-package="com.tms.author">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
-    <context:property-placeholder location="classpath:META-INF/hibernate.properties"/>
+
      <!--整合mysqljpa-->
     <bean id="EntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="mySqldataSource"/>
-        <property name="persistenceXmlLocation" value="classpath:/META-INF/persistence.xml"/>
+        <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml"/>
         <!--property name="persistenceUnitManager" ref="defaultPersistenceUnitManager"/-->
         <property name="persistenceUnitName" value="DBPersistenceUnit"/>
         <property name="packagesToScan">
@@ -40,9 +40,9 @@
           class="org.apache.commons.dbcp.BasicDataSource">-->
     <bean id="mySqldataSource"
           class="com.tms.base.dao.util.FixedBasicDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/vms"/>
-        <property name="username" value="root"/>
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
     </bean>
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -77,7 +77,7 @@
         </tx:attributes>
     </tx:advice>
     <aop:config proxy-target-class="true">
-        <aop:pointcut expression="execution(* com.tms.*.*(..))" id="daopoint"/>
+        <aop:pointcut expression="execution(* com.tms.*(..))" id="daopoint"/>
         <aop:advisor pointcut-ref="daopoint" advice-ref="txAdvice"/>
     </aop:config>
 
