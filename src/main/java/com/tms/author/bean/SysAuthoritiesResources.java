@@ -15,11 +15,24 @@ import javax.persistence.*;
 public class SysAuthoritiesResources extends BaseEntity implements java.io.Serializable {
 
 	// Fields
-
+	@Id
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+	@GeneratedValue(generator = "uuid")
+	@Column(name = "ID", unique = true, nullable = false, length = 100)
 	private String id;
+
+	@Column(name = "AUTHORITY_ID" ,insertable = false , updatable = false)
 	private String authorityId;
+
+	@Column(name = "RESOURCE_ID" ,insertable = false , updatable = false)
 	private String resourceId;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "AUTHORITY_ID", nullable = false)
 	private SysAuthorities sysAuthorities;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "RESOURCE_ID", nullable = false)
 	private SysResources sysResources;
 
 	// Constructors
@@ -37,10 +50,7 @@ public class SysAuthoritiesResources extends BaseEntity implements java.io.Seria
 	}
 
 	// Property accessors
-	@Id
-	@GenericGenerator(name = "uuid", strategy = "uuid")
-	@GeneratedValue(generator = "uuid")
-	@Column(name = "ID", unique = true, nullable = false, length = 100)
+
 	public String getId() {
 		return this.id;
 	}
@@ -48,8 +58,7 @@ public class SysAuthoritiesResources extends BaseEntity implements java.io.Seria
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	@Column(name = "AUTHORITY_ID" ,insertable = false , updatable = false)
+
 	public String getAuthorityId() {
 		return authorityId;
 	}
@@ -57,8 +66,7 @@ public class SysAuthoritiesResources extends BaseEntity implements java.io.Seria
 	public void setAuthorityId(String authorityId) {
 		this.authorityId = authorityId;
 	}
-	
-	@Column(name = "RESOURCE_ID" ,insertable = false , updatable = false)
+
 	public String getResourceId() {
 		return resourceId;
 	}
@@ -67,8 +75,6 @@ public class SysAuthoritiesResources extends BaseEntity implements java.io.Seria
 		this.resourceId = resourceId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "AUTHORITY_ID", nullable = false)
 	public SysAuthorities getSysAuthorities() {
 		return this.sysAuthorities;
 	}
@@ -77,8 +83,6 @@ public class SysAuthoritiesResources extends BaseEntity implements java.io.Seria
 		this.sysAuthorities = sysAuthorities;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "RESOURCE_ID", nullable = false)
 	public SysResources getSysResources() {
 		return this.sysResources;
 	}
@@ -88,6 +92,7 @@ public class SysAuthoritiesResources extends BaseEntity implements java.io.Seria
 	}
 
 	@Override
+	@Transient
 	public Object getPrimaryKey() {
 		return  (Object)getId();
 	}

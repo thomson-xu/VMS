@@ -16,19 +16,37 @@ import java.util.Set;
 public class SysRoles extends BaseEntity implements java.io.Serializable {
 
 	// Fields
-
+	@Id
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+	@GeneratedValue(generator = "uuid")
+	@Column(name = "ROLE_ID", unique = true, nullable = false, length = 100)
 	private String roleId;
+
+	@Column(name = "ROLE_NAME", length = 100)
 	private String roleName;
+
+	@Column(name = "ROLE_DESC", length = 200)
 	private String roleDesc;
+
+	@Column(name = "ENABLE", precision = 22, scale = 0)
 	private Boolean enable;
+
+	@Column(name = "ISSYS", precision = 22, scale = 0)
 	private Boolean issys;
+
+	@Column(name = "USER_ID", length = 200)
 	private String userId;
+	@Column(name = "MODULE_ID", length = 100)
 	private String moduleId;
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sysRoles")
 	private Set<SysRolesModules> sysRolesMoudleses = new HashSet<SysRolesModules>(
 			0);
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sysRoles")
 	private Set<SysUsersRoles> sysUsersRoleses = new HashSet<SysUsersRoles>(0);
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sysRoles")
 	private Set<SysRolesAuthorities> sysRolesAuthoritieses = new HashSet<SysRolesAuthorities>(
 			0);
 
@@ -61,10 +79,7 @@ public class SysRoles extends BaseEntity implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@Id
-	@GenericGenerator(name = "uuid", strategy = "uuid")
-	@GeneratedValue(generator = "uuid")
-	@Column(name = "ROLE_ID", unique = true, nullable = false, length = 100)
+
 	public String getRoleId() {
 		return this.roleId;
 	}
@@ -73,7 +88,6 @@ public class SysRoles extends BaseEntity implements java.io.Serializable {
 		this.roleId = roleId;
 	}
 
-	@Column(name = "ROLE_NAME", length = 100)
 	public String getRoleName() {
 		return this.roleName;
 	}
@@ -82,7 +96,6 @@ public class SysRoles extends BaseEntity implements java.io.Serializable {
 		this.roleName = roleName;
 	}
 
-	@Column(name = "ROLE_DESC", length = 200)
 	public String getRoleDesc() {
 		return this.roleDesc;
 	}
@@ -91,7 +104,6 @@ public class SysRoles extends BaseEntity implements java.io.Serializable {
 		this.roleDesc = roleDesc;
 	}
 
-	@Column(name = "ENABLE", precision = 22, scale = 0)
 	public Boolean getEnable() {
 		return this.enable;
 	}
@@ -100,7 +112,6 @@ public class SysRoles extends BaseEntity implements java.io.Serializable {
 		this.enable = enable;
 	}
 
-	@Column(name = "ISSYS", precision = 22, scale = 0)
 	public Boolean getIssys() {
 		return this.issys;
 	}
@@ -108,7 +119,7 @@ public class SysRoles extends BaseEntity implements java.io.Serializable {
 	public void setIssys(Boolean issys) {
 		this.issys = issys;
 	}
-	@Column(name = "USER_ID", length = 200)
+
 	public String getUserId() {
 		return userId;
 	}
@@ -117,7 +128,6 @@ public class SysRoles extends BaseEntity implements java.io.Serializable {
 		this.userId = userId;
 	}
 
-	@Column(name = "MODULE_ID", length = 100)
 	public String getModuleId() {
 		return this.moduleId;
 	}
@@ -126,7 +136,6 @@ public class SysRoles extends BaseEntity implements java.io.Serializable {
 		this.moduleId = moduleId;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sysRoles")
 	public Set<SysRolesModules> getSysRolesMoudleses() {
 		return this.sysRolesMoudleses;
 	}
@@ -135,7 +144,6 @@ public class SysRoles extends BaseEntity implements java.io.Serializable {
 		this.sysRolesMoudleses = sysRolesMoudleses;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sysRoles")
 	public Set<SysUsersRoles> getSysUsersRoleses() {
 		return this.sysUsersRoleses;
 	}
@@ -144,7 +152,6 @@ public class SysRoles extends BaseEntity implements java.io.Serializable {
 		this.sysUsersRoleses = sysUsersRoleses;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sysRoles")
 	public Set<SysRolesAuthorities> getSysRolesAuthoritieses() {
 		return this.sysRolesAuthoritieses;
 	}
@@ -155,6 +162,7 @@ public class SysRoles extends BaseEntity implements java.io.Serializable {
 	}
 
 	@Override
+	@Transient
 	public Object getPrimaryKey() {
 		return (Object) getRoleId();
 	}

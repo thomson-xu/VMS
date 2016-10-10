@@ -14,12 +14,23 @@ import javax.persistence.*;
 public class SysRolesModules extends BaseEntity implements java.io.Serializable {
 
 	// Fields
-
+	@Id
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+	@GeneratedValue(generator = "uuid")
+	@Column(name = "ID", unique = true, nullable = false, length = 100)
 	private String id;
+
+	@Column(name = "ROLE_ID" ,insertable = false,updatable = false)
 	private String roleId;
+
+	@Column(name = "MODULE_ID" ,insertable = false,updatable = false)
 	private String moduleId;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ROLE_ID", nullable = false)
 	private SysRoles sysRoles;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MODULE_ID", nullable = false)
 	private SysModules sysModules;
 
 	// Constructors
@@ -36,10 +47,7 @@ public class SysRolesModules extends BaseEntity implements java.io.Serializable 
 	}
 
 	// Property accessors
-	@Id
-	@GenericGenerator(name = "uuid", strategy = "uuid")
-	@GeneratedValue(generator = "uuid")
-	@Column(name = "ID", unique = true, nullable = false, length = 100)
+
 	public String getId() {
 		return this.id;
 	}
@@ -47,8 +55,7 @@ public class SysRolesModules extends BaseEntity implements java.io.Serializable 
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	@Column(name = "ROLE_ID" ,insertable = false,updatable = false)
+
 	public String getRoleId() {
 		return roleId;
 	}
@@ -56,8 +63,7 @@ public class SysRolesModules extends BaseEntity implements java.io.Serializable 
 	public void setRoleId(String roleId) {
 		this.roleId = roleId;
 	}
-	
-	@Column(name = "MODULE_ID" ,insertable = false,updatable = false)
+
 	public String getModuleId() {
 		return moduleId;
 	}
@@ -66,8 +72,6 @@ public class SysRolesModules extends BaseEntity implements java.io.Serializable 
 		this.moduleId = moduleId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ROLE_ID", nullable = false)
 	public SysRoles getSysRoles() {
 		return this.sysRoles;
 	}
@@ -76,8 +80,7 @@ public class SysRolesModules extends BaseEntity implements java.io.Serializable 
 		this.sysRoles = sysRoles;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MODULE_ID", nullable = false)
+
 	public SysModules getSysModules() {
 		return this.sysModules;
 	}
@@ -87,6 +90,7 @@ public class SysRolesModules extends BaseEntity implements java.io.Serializable 
 	}
 
 	@Override
+	@Transient
 	public Object getPrimaryKey() {
 		return (Object) getId();
 	}

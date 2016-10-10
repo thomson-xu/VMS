@@ -20,22 +20,119 @@ import java.util.Set;
 @Table(name = "SYS_USERS")
 public class SysUser extends BaseEntity implements UserDetails, Serializable {
 	private static final long serialVersionUID = -6498309642739707784L;
+
+	@Id
+	@GenericGenerator(
+			name = "uuid",
+			strategy = "uuid"
+	)
+	@GeneratedValue(
+			generator = "uuid"
+	)
+	@Column(
+			name = "USER_ID",
+			unique = true,
+			nullable = false,
+			length = 100
+	)
 	private String userId;
+
+	@Column(
+			name = "USERNAME",
+			nullable = false,
+			length = 100
+	)
 	private String username;
+
+	@Column(
+			name = "NAME",
+			length = 100
+	)
 	private String name;
+
+	@Column(
+			name = "PASSWORD",
+			nullable = false,
+			length = 100
+	)
 	private String password;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(
+			name = "DT_CREATE",
+			length = 7,
+			insertable = false,
+			updatable = false
+	)
 	private Date dtCreate;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(
+			name = "LAST_LOGIN",
+			length = 7
+	)
 	private Date lastLogin;
+
+	@Temporal(TemporalType.DATE)
+	@Column(
+			name = "DEADLINE",
+			length = 7
+	)
 	private Date deadline;
+
+	@Column(
+			name = "LOGIN_IP",
+			length = 100
+	)
 	private String loginIp;
+
+	@Column(
+			name = "DEP_ID",
+			length = 100
+	)
 	private String depId;
+
+	@Column(
+			name = "DEP_NAME",
+			length = 100
+	)
 	private String depName;
+
+
+	@Column(
+			name = "ENABLED",
+			precision = 22,
+			scale = 0
+	)
 	private boolean enabled;
+
+	@Column(
+			name = "ACCOUNT_NON_EXPIRED",
+			precision = 22,
+			scale = 0
+	)
 	private boolean accountNonExpired;
+	@Column(
+			name = "ACCOUNT_NON_LOCKED",
+			precision = 22,
+			scale = 0
+	)
 	private boolean accountNonLocked;
+
+	@Column(
+			name = "CREDENTIALS_NON_EXPIRED",
+			precision = 22,
+			scale = 0
+	)
 	private boolean credentialsNonExpired;
 
+	@OneToMany(
+			cascade = {CascadeType.ALL},
+			fetch = FetchType.LAZY,
+			mappedBy = "sysUser"
+	)
 	private Set<SysUsersRoles> sysUsersRoleses = new HashSet(0);
+	@Transient
 	private Collection<GrantedAuthority> authorities;
 
 	public SysUser() {
@@ -69,20 +166,6 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
 		this.sysUsersRoleses = sysUsersRoleses;
 	}
 
-	@Id
-	@GenericGenerator(
-			name = "uuid",
-			strategy = "uuid"
-	)
-	@GeneratedValue(
-			generator = "uuid"
-	)
-	@Column(
-			name = "USER_ID",
-			unique = true,
-			nullable = false,
-			length = 100
-	)
 	public String getUserId() {
 		return this.userId;
 	}
@@ -91,11 +174,6 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
 		this.userId = userId;
 	}
 
-	@Column(
-			name = "USERNAME",
-			nullable = false,
-			length = 100
-	)
 	public String getUsername() {
 		return this.username;
 	}
@@ -104,10 +182,6 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
 		this.username = username;
 	}
 
-	@Column(
-			name = "NAME",
-			length = 100
-	)
 	public String getName() {
 		return this.name;
 	}
@@ -116,11 +190,6 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
 		this.name = name;
 	}
 
-	@Column(
-			name = "PASSWORD",
-			nullable = false,
-			length = 100
-	)
 	public String getPassword() {
 		return this.password;
 	}
@@ -129,13 +198,6 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
 		this.password = password;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(
-			name = "DT_CREATE",
-			length = 7,
-			insertable = false,
-			updatable = false
-	)
 	public Date getDtCreate() {
 		return this.dtCreate;
 	}
@@ -144,11 +206,6 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
 		this.dtCreate = dtCreate;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(
-			name = "LAST_LOGIN",
-			length = 7
-	)
 	public Date getLastLogin() {
 		return this.lastLogin;
 	}
@@ -157,11 +214,6 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
 		this.lastLogin = lastLogin;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(
-			name = "DEADLINE",
-			length = 7
-	)
 	public Date getDeadline() {
 		return this.deadline;
 	}
@@ -170,10 +222,6 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
 		this.deadline = deadline;
 	}
 
-	@Column(
-			name = "LOGIN_IP",
-			length = 100
-	)
 	public String getLoginIp() {
 		return this.loginIp;
 	}
@@ -182,10 +230,6 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
 		this.loginIp = loginIp;
 	}
 
-	@Column(
-			name = "DEP_ID",
-			length = 100
-	)
 	public String getDepId() {
 		return this.depId;
 	}
@@ -194,10 +238,6 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
 		this.depId = depId;
 	}
 
-	@Column(
-			name = "DEP_NAME",
-			length = 100
-	)
 	public String getDepName() {
 		return this.depName;
 	}
@@ -206,12 +246,6 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
 		this.depName = depName;
 	}
 
-
-	@Column(
-			name = "ENABLED",
-			precision = 22,
-			scale = 0
-	)
 	public boolean isEnabled() {
 		return this.enabled;
 	}
@@ -222,11 +256,6 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
 	}
 
 
-	@Column(
-			name = "ACCOUNT_NON_EXPIRED",
-			precision = 22,
-			scale = 0
-	)
 	public boolean isAccountNonExpired() {
 		return this.accountNonExpired;
 	}
@@ -236,11 +265,7 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
 		this.accountNonExpired = accountNonExpired;
 	}
 
-	@Column(
-			name = "ACCOUNT_NON_LOCKED",
-			precision = 22,
-			scale = 0
-	)
+
 	public boolean isAccountNonLocked() {
 		return this.accountNonLocked;
 	}
@@ -250,11 +275,6 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
 	}
 
 
-	@Column(
-			name = "CREDENTIALS_NON_EXPIRED",
-			precision = 22,
-			scale = 0
-	)
 	public boolean isCredentialsNonExpired() {
 		return this.credentialsNonExpired;
 	}
@@ -264,11 +284,6 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
 		this.credentialsNonExpired = credentialsNonExpired;
 	}
 
-	@OneToMany(
-			cascade = {CascadeType.ALL},
-			fetch = FetchType.LAZY,
-			mappedBy = "sysUsersRoles"
-	)
 	public Set<SysUsersRoles> getSysUsersRoleses() {
 		return this.sysUsersRoleses;
 	}
@@ -287,6 +302,7 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
 	}
 
 	@Override
+	@Transient
 	public Object getPrimaryKey() {
 		return (Object)getUserId();
 	}

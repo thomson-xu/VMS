@@ -1,8 +1,11 @@
+/*
 package com.tms.visa.validator;
 
+*/
 /**
  * Created by Administrator on 2016/8/4.
- */
+ *//*
+
 import org.springframework.security.authentication.BadCredentialsException;
 
 import javax.faces.application.FacesMessage;
@@ -36,4 +39,4 @@ public class LoginErrorPhaseListener implements PhaseListener {
     public PhaseId getPhaseId() {
         return PhaseId.RENDER_RESPONSE;
     }
-}
+}*/

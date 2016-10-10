@@ -171,12 +171,13 @@
 		<property name="defaultFailureUrl" value="/pages/authenticationFailure.jsp" />
 	</bean>
 	<!-- @unused -->
-	<bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+<!--	<bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
 		<property name="loginFormUrl" value="/login.jsp" />
 	</bean>
-	
+	-->
 	<bean id="loginAuthenticationEntryPoint" class="com.tms.author.security.LoginAuthenticationEntryPoint">
-		<property name="loginFormUrl" value="/login.jsp"></property>
+		<!--<property name="loginFormUrl"  value="/login.jsp"></property>-->
+		<constructor-arg name="loginFormUrl"  value="/login.jsp"></constructor-arg>
 	</bean>
 	
 	<bean id="concurrencyFilter" class="org.springframework.security.web.session.ConcurrentSessionFilter">

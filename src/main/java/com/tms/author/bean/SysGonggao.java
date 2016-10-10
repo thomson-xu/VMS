@@ -14,16 +14,35 @@ import java.util.Date;
 public class SysGonggao  extends BaseEntity implements java.io.Serializable {
 
 	// Fields
-
+	@Id
+	@Column(name = "V_ID", unique = true, nullable = false, length = 100)
 	private String VId;
+
+	@Column(name = "V_TITLE", length = 500)
 	private String VTitle;
+
+	@Column(name = "CONTENT")
 	private String content;
+
+	@Column(name = "I_JB", precision = 22, scale = 0)
 	private Integer IJb;
+
+	@Column(name = "DEP_ID", length = 100)
 	private String depId;
+
+	@Column(name = "DEP_NAME", length = 100)
 	private String depName;
+
+	@Column(name = "V_JGID", length = 100)
 	private String VJgid;
+
+	@Column(name = "V_JGMC", length = 100)
 	private String VJgmc;
+
+	@Column(name = "C_CZYBH", length = 100)
 	private String CCzybh;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "DT_CREATE", length = 7)
 	private Date dtCreate;
 
 	// Constructors
@@ -54,8 +73,7 @@ public class SysGonggao  extends BaseEntity implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@Id
-	@Column(name = "V_ID", unique = true, nullable = false, length = 100)
+
 	public String getVId() {
 		return this.VId;
 	}
@@ -64,7 +82,6 @@ public class SysGonggao  extends BaseEntity implements java.io.Serializable {
 		this.VId = VId;
 	}
 
-	@Column(name = "V_TITLE", length = 500)
 	public String getVTitle() {
 		return this.VTitle;
 	}
@@ -73,7 +90,6 @@ public class SysGonggao  extends BaseEntity implements java.io.Serializable {
 		this.VTitle = VTitle;
 	}
 
-	@Column(name = "CONTENT")
 	public String getContent() {
 		return this.content;
 	}
@@ -82,7 +98,6 @@ public class SysGonggao  extends BaseEntity implements java.io.Serializable {
 		this.content = content;
 	}
 
-	@Column(name = "I_JB", precision = 22, scale = 0)
 	public Integer getIJb() {
 		return this.IJb;
 	}
@@ -91,7 +106,6 @@ public class SysGonggao  extends BaseEntity implements java.io.Serializable {
 		this.IJb = IJb;
 	}
 
-	@Column(name = "DEP_ID", length = 100)
 	public String getDepId() {
 		return this.depId;
 	}
@@ -100,7 +114,6 @@ public class SysGonggao  extends BaseEntity implements java.io.Serializable {
 		this.depId = depId;
 	}
 
-	@Column(name = "DEP_NAME", length = 100)
 	public String getDepName() {
 		return this.depName;
 	}
@@ -109,7 +122,6 @@ public class SysGonggao  extends BaseEntity implements java.io.Serializable {
 		this.depName = depName;
 	}
 
-	@Column(name = "V_JGID", length = 100)
 	public String getVJgid() {
 		return this.VJgid;
 	}
@@ -118,7 +130,6 @@ public class SysGonggao  extends BaseEntity implements java.io.Serializable {
 		this.VJgid = VJgid;
 	}
 
-	@Column(name = "V_JGMC", length = 100)
 	public String getVJgmc() {
 		return this.VJgmc;
 	}
@@ -127,7 +138,6 @@ public class SysGonggao  extends BaseEntity implements java.io.Serializable {
 		this.VJgmc = VJgmc;
 	}
 
-	@Column(name = "C_CZYBH", length = 100)
 	public String getCCzybh() {
 		return this.CCzybh;
 	}
@@ -136,8 +146,7 @@ public class SysGonggao  extends BaseEntity implements java.io.Serializable {
 		this.CCzybh = CCzybh;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DT_CREATE", length = 7)
+
 	public Date getDtCreate() {
 		return this.dtCreate;
 	}
@@ -147,6 +156,7 @@ public class SysGonggao  extends BaseEntity implements java.io.Serializable {
 	}
 
 	@Override
+	@Transient
 	public Object getPrimaryKey() {
 		return (Object)getVId();
 	}

@@ -17,17 +17,40 @@ import java.util.Set;
 public class SysAuthorities extends BaseEntity implements java.io.Serializable {
 
 	// Fields
-
+	@Id
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+	@GeneratedValue(generator = "uuid")
+	@Column(name = "AUTHORITY_ID", unique = true, nullable = false, length = 100)
 	private String authorityId;
+
+	@Column(name = "AUTHORITY_MARK", nullable = false, length = 100)
 	private String authorityMark;
+
+	@Column(name = "AUTHORITY_NAME", nullable = false, length = 100)
 	private String authorityName;
+
+	@Column(name = "AUTHORITY_DESC", length = 200)
 	private String authorityDesc;
+
+	@Column(name = "MESSAGE", length = 100)
 	private String message;
+
+	@Column(name = "ENABLE", precision = 22, scale = 0)
 	private Boolean enable;
+
+	@Column(name = "ISSYS", precision = 22, scale = 0)
 	private Boolean issys;
+
+	@Column(name = "MODULE_ID", length = 100)
 	private String moduleId;
+
+	@Column(name = "REMARK", length = 100)
 	private String remark;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sysAuthorities")
 	private Set<SysRolesAuthorities> sysRolesAuthoritieses = new HashSet<SysRolesAuthorities>(0);
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sysAuthorities")
 	private Set<SysAuthoritiesResources> sysAuthoritiesResourceses = new HashSet<SysAuthoritiesResources>(0);
 
 	// Constructors
@@ -65,10 +88,7 @@ public class SysAuthorities extends BaseEntity implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@Id
-	@GenericGenerator(name = "uuid", strategy = "uuid")
-	@GeneratedValue(generator = "uuid")
-	@Column(name = "AUTHORITY_ID", unique = true, nullable = false, length = 100)
+
 	public String getAuthorityId() {
 		return this.authorityId;
 	}
@@ -76,8 +96,7 @@ public class SysAuthorities extends BaseEntity implements java.io.Serializable {
 	public void setAuthorityId(String authorityId) {
 		this.authorityId = authorityId;
 	}
-	
-	@Column(name = "AUTHORITY_MARK", nullable = false, length = 100)
+
 	public String getAuthorityMark() {
 		return authorityMark;
 	}
@@ -86,7 +105,6 @@ public class SysAuthorities extends BaseEntity implements java.io.Serializable {
 		this.authorityMark = authorityMark;
 	}
 
-	@Column(name = "AUTHORITY_NAME", nullable = false, length = 100)
 	public String getAuthorityName() {
 		return this.authorityName;
 	}
@@ -95,7 +113,6 @@ public class SysAuthorities extends BaseEntity implements java.io.Serializable {
 		this.authorityName = authorityName;
 	}
 
-	@Column(name = "AUTHORITY_DESC", length = 200)
 	public String getAuthorityDesc() {
 		return this.authorityDesc;
 	}
@@ -104,7 +121,6 @@ public class SysAuthorities extends BaseEntity implements java.io.Serializable {
 		this.authorityDesc = authorityDesc;
 	}
 
-	@Column(name = "MESSAGE", length = 100)
 	public String getMessage() {
 		return this.message;
 	}
@@ -113,7 +129,6 @@ public class SysAuthorities extends BaseEntity implements java.io.Serializable {
 		this.message = message;
 	}
 
-	@Column(name = "ENABLE", precision = 22, scale = 0)
 	public Boolean getEnable() {
 		return this.enable;
 	}
@@ -122,7 +137,6 @@ public class SysAuthorities extends BaseEntity implements java.io.Serializable {
 		this.enable = enable;
 	}
 
-	@Column(name = "ISSYS", precision = 22, scale = 0)
 	public Boolean getIssys() {
 		return this.issys;
 	}
@@ -131,7 +145,6 @@ public class SysAuthorities extends BaseEntity implements java.io.Serializable {
 		this.issys = issys;
 	}
 
-	@Column(name = "MODULE_ID", length = 100)
 	public String getModuleId() {
 		return this.moduleId;
 	}
@@ -139,8 +152,7 @@ public class SysAuthorities extends BaseEntity implements java.io.Serializable {
 	public void setModuleId(String moduleId) {
 		this.moduleId = moduleId;
 	}
-	
-	@Column(name = "REMARK", length = 100)
+
 	public String getRemark() {
 		return remark;
 	}
@@ -149,7 +161,6 @@ public class SysAuthorities extends BaseEntity implements java.io.Serializable {
 		this.remark = remark;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sysAuthorities")
 	public Set<SysRolesAuthorities> getSysRolesAuthoritieses() {
 		return this.sysRolesAuthoritieses;
 	}
@@ -159,7 +170,6 @@ public class SysAuthorities extends BaseEntity implements java.io.Serializable {
 		this.sysRolesAuthoritieses = sysRolesAuthoritieses;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sysAuthorities")
 	public Set<SysAuthoritiesResources> getSysAuthoritiesResourceses() {
 		return this.sysAuthoritiesResourceses;
 	}
@@ -170,6 +180,7 @@ public class SysAuthorities extends BaseEntity implements java.io.Serializable {
 	}
 
 	@Override
+	@Transient
 	public Object getPrimaryKey() {
 		return (Object) getAuthorityId();
 	}

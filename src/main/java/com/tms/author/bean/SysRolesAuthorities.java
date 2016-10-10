@@ -14,11 +14,22 @@ import javax.persistence.*;
 public class SysRolesAuthorities extends BaseEntity implements java.io.Serializable {
 
 	// Fields
-
+	@Id
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+	@GeneratedValue(generator = "uuid")
+	@Column(name = "ID", unique = true, nullable = false, length = 100)
 	private String id;
+	@Column(name="AUTHORITY_ID" ,length=200,insertable=false,updatable=false)
 	private String authorityId;
+
+	@Column(name="ROLE_ID" ,length=200,insertable=false,updatable=false)
 	private String roleId;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "AUTHORITY_ID", nullable = false)
 	private SysAuthorities sysAuthorities;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ROLE_ID", nullable = false)
 	private SysRoles sysRoles;
 
 	// Constructors
@@ -36,10 +47,7 @@ public class SysRolesAuthorities extends BaseEntity implements java.io.Serializa
 	}
 
 	// Property accessors
-	@Id
-	@GenericGenerator(name = "uuid", strategy = "uuid")
-	@GeneratedValue(generator = "uuid")
-	@Column(name = "ID", unique = true, nullable = false, length = 100)
+
 	public String getId() {
 		return this.id;
 	}
@@ -48,7 +56,7 @@ public class SysRolesAuthorities extends BaseEntity implements java.io.Serializa
 		this.id = id;
 	}
 	
-	@Column(name="AUTHORITY_ID" ,length=200,insertable=false,updatable=false)
+
 	public String getAuthorityId() {
 		return authorityId;
 	}
@@ -57,7 +65,6 @@ public class SysRolesAuthorities extends BaseEntity implements java.io.Serializa
 		this.authorityId = authorityId;
 	}
 
-	@Column(name="ROLE_ID" ,length=200,insertable=false,updatable=false)
 	public String getRoleId() {
 		return roleId;
 	}
@@ -66,8 +73,6 @@ public class SysRolesAuthorities extends BaseEntity implements java.io.Serializa
 		this.roleId = roleId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "AUTHORITY_ID", nullable = false)
 	public SysAuthorities getSysAuthorities() {
 		return this.sysAuthorities;
 	}
@@ -76,8 +81,7 @@ public class SysRolesAuthorities extends BaseEntity implements java.io.Serializa
 		this.sysAuthorities = sysAuthorities;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ROLE_ID", nullable = false)
+
 	public SysRoles getSysRoles() {
 		return this.sysRoles;
 	}
@@ -87,6 +91,7 @@ public class SysRolesAuthorities extends BaseEntity implements java.io.Serializa
 	}
 
 	@Override
+	@Transient
 	public Object getPrimaryKey() {
 		return (Object)getId();
 	}

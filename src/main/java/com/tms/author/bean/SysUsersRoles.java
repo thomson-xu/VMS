@@ -14,11 +14,24 @@ import javax.persistence.*;
 public class SysUsersRoles extends BaseEntity implements java.io.Serializable {
 
 	// Fields
-
+	@Id
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+	@GeneratedValue(generator = "uuid")
+	@Column(name = "ID", unique = true, nullable = false, length = 100)
 	private String id;
+
+	@Column(name = "USER_ID", nullable = false,insertable=false,updatable=false)
 	private String userId;
+
+	@Column(name = "ROLE_ID", nullable = false,insertable=false,updatable=false)
 	private String roleId;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID", nullable = false)
 	private SysUser sysUser;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ROLE_ID", nullable = false)
 	private SysRoles sysRoles;
 
 	// Constructors
@@ -35,10 +48,7 @@ public class SysUsersRoles extends BaseEntity implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@Id
-	@GenericGenerator(name = "uuid", strategy = "uuid")
-	@GeneratedValue(generator = "uuid")
-	@Column(name = "ID", unique = true, nullable = false, length = 100)
+
 	public String getId() {
 		return this.id;
 	}
@@ -46,8 +56,7 @@ public class SysUsersRoles extends BaseEntity implements java.io.Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	@Column(name = "USER_ID", nullable = false,insertable=false,updatable=false)
+
 	public String getUserId() {
 		return userId;
 	}
@@ -55,8 +64,7 @@ public class SysUsersRoles extends BaseEntity implements java.io.Serializable {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
-	@Column(name = "ROLE_ID", nullable = false,insertable=false,updatable=false)
+
 	public String getRoleId() {
 		return roleId;
 	}
@@ -65,8 +73,6 @@ public class SysUsersRoles extends BaseEntity implements java.io.Serializable {
 		this.roleId = roleId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false)
 	public SysUser getSysUser() {
 		return this.sysUser;
 	}
@@ -75,8 +81,6 @@ public class SysUsersRoles extends BaseEntity implements java.io.Serializable {
 		this.sysUser = sysUser;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ROLE_ID", nullable = false)
 	public SysRoles getSysRoles() {
 		return this.sysRoles;
 	}
@@ -86,6 +90,7 @@ public class SysUsersRoles extends BaseEntity implements java.io.Serializable {
 	}
 
 	@Override
+	@Transient
 	public Object getPrimaryKey() {
 		return (Object)getId();
 	}

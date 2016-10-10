@@ -20,22 +20,40 @@ import java.util.Set;
 public class SysModules extends BaseEntity implements java.io.Serializable {
 
 	// Fields
-
+	@Id
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+	@GeneratedValue(generator = "uuid")
+	@Column(name = "MODULE_ID", unique = true, nullable = false, length = 100)
 	private String moduleId;
-	private String moduleName;
-	private String moduleDesc;
-	private String moduleType;
-	private String parent;
-	private String moduleUrl;
-	private Integer ILevel;
-	private Boolean leaf;
-	private String application;
-	private String controller;
-	private Boolean enable;
-	private Boolean issys;
-	private Integer priority;
 
+	@Column(name = "MODULE_NAME", nullable = false, length = 100)
+	private String moduleName;
+	@Column(name = "MODULE_DESC", length = 200)
+	private String moduleDesc;
+	@Column(name = "MODULE_TYPE", length = 100)
+	private String moduleType;
+	@Column(name = "PARENT", length = 100)
+	private String parent;
+	@Column(name = "MODULE_URL", length = 100)
+	private String moduleUrl;
+	@Column(name = "I_LEVEL", precision = 22, scale = 0)
+	private Integer ILevel;
+	@Column(name = "LEAF", precision = 22, scale = 0)
+	private Boolean leaf;
+	@Column(name = "APPLICATION", length = 100)
+	private String application;
+	@Column(name = "CONTROLLER", length = 100)
+	private String controller;
+	@Column(name = "ENABLE")
+	private Boolean enable;
+	@Column(name = "ISSYS")
+	private Boolean issys;
+	@Column(name = "PRIORITY")
+	private Integer priority;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sysModules")
 	private Set<SysResources> sysResourceses = new HashSet<SysResources>(0);
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sysModules")
 	private Set<SysRolesModules> sysRolesMoudleses = new HashSet<SysRolesModules>(
 			0);
 
@@ -76,10 +94,7 @@ public class SysModules extends BaseEntity implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@Id
-	@GenericGenerator(name = "uuid", strategy = "uuid")
-	@GeneratedValue(generator = "uuid")
-	@Column(name = "MODULE_ID", unique = true, nullable = false, length = 100)
+
 	public String getModuleId() {
 		return this.moduleId;
 	}
@@ -88,7 +103,6 @@ public class SysModules extends BaseEntity implements java.io.Serializable {
 		this.moduleId = moduleId;
 	}
 
-	@Column(name = "MODULE_NAME", nullable = false, length = 100)
 	public String getModuleName() {
 		return this.moduleName;
 	}
@@ -97,7 +111,6 @@ public class SysModules extends BaseEntity implements java.io.Serializable {
 		this.moduleName = moduleName;
 	}
 
-	@Column(name = "MODULE_DESC", length = 200)
 	public String getModuleDesc() {
 		return this.moduleDesc;
 	}
@@ -106,7 +119,6 @@ public class SysModules extends BaseEntity implements java.io.Serializable {
 		this.moduleDesc = moduleDesc;
 	}
 
-	@Column(name = "MODULE_TYPE", length = 100)
 	public String getModuleType() {
 		return this.moduleType;
 	}
@@ -115,7 +127,6 @@ public class SysModules extends BaseEntity implements java.io.Serializable {
 		this.moduleType = moduleType;
 	}
 
-	@Column(name = "PARENT", length = 100)
 	public String getParent() {
 		return this.parent;
 	}
@@ -124,7 +135,6 @@ public class SysModules extends BaseEntity implements java.io.Serializable {
 		this.parent = parent;
 	}
 
-	@Column(name = "MODULE_URL", length = 100)
 	public String getModuleUrl() {
 		return this.moduleUrl;
 	}
@@ -133,7 +143,6 @@ public class SysModules extends BaseEntity implements java.io.Serializable {
 		this.moduleUrl = moduleUrl;
 	}
 
-	@Column(name = "I_LEVEL", precision = 22, scale = 0)
 	public Integer getILevel() {
 		return this.ILevel;
 	}
@@ -142,7 +151,6 @@ public class SysModules extends BaseEntity implements java.io.Serializable {
 		this.ILevel = ILevel;
 	}
 
-	@Column(name = "LEAF", precision = 22, scale = 0)
 	public Boolean getLeaf() {
 		return this.leaf;
 	}
@@ -150,16 +158,14 @@ public class SysModules extends BaseEntity implements java.io.Serializable {
 	public void setLeaf(Boolean leaf) {
 		this.leaf = leaf;
 	}
-	
-	@Column(name = "ISSYS")
+
 	public Boolean getIssys() {
 		return issys;
 	}
 	public void setIssys(Boolean issys) {
 		this.issys = issys;
 	}
-	
-	@Column(name = "APPLICATION", length = 100)
+
 	public String getApplication() {
 		return this.application;
 	}
@@ -168,7 +174,6 @@ public class SysModules extends BaseEntity implements java.io.Serializable {
 		this.application = application;
 	}
 
-	@Column(name = "CONTROLLER", length = 100)
 	public String getController() {
 		return this.controller;
 	}
@@ -176,8 +181,7 @@ public class SysModules extends BaseEntity implements java.io.Serializable {
 	public void setController(String controller) {
 		this.controller = controller;
 	}
-	
-	@Column(name = "ENABLE")
+
 	public Boolean getEnable() {
 		return enable;
 	}
@@ -185,8 +189,7 @@ public class SysModules extends BaseEntity implements java.io.Serializable {
 	public void setEnable(Boolean enable) {
 		this.enable = enable;
 	}
-	
-	@Column(name = "PRIORITY")
+
 	public Integer getPriority() {
 		return priority;
 	}
@@ -195,7 +198,6 @@ public class SysModules extends BaseEntity implements java.io.Serializable {
 		this.priority = priority;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sysModules")
 	public Set<SysResources> getSysResourceses() {
 		return this.sysResourceses;
 	}
@@ -204,7 +206,6 @@ public class SysModules extends BaseEntity implements java.io.Serializable {
 		this.sysResourceses = sysResourceses;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sysModules")
 	public Set<SysRolesModules> getSysRolesMoudleses() {
 		return this.sysRolesMoudleses;
 	}
@@ -214,6 +215,7 @@ public class SysModules extends BaseEntity implements java.io.Serializable {
 	}
 
 	@Override
+	@Transient
 	public Object getPrimaryKey() {
 		return (Object)getModuleId();
 	}
