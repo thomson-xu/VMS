@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsf/core" %>
+<%@ taglib prefix="h" uri="http://java.sun.com/jsf/html" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -11,84 +13,61 @@ String rand = String.valueOf(Math.random());
 	<head>
 	    <base href="<%=basePath%>">
 	    <title>${sysConfig.webapp.displayName}</title>
-		<meta http-equiv="pragma" content="no-cache">
+
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<meta http-equiv="cache-control" content="no-cache">
-		<link rel="stylesheet" href="css/login.css" type="text/css"></link>
-		<script type="text/javascript" src="js/login.js"></script>
+		<link href="<c:url value='/resources/css/bootstrap.css' />"  rel="stylesheet"/>
+		<link href="<c:url value='/resources/css/app.css' />" rel="stylesheet"/>
+		<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css" />
 	</head>
-<body>
 	<!-- SystemConfigLoad:${applicationScope.SystemConfigLoad} -->
-	<div class="x-login-panel">
-		<div class="x-login-center">
-			<div class="x-login-left">
-				<div class="x-login-top">${sysConfig.webapp.displayName}</div>
-				<img src="images/login-img02.png" class="x-login-left-img" />
-				<div id="message" class="x-login-message"></div>
+	<body>
+	<div id="mainWrapper">
+		<div class="login-container">
+
+			<div class="login-card">
+
+				<div class="label label-info">${sysConfig.webapp.displayName}Login Page</div>
+				<div class="login-form form-horizontal">
+					<h:form id="loginForm" prependId="false">
+						<c:if test="${param.error != null}">
+							<div class="alert alert-danger">
+								<p>Invalid username and password.</p>
+							</div>
+						</c:if>
+						<c:if test="${param.logout != null}">
+							<div class="alert alert-success">
+								<p>You have been logged out successfully.</p>
+							</div>
+						</c:if>
+						<div class="input-group input-sm">
+							<label class="input-group-addon" for="username"><i class="fa fa-user"></i></label>
+							<input type="text" class="form-control" id="username" name="ssoId" placeholder="Enter Username" required>
+						</div>
+						<div class="input-group input-sm">
+							<label class="input-group-addon" for="password"><i class="fa fa-lock"></i></label>
+							<input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+						</div>
+
+						<div class="" id="errorMessage">${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}</div>
+
+						<div class="input-group input-sm">
+							<div class="checkbox">
+								<label><input type="checkbox" id="rememberme" name="remember-me"> Remember Me</label>
+							</div>
+						</div>
+						<input type="hidden" name="${_csrf.parameterName}"
+							   value="${_csrf.token}" />
+
+						<div class="form-actions">
+							<h:commandButton type="submit" id="login" action="#{loginBean.doLogin}" value="登录" styleClass="btn btn-block btn-primary btn-default" />
+						</div>
+					</h:form>
+				</div>
+
 			</div>
-			<div class="x-login-logform">
-				<div class="x-login-form-title">用户登陆</div>
-				<div class="x-login-form">
-					<form action="login.do"  method="post" id="loginForm" >
-						<div class="x-list">
-							<label class="x-label">用户名：</label>
-							<input class="x-input" type="text" class="x-form-input" id="VUsername" name="j_username" autofocus/>
-						</div>
-						<div class="x-list">
-							<label class="x-label">密&nbsp;&nbsp;码：</label>
-							<input class="x-input" type="password" class="x-form-input" id="VPassword" name="j_password"/>
-						</div>
-						<div class="x-list">
-							<label class="x-label">验证码：</label>
-							<input class="x-input" type="text" style="width: 90px;" class="x-form-input" id="code" name="j_captcha" maxlength="4"/>
-							<img align="top" id="imgCode" title="刷新验证码" alt="刷新验证码" class="x-form-imgCode" src="getCode?id=<%=rand%>" onclick="refreshImgCode()" />
-						</div>
-						<div class="x-list">
-	                        <input type="checkbox" name="_spring_security_remember_me" id="_spring_security_remember_me" 
-	                        	class="stuts-checkbox" checked="checked"/>免登录
-	                        <a href="javascript:void(0)" style="margin-left: 50px;">忘记密码？</a>
-                		</div>
-                		<div class="x-login-errormessage" id="errorMessage">${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}</div>
-                		<div class="x-login-form-btn">
-                			<a href="javascript:void(0)" class="x-btn x-btn-left" id="btn_submit" onclick="doLogin()">登陆</a>
-                			<a href="javascript:void(0)" class="x-btn x-btn-right" id="btn_reset" onclick="doReset()">重置</a>
-                		</div>
-					</form>
-				</div><!--End login form -->
-			</div><!--End login logform  -->
-		</div><!--End login center  -->
-	</div><!--End login panel  -->
-	
-	<div class="login-bottom">
-	 	<div class="login-bottom-split"></div>
-	 	<div class="login-bottom-info">
-	 		<p>
-	 			${sysConfig.copyright} <a href="${sysConfig.developers.url}">${sysConfig.developers.name}</a>  版权所有
-	 		</p>
-	 		<p>
-				<span class="login-bottom-model">售后服务QQ：
-					<c:forEach var="qq" items="${sysConfig.postSales}">
-						${qq}
-					</c:forEach>
-				</span>
-				<span class="login-bottom-model">QQ技术支持：
-					<c:forEach var="qq" items="${sysConfig.technicalSupport}">
-						${qq}
-					</c:forEach>
-				</span>
-				<span class="login-bottom-model"></span>
-			</p>
-			<p>
-				<span class="login-bottom-model">
-					客服电话：
-					<c:forEach var="dh" items="${sysConfig.serviceHotline}">
-						${dh}
-					</c:forEach>
-				</span>
-				<span class="login-bottom-model">公司邮箱：${sysConfig.email}</span>
-			</p>
-			
-	 	</div>
+		</div>
 	</div>
-	
+
 </body>
 </html>

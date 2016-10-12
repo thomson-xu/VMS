@@ -38,7 +38,7 @@ function doLogin() {
 
 }
  function refreshImgCode() {
-    $("imgCode").attr('src','CheckCode.aspx?'+Math.random());
+    $("imgCode").attr('src',Math.random());
 
  }
 //check the userName

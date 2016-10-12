@@ -20,7 +20,6 @@
 	
 	<sec:http pattern="/login.jsp" security="none"></sec:http>
 	<sec:http pattern="/getCode" security="none" /><!-- 不过滤验证码 -->
-	<sec:http pattern="/test/**" security="none"></sec:http><!-- 不过滤测试内容 -->
 	
 	<!-- authenticationEntryPoint -->
 	<sec:http access-decision-manager-ref="accessDecisionManager"
@@ -29,14 +28,14 @@
 		<sec:access-denied-handler ref="accessDeniedHandler"/>
 		
 		<sec:logout invalidate-session="true" logout-url="/logout"
-			logout-success-url="/pages/logout.jsp" />
+			logout-success-url="/logout.jsp" />
 		
-		<!-- <sec:session-management invalid-session-url="/login.jsp" /> -->
+		<sec:session-management invalid-session-url="/login.jsp" />
 		
-		<!-- <sec:session-management invalid-session-url="/login.jsp" session-authentication-strategy-ref="">
+		<sec:session-management invalid-session-url="/login.jsp" session-authentication-strategy-ref="">
 			<sec:concurrency-control error-if-maximum-exceeded="true"
 				max-sessions="1" expired-url="/login.jsp"/>
-		</sec:session-management> -->
+		</sec:session-management>
 		<sec:session-management session-authentication-strategy-ref="concurrentSessionControlStrategy" />
 		
 		<sec:remember-me 
@@ -62,29 +61,6 @@
 		<property name="passwordEncoder" ref="passwordEncode" />
 		<property name="saltSource" ref="saltSource" />
 	</bean>
-
-	<!--<http auto-config="true" >
-		<intercept-url pattern="/" access="permitAll" />
-		<intercept-url pattern="/home" access="permitAll" />
-		<intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
-		<intercept-url pattern="/dba**" access="hasRole('ADMIN') and hasRole('DBA')" />
-		<form-login  login-page="/login"
-					 username-parameter="ssoId"
-					 password-parameter="password"
-					 authentication-failure-url="/Access_Denied" />
-		<csrf/>
-	</http>
-
-	<authentication-manager >
-		<authentication-provider user-service-ref="customUserDetailsService">
-			<password-encoder ref="bcryptEncoder"/>
-		</authentication-provider>
-	</authentication-manager>
-
-	<beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-
-	<beans:bean id="customUserDetailsService" class="com.websystique.springsecurity.service.CustomUserDetailsService" />-->
-
 	<!-- 配置密码加密类 -->
 	<bean id="passwordEncode" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
 	<bean id="saltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource">
@@ -98,7 +74,7 @@
 		class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache">
 		<property name="cache" ref="userEhCache" />
 	</bean>
-	
+
 	<bean id="userEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
 		<property name="cacheName" value="userCache" />
 		<property name="cacheManager" ref="cacheManager" />
@@ -158,7 +134,7 @@
 		<property name="authenticationManager" ref="authenticationManager" />
 		<property name="authenticationFailureHandler" ref="authenticationFailureHandler" />
 		<property name="authenticationSuccessHandler" ref="authenticationSuccessHandler" />
-		<property name="filterProcessesUrl" value="/login.do" />
+		<property name="filterProcessesUrl" value="/login.jsp" />
 		<property name="sessionAuthenticationStrategy" ref="concurrentSessionControlStrategy" />
 	</bean>
 	
@@ -176,8 +152,8 @@
 	</bean>
 	-->
 	<bean id="loginAuthenticationEntryPoint" class="com.tms.author.security.LoginAuthenticationEntryPoint">
-		<!--<property name="loginFormUrl"  value="/login.jsp"></property>-->
-		<constructor-arg name="loginFormUrl"  value="/login.jsp"></constructor-arg>
+		<property name="loginFormUrl"  value="/login.jsp"></property>
+		<!--<constructor-arg name="loginFormUrl"  value="/login.jsp"></constructor-arg>-->
 	</bean>
 	
 	<bean id="concurrencyFilter" class="org.springframework.security.web.session.ConcurrentSessionFilter">
