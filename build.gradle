@@ -51,7 +51,7 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-web' ,version: '4.2.1.RELEASE'
     compile group: 'org.springframework', name: 'spring-tx' ,version: '4.2.1.RELEASE'
     compile group: 'org.springframework', name: 'spring-jdbc' ,version: '4.2.1.RELEASE'
-    compile group: 'org.springframework', name: 'spring-aop' ,version: '4.2.1.RELEASE'
+    compile group: 'org.springframework', name: 'spring-aop' ,version: '4.3.2.RELEASE'
     compile group: 'org.springframework.data', name: 'spring-data-jpa' ,version: '1.9.0.RELEASE'
     compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api' ,version: '1.0.0.Final'
     compile group: 'org.aspectj', name: 'aspectjweaver' ,version: '1.8.7'

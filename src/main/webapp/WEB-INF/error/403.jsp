@@ -16,12 +16,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-  	<link rel="stylesheet" href="css/error.css" type="text/css"></link>
+  	<link rel="stylesheet" href="/resources/css/error.css" type="text/css"/>
   </head>
   
   <body>
 	<div class="x-border x-404-panel ">
-		<div class="x-404-header">新中软卫生监督管理系统</div>
+		<div class="x-404-header">管理系统</div>
 		<div class="x-404-center">
 			<div class="x-404-top">
 				<img src="images/pic_dot_jz.gif" border="0" class="x-403-top_img"/>
@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="x-404-bottom">
 				<a href="javascript:history.back()">◂返回上一页</a>
 				<a href="#" style="margin-left: 20px;">◂返回首页</a>
-				<a href="login" style="margin-left: 20px;">◂返回登陆页面</a>
+				<a href="login.jsp" style="margin-left: 20px;">◂返回登陆页面</a>
 			</div>
 		</div>
 	</div>

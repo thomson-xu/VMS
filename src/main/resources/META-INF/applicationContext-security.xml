@@ -24,19 +24,20 @@
 	<!-- authenticationEntryPoint -->
 	<sec:http access-decision-manager-ref="accessDecisionManager"
 		entry-point-ref="loginAuthenticationEntryPoint" >
-		
+		<sec:form-login login-page="/login.jsp"
+					login-processing-url="/login"
+					default-target-url="/index.jsp"
+					authentication-failure-url="/login.jsp" />
+
 		<sec:access-denied-handler ref="accessDeniedHandler"/>
 		
 		<sec:logout invalidate-session="true" logout-url="/logout"
 			logout-success-url="/logout.jsp" />
 		
-		<sec:session-management invalid-session-url="/login.jsp" />
-		
-		<sec:session-management invalid-session-url="/login.jsp" session-authentication-strategy-ref="">
+		<sec:session-management invalid-session-url="/login.jsp" session-authentication-strategy-ref="concurrentSessionControlStrategy">
 			<sec:concurrency-control error-if-maximum-exceeded="true"
 				max-sessions="1" expired-url="/login.jsp"/>
 		</sec:session-management>
-		<sec:session-management session-authentication-strategy-ref="concurrentSessionControlStrategy" />
 		
 		<sec:remember-me 
 			authentication-success-handler-ref="authenticationSuccessHandler"

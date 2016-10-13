@@ -1,44 +1,59 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Test-Lab
+  Date: 2016/10/11
+  Time: 9:55
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-String serverDate = (new java.sql.Date(System.currentTimeMillis())).toString();
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    <title>${sysConfig.webapp.displayName}</title>
+<head>
+	<base href="<%=basePath%>">
+
+	<title>My JSP 'index.jsp' starting page</title>
+
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
-	<div id="loadmsg">loading......</div>
-  	<link rel="stylesheet" href="css/loading.css" type="text/css"></link>
-  </head>
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<script type="text/javascript" src="resource/js/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("#jtypese").change(function(){
+				var v = $("#jtypese").val();
+				if(v=='2'){
+					var uname = $("#usernameinput").val();
+					var url = "<%=basePath%>checkcode?username="+uname;
+					$.get(url,function(data,status){
+						alert("验证码: " + data + "\n发送状态: " + status);
+					});
+				}
+			});
+		});
+	</script>
+
+</head>
+
 <body>
-	<!--
-		应用程序主入口
-		
-		---------------------华丽的分割线------------------
-		
-		动态加载项目所需主要Js文件及Css文件，在加载成功之后须删除loadingWindow，
-		否则会导致项目在resize时不正常
-	-->
-	<div class="x-me-loading" id="loadingWindow">
- 		<div class="x-me-loading-header">系统正在初始化</div>
- 		<div class="x-me-center-info" id="xLoadInfo">
- 			正在加载系统图标文件....
- 		</div>
- 		<div class="x-me-progress">
- 			<div class="x-me-progress-body" id="progressBody"></div>
- 		</div>
- 	</div>
+This is my login page. <br>
+<form action="j_spring_security_check" method="post">
+	<table>
+		<tr><td>用户名:</td><td><input name="j_username" value="u1" id="usernameinput"></td></tr>
+		<tr><td>密码/验证码:</td><td><input name="j_password" value="p1"></td></tr>
+		<tr><td>登录方式: </td><td><select name="j_type" id="jtypese"><option value="1">密码</option><option value="2">验证码</option></select></td></tr>
+		<tr><td colspan="2"> <input type="submit" value="submit"></td></tr>
+	</table>
+</form>
+
+异常： ${SPRING_SECURITY_LAST_EXCEPTION }<br>
+失败次数：  ${SPRING_SESSION_FAIL_TIMES }
 </body>
-<script type="text/javascript" src="js/loading.min.js"></script>
 </html>
-<script type="text/javascript">
-	var Ext = Ext ||{};
-	Ext.CONTEXT = "<%=basePath%>"
-	Ext.SERVER_DATE = "<%=serverDate%>"
-	Ext.WEB_APP_NAME="${sysConfig.webapp.displayName}"
-</script>

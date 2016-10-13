@@ -1,7 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="f" uri="http://java.sun.com/jsf/core" %>
-<%@ taglib prefix="h" uri="http://java.sun.com/jsf/html" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -29,7 +27,8 @@ String rand = String.valueOf(Math.random());
 
 				<div class="label label-info">${sysConfig.webapp.displayName}Login Page</div>
 				<div class="login-form form-horizontal">
-					<h:form id="loginForm" prependId="false">
+
+					<form action="${loginUrl}" method="post">
 						<c:if test="${param.error != null}">
 							<div class="alert alert-danger">
 								<p>Invalid username and password.</p>
@@ -60,9 +59,10 @@ String rand = String.valueOf(Math.random());
 							   value="${_csrf.token}" />
 
 						<div class="form-actions">
-							<h:commandButton type="submit" id="login" action="#{loginBean.doLogin}" value="登录" styleClass="btn btn-block btn-primary btn-default" />
+							<input type="submit" id="login"  value="登&nbsp;录" class="btn btn-block btn-primary btn-default" />
 						</div>
-					</h:form>
+					</form>
+
 				</div>
 
 			</div>

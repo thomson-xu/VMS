@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
 	<div class="x-border x-404-panel ">
-		<div class="x-404-header">新中软卫生监督管理系统</div>
+		<div class="x-404-header">管理系统</div>
 		<div class="x-404-center">
 			<div class="x-404-top">
 				<img src="images/pic_dot_jz.gif" border="0" class="x-404-top_img"/>
@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="x-404-bottom">
 				<a href="javascript:history.back()">◂返回上一页</a>
 				<a href="#" style="margin-left: 20px;">◂返回首页</a>
-				<a href="login" style="margin-left: 20px;">◂返回登陆页面</a>
+				<a href="index.jsp" style="margin-left: 20px;">◂返回登陆页面</a>
 			</div>
 		</div>
 	</div>

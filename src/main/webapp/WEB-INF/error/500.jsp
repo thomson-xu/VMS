@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
 	<div class="x-border x-404-panel ">
-		<div class="x-404-header">新中软卫生监督管理系统</div>
+		<div class="x-404-header">管理系统</div>
 		<div class="x-404-center">
 			<div class="x-404-top">
 				<img src="images/pic_dot_jz.gif" border="0" class="x-500-top_img"/>
