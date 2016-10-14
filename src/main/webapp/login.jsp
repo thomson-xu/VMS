@@ -25,7 +25,7 @@ String rand = String.valueOf(Math.random());
 
 			<div class="login-card">
 
-				<div class="label label-info">${sysConfig.webapp.displayName}Login Page</div>
+				<div class="label label-info">${sysConfig.webapp.displayName}Login</div>
 				<div class="login-form form-horizontal">
 
 					<form action="${loginUrl}" method="post">

@@ -24,26 +24,25 @@
 	<!-- authenticationEntryPoint -->
 	<sec:http access-decision-manager-ref="accessDecisionManager"
 		entry-point-ref="loginAuthenticationEntryPoint" >
-		<sec:form-login login-page="/login.jsp"
-					login-processing-url="/login"
-					default-target-url="/index.jsp"
-					authentication-failure-url="/login.jsp" />
 
 		<sec:access-denied-handler ref="accessDeniedHandler"/>
-		
+
 		<sec:logout invalidate-session="true" logout-url="/logout"
-			logout-success-url="/logout.jsp" />
-		
-		<sec:session-management invalid-session-url="/login.jsp" session-authentication-strategy-ref="concurrentSessionControlStrategy">
+					logout-success-url="/logout.jsp" />
+
+		<sec:session-management invalid-session-url="/login.jsp" />
+
+		<sec:session-management invalid-session-url="/login.jsp" session-authentication-strategy-ref="">
 			<sec:concurrency-control error-if-maximum-exceeded="true"
-				max-sessions="1" expired-url="/login.jsp"/>
+									 max-sessions="1" expired-url="/login.jsp"/>
 		</sec:session-management>
-		
-		<sec:remember-me 
-			authentication-success-handler-ref="authenticationSuccessHandler"
-			data-source-ref="mySqldataSource"
-			user-service-ref="userDetailService"
-		/>
+		<sec:session-management session-authentication-strategy-ref="concurrentSessionControlStrategy" />
+
+		<sec:remember-me
+				authentication-success-handler-ref="authenticationSuccessHandler"
+				data-source-ref="mySqldataSource"
+				user-service-ref="userDetailService"
+				/>
 			
 		
 		<sec:custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
@@ -153,8 +152,8 @@
 	</bean>
 	-->
 	<bean id="loginAuthenticationEntryPoint" class="com.tms.author.security.LoginAuthenticationEntryPoint">
-		<property name="loginFormUrl"  value="/login.jsp"></property>
-		<!--<constructor-arg name="loginFormUrl"  value="/login.jsp"></constructor-arg>-->
+		<!--<property name="loginFormUrl"  value="/login.jsp"></property>-->
+		<constructor-arg name="loginFormUrl"  value="/login.jsp"></constructor-arg>
 	</bean>
 	
 	<bean id="concurrencyFilter" class="org.springframework.security.web.session.ConcurrentSessionFilter">

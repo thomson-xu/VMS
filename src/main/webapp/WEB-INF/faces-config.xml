@@ -32,10 +32,10 @@
 
     <!-- JSF登录异常处理 -->
 
-    <lifecycle>
+ <!--   <lifecycle>
         <phase-listener>com.tms.visa.validator.LoginErrorPhaseListener</phase-listener>
     </lifecycle>
-
+-->
 
 
 </faces-config>

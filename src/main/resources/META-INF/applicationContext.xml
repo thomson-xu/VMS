@@ -7,7 +7,7 @@
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
-    <context:component-scan base-package="com.tms"/>
+    <context:component-scan base-package="com.tms.visa"/>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
     <context:annotation-config />
@@ -23,7 +23,9 @@
         <property name="persistenceUnitName" value="DBPersistenceUnit"/>
         <property name="packagesToScan">
             <array>
-                <value>com.tms</value>
+                <value>com.tms.author</value>
+                <value>com.tms.base</value>
+                <value>com.tms.visa</value>
             </array>
         </property>
         <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
@@ -72,12 +74,12 @@
         <tx:attributes>
             <tx:method name="find*" propagation="REQUIRED" read-only="true"/>
             <tx:method name="getAll*" propagation="REQUIRED" read-only="true"/>
-            <tx:method name="*" propagation="REQUIRED" />
-            <tx:method name="*" propagation="REQUIRED" />
+            <tx:method name="del*" propagation="REQUIRED" />
+            <tx:method name="create*" propagation="REQUIRED" />
         </tx:attributes>
     </tx:advice>
     <aop:config proxy-target-class="true">
-        <aop:pointcut expression="execution(* com.tms.*(..))" id="daopoint"/>
+        <aop:pointcut expression="execution(* com.tms.author.*.*(..))" id="daopoint"/>
         <aop:advisor pointcut-ref="daopoint" advice-ref="txAdvice"/>
     </aop:config>
 
@@ -89,7 +91,7 @@
     </bean>
 
     <aop:config>
-        <aop:pointcut expression="execution(* com.tms.*.service.*.*(..))" id="txPointcut"/>
+        <aop:pointcut expression="execution(* com.tms.*.*(..))" id="txPointcut"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
     </aop:config>
 
