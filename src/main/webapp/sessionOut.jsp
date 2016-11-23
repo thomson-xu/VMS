@@ -23,6 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    Session超时请重新<a href="login.jsp">登录</a><br>
+    Session超时请重新<a href="login2.jsp">登录</a><br>
   </body>
 </html>

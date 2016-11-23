@@ -1,10 +1,12 @@
 package com.tms.author.view;
 
+import com.tms.author.service.LoginService;
 import com.tms.base.common.web.GenerateImageCode;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.annotation.Resource;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -20,18 +22,18 @@ import java.io.IOException;
 @Named
 @Scope("request")
 public class Login {
+	@Resource
+	private LoginService loginService;
 	//将请求转发到/j_spring_security_check进行用户登录认证
 	public String doLogin() throws IOException, ServletException {
+
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-
 		RequestDispatcher dispatcher = ((ServletRequest) context.getRequest())
-				.getRequestDispatcher("/login");
+				.getRequestDispatcher("/j_spring_security_check");
 
-		dispatcher.forward((ServletRequest) context.getRequest(),
-				(ServletResponse) context.getResponse());
+		dispatcher.forward((ServletRequest) context.getRequest(),(ServletResponse) context.getResponse());
 
 		FacesContext.getCurrentInstance().responseComplete();
-
 		// It's OK to return null here because Faces is just going to exit.
 		return null;
 	}
